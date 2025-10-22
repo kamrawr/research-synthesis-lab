@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Equity | Research Synthesis Lab</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <style>
+        :root {
+            --primary: #059669;
+            --secondary: #0891b2;
+            --accent: #dc2626;
+        }
+        
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero p {
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--muted-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .highlight-stat {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+        }
+        
+        .highlight-stat .stat-number {
+            color: white;
+        }
+        
+        .highlight-stat .stat-label {
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .filter-section {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--muted-border-color);
+        }
+        
+        .filter-group {
+            margin-bottom: 1rem;
+        }
+        
+        .filter-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .study-card {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--muted-border-color);
+            transition: border-color 0.3s;
+        }
+        
+        .study-card:hover {
+            border-color: var(--primary);
+        }
+        
+        .study-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .study-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--muted-color);
+        }
+        
+        .tag {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .theme-section {
+            background: var(--card-background-color);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .theme-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .chart-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--card-background-color);
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--muted-border-color);
+        }
+        
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--muted-color);
+            transition: all 0.3s;
+        }
+        
+        .nav-tab:hover {
+            color: var(--primary);
+        }
+        
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: white;
+            text-decoration: none;
+            opacity: 0.95;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+            opacity: 1;
+        }
+        
+        .best-practices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .practice-card {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+        }
+        
+        .practice-title {
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <a href="../../index.html" class="back-link">← Back to Research Synthesis Lab</a>
+            <h1>Centering Community Needs in Energy Equity</h1>
+            <p>Research on energy burdens, clean energy access, and community-based solutions</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="stats-grid">
+            <div class="stat-card highlight-stat">
+                <span class="stat-number">16.8%</span>
+                <span class="stat-label">Energy Burden (Low-Income)</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">3.5%</span>
+                <span class="stat-label">Energy Burden (General Pop.)</span>
+            </div>
+            <div class="stat-card highlight-stat">
+                <span class="stat-number">10-91%</span>
+                <span class="stat-label">Burden Reduction Range</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">39</span>
+                <span class="stat-label">Studies Analyzed</span>
+            </div>
+        </div>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+            <button class="nav-tab" onclick="showTab('studies')">Studies</button>
+            <button class="nav-tab" onclick="showTab('best-practices')">Best Practices</button>
+            <button class="nav-tab" onclick="showTab('visualizations')">Visualizations</button>
+        </nav>
+
+        <div id="overview" class="tab-content active">
+            <article>
+                <h2>Research Question</h2>
+                <p>Which types of groups face historic disinvestment, high energy burdens, and limited access to the clean economy? How can social programs serving Black, rural, and low-income households partner with trusted community-based organizations (CBOs) to ensure solutions align with real needs, strengthen local economies, and retain benefits within communities?</p>
+
+                <h2>Key Findings</h2>
+                <div class="theme-section">
+                    <p>Black, Indigenous, rural, and low‐income households—including renters in older housing stock—experience <strong>historic disinvestment</strong>, <strong>elevated energy burdens</strong>, and constrained access to clean energy. Papers report energy burdens as high as <strong>16.8% of income</strong> for low-income households (versus 3.5% for the general population).</p>
+                    <p>Programs that combine renewable energy, weatherization, and bill assistance report <strong>energy burden reductions ranging from 10% to 91%</strong>. Successful initiatives frequently center on <strong>trusted community-based organizations (CBOs)</strong> that lead outreach and engagement efforts.</p>
+                </div>
+
+                <h3>Most Affected Populations</h3>
+                <ul>
+                    <li>Black and African-American households</li>
+                    <li>Female-headed households</li>
+                    <li>Renters (especially in older housing)</li>
+                    <li>Indigenous and Native Hawaiian communities</li>
+                    <li>Rural populations</li>
+                    <li>Low-income families</li>
+                </ul>
+
+                <h3>Effective Strategies</h3>
+                
+                <div class="theme-section">
+                    <h4 class="theme-title">1. Community-Based Outreach</h4>
+                    <p>Door-to-door and peer-to-peer methods build trust and increase participation</p>
+                    <ul>
+                        <li>Personal contact addresses information barriers</li>
+                        <li>Community members as educators leverage social networks</li>
+                        <li>Trusted messengers (faith-based, local leaders)</li>
+                    </ul>
+                </div>
+
+                <div class="theme-section">
+                    <h4 class="theme-title">2. Flexible Funding and Policy</h4>
+                    <p>Block grants, on-bill tariffs, and alternative credit scoring</p>
+                    <ul>
+                        <li>CDBG and HOME grants for integrated upgrades</li>
+                        <li>On-bill financing removes upfront cost barriers</li>
+                        <li>Landlord incentives address split incentive problem</li>
+                    </ul>
+                </div>
+
+                <div class="theme-section">
+                    <h4 class="theme-title">3. Integrated Health-Energy Approaches</h4>
+                    <p>Holistic interventions address both structural housing and energy use</p>
+                    <ul>
+                        <li>Address asthma triggers and energy efficiency together</li>
+                        <li>Combine home repairs with upgrades</li>
+                        <li>Support aging in place</li>
+                    </ul>
+                </div>
+
+                <h3>Links</h3>
+                <p><a href="docs/executive-summary.md" download>Download Executive Summary (MD)</a></p>
+            </article>
+        </div>
+
+        <div id="studies" class="tab-content">
+            <h2>Study Explorer</h2>
+            
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label for="population-filter">Target Population:</label>
+                    <select id="population-filter" onchange="filterStudies()">
+                        <option value="">All Populations</option>
+                        <option value="black">Black/African-American</option>
+                        <option value="indigenous">Indigenous/Native Hawaiian</option>
+                        <option value="rural">Rural</option>
+                        <option value="low-income">Low-Income</option>
+                        <option value="renters">Renters</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="program-filter">Program Type:</label>
+                    <select id="program-filter" onchange="filterStudies()">
+                        <option value="">All Programs</option>
+                        <option value="weatherization">Weatherization</option>
+                        <option value="solar">Solar/Renewable</option>
+                        <option value="home-repair">Home Repair</option>
+                        <option value="bill-assistance">Bill Assistance</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="search-input">Search Studies:</label>
+                    <input type="text" id="search-input" placeholder="Search by title, author, or theme..." onkeyup="filterStudies()">
+                </div>
+            </div>
+
+            <div id="studies-container">
+                <!-- Studies will be loaded here by JavaScript -->
+            </div>
+        </div>
+
+        <div id="best-practices" class="tab-content">
+            <h2>Best Practices for Community-Centered Implementation</h2>
+            
+            <div class="best-practices-grid">
+                <div class="practice-card">
+                    <div class="practice-title">Community-Based Outreach</div>
+                    <p><strong>Strategies:</strong></p>
+                    <ul>
+                        <li>Door-to-door canvassing</li>
+                        <li>Peer-to-peer education</li>
+                        <li>Trusted messengers</li>
+                        <li>CBO-led engagement</li>
+                    </ul>
+                    <p><strong>Outcomes:</strong> Increased participation, trust, and satisfaction</p>
+                    <p><strong>Sustainability:</strong> Builds local capacity, fosters long-term relationships</p>
+                </div>
+
+                <div class="practice-card">
+                    <div class="practice-title">Flexible Funding & Policy</div>
+                    <p><strong>Strategies:</strong></p>
+                    <ul>
+                        <li>Block grants (CDBG, HOME)</li>
+                        <li>On-bill tariffs</li>
+                        <li>Landlord incentives</li>
+                        <li>Alternative credit scoring</li>
+                    </ul>
+                    <p><strong>Outcomes:</strong> Greater inclusion of LMI, renters, marginalized groups</p>
+                    <p><strong>Sustainability:</strong> Adaptable to local needs, supports scaling</p>
+                </div>
+
+                <div class="practice-card">
+                    <div class="practice-title">Integrated Health & Energy</div>
+                    <p><strong>Strategies:</strong></p>
+                    <ul>
+                        <li>Holistic housing assessments</li>
+                        <li>Combined health/energy upgrades</li>
+                        <li>Address asthma triggers</li>
+                    </ul>
+                    <p><strong>Outcomes:</strong> Improved health, reduced hospitalizations, increased stability</p>
+                    <p><strong>Sustainability:</strong> Addresses root causes, supports aging in place</p>
+                </div>
+
+                <div class="practice-card">
+                    <div class="practice-title">Capacity Building & Workforce</div>
+                    <p><strong>Strategies:</strong></p>
+                    <ul>
+                        <li>Training programs</li>
+                        <li>Job creation</li>
+                        <li>Technical assistance</li>
+                        <li>Toolkit dissemination</li>
+                    </ul>
+                    <p><strong>Outcomes:</strong> Local job growth, increased technical skills, empowered CBOs</p>
+                    <p><strong>Sustainability:</strong> Retains benefits locally, supports economic development</p>
+                </div>
+
+                <div class="practice-card">
+                    <div class="practice-title">Data-Driven & Participatory</div>
+                    <p><strong>Strategies:</strong></p>
+                    <ul>
+                        <li>Use local data</li>
+                        <li>Participatory research</li>
+                        <li>Iterative feedback</li>
+                        <li>Co-design with community</li>
+                    </ul>
+                    <p><strong>Outcomes:</strong> Programs better aligned with community needs</p>
+                    <p><strong>Sustainability:</strong> Informs policy, supports continuous improvement</p>
+                </div>
+
+                <div class="practice-card">
+                    <div class="practice-title">Social Diffusion & Networks</div>
+                    <p><strong>Strategies:</strong></p>
+                    <ul>
+                        <li>Leverage social networks</li>
+                        <li>Co-develop culturally relevant strategies</li>
+                        <li>Use community champions</li>
+                    </ul>
+                    <p><strong>Outcomes:</strong> Accelerated program uptake, increased awareness</p>
+                    <p><strong>Sustainability:</strong> Builds social capital, supports resilience</p>
+                </div>
+            </div>
+
+            <h3>Barriers to Program Access</h3>
+            
+            <div class="theme-section">
+                <h4>Financial Barriers</h4>
+                <ul>
+                    <li>Upfront costs for upgrades and assessments</li>
+                    <li>Lack of credit or poor credit scores</li>
+                    <li>Inability to capture incentives (rebates, tax credits)</li>
+                    <li>Split incentives in rental housing</li>
+                </ul>
+            </div>
+
+            <div class="theme-section">
+                <h4>Structural and Policy Barriers</h4>
+                <ul>
+                    <li>Regulatory constraints and permitting requirements</li>
+                    <li>Limited eligibility criteria</li>
+                    <li>Lack of targeted outreach to underserved communities</li>
+                    <li>Complex application processes</li>
+                </ul>
+            </div>
+
+            <div class="theme-section">
+                <h4>Technical Barriers</h4>
+                <ul>
+                    <li>Old housing stock requiring extensive repairs</li>
+                    <li>Lack of modern infrastructure</li>
+                    <li>Need for pre-upgrade work (lead, asbestos, structural)</li>
+                    <li>Technical complexity of measures</li>
+                </ul>
+            </div>
+
+            <div class="theme-section">
+                <h4>Trust and Communication Barriers</h4>
+                <ul>
+                    <li>Distrust of government and institutions</li>
+                    <li>Language barriers and lack of multilingual materials</li>
+                    <li>Lack of awareness about available programs</li>
+                    <li>Poor communication from implementers</li>
+                </ul>
+            </div>
+
+            <div class="theme-section">
+                <h4>Systemic Inequities</h4>
+                <ul>
+                    <li>Historic disinvestment in communities of color</li>
+                    <li>Redlining and discriminatory practices</li>
+                    <li>Exclusion from programs historically</li>
+                    <li>Environmental injustice and pollution burden</li>
+                    <li>Structural racism in housing and energy systems</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="visualizations" class="tab-content">
+            <h2>Data Visualizations</h2>
+            
+            <div class="chart-container">
+                <h3>Energy Burden Comparison</h3>
+                <div id="burden-chart"></div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Program Types Distribution</h3>
+                <div id="program-chart"></div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Target Populations</h3>
+                <div id="population-chart"></div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Geographic Distribution</h3>
+                <div id="geography-chart"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; margin-top: 4rem; border-top: 1px solid var(--muted-border-color);">
+        <p>Research Synthesis Lab | Energy Equity Project</p>
+        <p><a href="../../index.html">Back to Hub</a></p>
+    </footer>
+
+    <script>
+        let studiesData = null;
+
+        // Tab navigation
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const navTabs = document.querySelectorAll('.nav-tab');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            navTabs.forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Load and display studies
+        async function loadStudies() {
+            try {
+                const response = await fetch('data/studies.json');
+                studiesData = await response.json();
+                displayStudies(studiesData.studies);
+                createVisualizations();
+            } catch (error) {
+                console.error('Error loading studies:', error);
+                document.getElementById('studies-container').innerHTML = '<p>Error loading studies data.</p>';
+            }
+        }
+
+        function displayStudies(studies) {
+            const container = document.getElementById('studies-container');
+            
+            if (studies.length === 0) {
+                container.innerHTML = '<p>No studies match your filters.</p>';
+                return;
+            }
+            
+            container.innerHTML = studies.map(study => `
+                <div class="study-card">
+                    <div class="study-title">${study.title}</div>
+                    <div class="study-meta">
+                        <span><strong>Authors:</strong> ${study.authors}</span>
+                        <span><strong>Year:</strong> ${study.year}</span>
+                        <span><strong>Location:</strong> ${study.geographic_context}</span>
+                    </div>
+                    <p><strong>Population:</strong> ${study.target_population}</p>
+                    <p><strong>Program:</strong> ${study.program_type}</p>
+                    <p><strong>CBO Role:</strong> ${study.cbo_role}</p>
+                    <div>
+                        ${study.key_themes.map(theme => `<span class="tag">${theme}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterStudies() {
+            if (!studiesData) return;
+            
+            const populationFilter = document.getElementById('population-filter').value.toLowerCase();
+            const programFilter = document.getElementById('program-filter').value.toLowerCase();
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            
+            let filtered = studiesData.studies;
+            
+            if (populationFilter) {
+                filtered = filtered.filter(study => 
+                    study.target_population.toLowerCase().includes(populationFilter)
+                );
+            }
+            
+            if (programFilter) {
+                filtered = filtered.filter(study => 
+                    study.program_type.toLowerCase().includes(programFilter)
+                );
+            }
+            
+            if (searchTerm) {
+                filtered = filtered.filter(study =>
+                    study.title.toLowerCase().includes(searchTerm) ||
+                    study.authors.toLowerCase().includes(searchTerm) ||
+                    study.key_themes.some(theme => theme.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            displayStudies(filtered);
+        }
+
+        function createVisualizations() {
+            createBurdenChart();
+            createProgramChart();
+            createPopulationChart();
+            createGeographyChart();
+        }
+
+        function createBurdenChart() {
+            const data = [
+                { group: 'Low-Income\nHouseholds', burden: 16.8 },
+                { group: 'General\nPopulation', burden: 3.5 }
+            ];
+
+            const width = 800;
+            const height = 400;
+            const margin = { top: 20, right: 30, bottom: 60, left: 60 };
+
+            const svg = d3.select('#burden-chart')
+                .append('svg')
+                .attr('width', '100%')
+                .attr('height', height)
+                .attr('viewBox', `0 0 ${width} ${height}`);
+
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.group))
+                .range([margin.left, width - margin.right])
+                .padding(0.3);
+
+            const y = d3.scaleLinear()
+                .domain([0, 20])
+                .nice()
+                .range([height - margin.bottom, margin.top]);
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x));
+
+            svg.append('g')
+                .attr('transform', `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y).ticks(5).tickFormat(d => d + '%'));
+
+            svg.selectAll('rect')
+                .data(data)
+                .join('rect')
+                .attr('x', d => x(d.group))
+                .attr('y', d => y(d.burden))
+                .attr('width', x.bandwidth())
+                .attr('height', d => y(0) - y(d.burden))
+                .attr('fill', (d, i) => i === 0 ? '#dc2626' : '#059669');
+        }
+
+        function createProgramChart() {
+            const data = [
+                { type: 'Weatherization', count: 13 },
+                { type: 'Solar/Renewable', count: 11 },
+                { type: 'Education/Behavioral', count: 9 },
+                { type: 'Home Repair', count: 3 },
+                { type: 'Policy/Advocacy', count: 3 },
+                { type: 'Financing', count: 3 },
+                { type: 'Bill Assistance', count: 2 },
+                { type: 'Workforce', count: 2 }
+            ];
+
+            const width = 800;
+            const height = 400;
+            const margin = { top: 20, right: 30, bottom: 100, left: 60 };
+
+            const svg = d3.select('#program-chart')
+                .append('svg')
+                .attr('width', '100%')
+                .attr('height', height)
+                .attr('viewBox', `0 0 ${width} ${height}`);
+
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.type))
+                .range([margin.left, width - margin.right])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.count)])
+                .nice()
+                .range([height - margin.bottom, margin.top]);
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .attr('transform', `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y));
+
+            svg.selectAll('rect')
+                .data(data)
+                .join('rect')
+                .attr('x', d => x(d.type))
+                .attr('y', d => y(d.count))
+                .attr('width', x.bandwidth())
+                .attr('height', d => y(0) - y(d.count))
+                .attr('fill', '#0891b2');
+        }
+
+        function createPopulationChart() {
+            const data = [
+                { population: 'Low-Income', count: 35 },
+                { population: 'Urban', count: 20 },
+                { population: 'Rural', count: 15 },
+                { population: 'Renters', count: 13 },
+                { population: 'Racial/Ethnic\nMinorities', count: 12 },
+                { population: 'Homeowners', count: 6 }
+            ];
+
+            const width = 800;
+            const height = 400;
+            const margin = { top: 20, right: 30, bottom: 80, left: 60 };
+
+            const svg = d3.select('#population-chart')
+                .append('svg')
+                .attr('width', '100%')
+                .attr('height', height)
+                .attr('viewBox', `0 0 ${width} ${height}`);
+
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.population))
+                .range([margin.left, width - margin.right])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.count)])
+                .nice()
+                .range([height - margin.bottom, margin.top]);
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .attr('transform', `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y));
+
+            svg.selectAll('rect')
+                .data(data)
+                .join('rect')
+                .attr('x', d => x(d.population))
+                .attr('y', d => y(d.count))
+                .attr('width', x.bandwidth())
+                .attr('height', d => y(0) - y(d.count))
+                .attr('fill', '#059669');
+        }
+
+        function createGeographyChart() {
+            const data = [
+                { location: 'Urban US', count: 20 },
+                { location: 'Rural US', count: 15 },
+                { location: 'National/\nMulti-state', count: 8 },
+                { location: 'UK', count: 1 },
+                { location: 'Australia', count: 1 },
+                { location: 'Other\nInternational', count: 1 }
+            ];
+
+            const width = 800;
+            const height = 400;
+            const margin = { top: 20, right: 30, bottom: 80, left: 60 };
+
+            const svg = d3.select('#geography-chart')
+                .append('svg')
+                .attr('width', '100%')
+                .attr('height', height)
+                .attr('viewBox', `0 0 ${width} ${height}`);
+
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.location))
+                .range([margin.left, width - margin.right])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.count)])
+                .nice()
+                .range([height - margin.bottom, margin.top]);
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .attr('transform', `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y));
+
+            svg.selectAll('rect')
+                .data(data)
+                .join('rect')
+                .attr('x', d => x(d.location))
+                .attr('y', d => y(d.count))
+                .attr('width', x.bandwidth())
+                .attr('height', d => y(0) - y(d.count))
+                .attr('fill', '#0891b2');
+        }
+
+        // Initialize
+        loadStudies();
+    </script>
+</body>
+</html>

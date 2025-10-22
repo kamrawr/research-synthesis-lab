@@ -56,5 +56,39 @@
       "findings": "High-trust networks (trust index >7.5) showed 3x better outcome achievement than low-trust networks",
       "metrics": "Trust indices, outcome achievement scores"
     }
-  ]
+  ],
+  "notes": {
+    "summary": [
+      {
+        "type": "update",
+        "date": "Oct 25, 2025",
+        "content": "<strong>Data Collection Update:</strong> Added 5 new studies from 2024 focusing on digital collaboration tools in nonprofit networks. Initial findings suggest technology mediates some of the trust-building challenges identified in earlier research."
+      },
+      {
+        "type": "insight",
+        "content": "The <strong>measurement gap</strong> identified here is significant for practitioners. Most nonprofits track collaboration activity (meetings attended, resources shared) but rarely measure whether these activities actually improve operational efficiency. This suggests a need for better evaluation frameworks."
+      }
+    ],
+    "findings": [
+      {
+        "type": "methodology",
+        "content": "Note on the 'operational efficiency' finding: The single study (Smith & Johnson, 2023) used social network analysis with a sample of 87 nonprofits. While methodologically sound, generalizing from n=1 study requires caution."
+      },
+      {
+        "type": "caution",
+        "content": "The 30% increase in chronic homelessness from mandated mergers (community impact finding) comes from a single city's policy experiment. Context matters—this was during a period of reduced overall funding, which may confound results."
+      },
+      {
+        "type": "question",
+        "content": "<strong>Open research question:</strong> Why do moderate-sized networks (5-15 partners) outperform larger ones? Is it communication overhead, decision-making complexity, or loss of relational trust? None of the reviewed studies explicitly tested mechanisms."
+      }
+    ],
+    "studies": [
+      {
+        "type": "context",
+        "date": "Oct 22, 2025",
+        "content": "These 5 studies represent the <strong>quantitative core</strong> of the synthesis. An additional 35 studies provided contextual insights but lacked statistical rigor for inclusion in meta-analysis. Full list available in supplementary materials."
+      }
+    ]
+  }
 }

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gig Economy Credentialing | Research Synthesis Lab</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="../../assets/notes.css">
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="../../scripts/notes.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --accent: #059669;
+        }
+        
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero p {
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--muted-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .filter-section {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--muted-border-color);
+        }
+        
+        .filter-group {
+            margin-bottom: 1rem;
+        }
+        
+        .filter-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .study-card {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--muted-border-color);
+            transition: border-color 0.3s;
+        }
+        
+        .study-card:hover {
+            border-color: var(--primary);
+        }
+        
+        .study-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .study-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--muted-color);
+        }
+        
+        .tag {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .theme-section {
+            background: var(--card-background-color);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .theme-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .chart-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--card-background-color);
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--muted-border-color);
+        }
+        
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--muted-color);
+            transition: all 0.3s;
+        }
+        
+        .nav-tab:hover {
+            color: var(--primary);
+        }
+        
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <a href="../../index.html" class="back-link">← Back to Research Synthesis Lab</a>
+            <h1>Evolving Credentialing in the Gig Economy</h1>
+            <p>Labor dynamics and credentialing systems for Millennials, Gen Z, and future generations</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number" id="total-studies">46</span>
+                <span class="stat-label">Studies Analyzed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">138M</span>
+                <span class="stat-label">Papers Searched</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">16</span>
+                <span class="stat-label">Micro-credential Studies</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">14</span>
+                <span class="stat-label">Digital Badge Studies</span>
+            </div>
+        </div>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+            <button class="nav-tab" onclick="showTab('studies')">Studies</button>
+            <button class="nav-tab" onclick="showTab('themes')">Themes</button>
+            <button class="nav-tab" onclick="showTab('visualizations')">Visualizations</button>
+        </nav>
+
+        <div id="overview" class="tab-content active">
+            <article>
+                <h2>Research Question</h2>
+                <p>How are labor dynamics and credentialing systems (e.g., PMP, HVAC, IT, and trade certifications) evolving within an increasingly gig-driven and fractured economy, and what implications does this have for Millennials, Gen Z, and future generations seeking meaningful, community-oriented work that builds local resilience and meets essential needs?</p>
+
+                <h2>Key Findings</h2>
+                <div class="theme-section">
+                    <p><strong>Modular digital credentials and community-based credentialing frameworks</strong> are evolving to serve as critical skill signals and sources of labor trust in the transition from stable employment to project-based work, with evidence showing improved employability for younger generations and enhanced local economic integration in essential sectors.</p>
+                </div>
+
+                <h3>Major Themes</h3>
+                
+                <div class="theme-section">
+                    <h4 class="theme-title">1. Evolution of Credentialing Systems</h4>
+                    <p>Micro-credentials and digital badges are increasingly used as skill signals, offering more flexible, stackable, and responsive alternatives to traditional degrees. These credentials have particular relevance for Millennials and Gen Z seeking adaptable career pathways.</p>
+                    <ul>
+                        <li>Flexible, stackable, and responsive compared to traditional degrees</li>
+                        <li>Potential to bridge skill gaps and enhance employability</li>
+                        <li>Challenges with employer acceptance and standardization</li>
+                        <li>Risk of credential inflation</li>
+                    </ul>
+                </div>
+
+                <div class="theme-section">
+                    <h4 class="theme-title">2. Gig Economy Transformation</h4>
+                    <p>The labor market is experiencing a fundamental shift from stable, long-term employment to project-based, hybrid, and gig work, requiring new forms of trust signaling and verification.</p>
+                    <ul>
+                        <li>Digital badges used within platforms to signal skills</li>
+                        <li>Freelancers face vulnerabilities: unpaid labor, lack of collective voice</li>
+                        <li>Worker-centric models proposed to address challenges</li>
+                        <li>Apprenticeships as promising hybrid strategies</li>
+                    </ul>
+                </div>
+
+                <div class="theme-section">
+                    <h4 class="theme-title">3. Community Resilience and Local Integration</h4>
+                    <p>Community colleges, labor-community coalitions, and worker centers emerge as key actors in building local capacity and supporting economic recovery.</p>
+                    <ul>
+                        <li>Micro-credentials align workforce development with local needs</li>
+                        <li>Focus on essential sectors: energy, housing, care, logistics</li>
+                        <li>Partnerships and cooperative models foster trust</li>
+                        <li>Limited but promising evidence for community-level outcomes</li>
+                    </ul>
+                </div>
+
+                <div class="theme-section">
+                    <h4 class="theme-title">4. Equity and Access</h4>
+                    <p>Barriers facing underserved populations including women, people of color, rural residents, refugees, and low-income groups.</p>
+                    <ul>
+                        <li>Recognition challenges and affordability constraints</li>
+                        <li>Targeted recruitment showing promise</li>
+                        <li>Partnerships with community-based organizations essential</li>
+                        <li>Mixed effectiveness; rigorous evaluation needed</li>
+                    </ul>
+                </div>
+
+                <h3>Links</h3>
+                <p><a href="docs/executive-summary.md" download>Download Executive Summary (PDF)</a></p>
+            </article>
+        </div>
+
+        <div id="studies" class="tab-content">
+            <h2>Study Explorer</h2>
+            
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label for="credential-filter">Credentialing Type:</label>
+                    <select id="credential-filter" onchange="filterStudies()">
+                        <option value="">All Types</option>
+                        <option value="micro-credentials">Micro-credentials</option>
+                        <option value="digital-badges">Digital Badges</option>
+                        <option value="apprenticeship">Apprenticeship</option>
+                        <option value="traditional">Traditional Certificates</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="search-input">Search Studies:</label>
+                    <input type="text" id="search-input" placeholder="Search by title, author, or theme..." onkeyup="filterStudies()">
+                </div>
+            </div>
+
+            <div id="studies-container">
+                <!-- Studies will be loaded here by JavaScript -->
+            </div>
+        </div>
+
+        <div id="themes" class="tab-content">
+            <h2>Thematic Analysis</h2>
+            
+            <div class="theme-section">
+                <h3 class="theme-title">Credentialing as Labor Trust</h3>
+                <p>Micro-credentials, digital badges, and alternative digital credentials increasingly signal specific skills and competencies in response to rapidly changing labor market demands.</p>
+                
+                <h4>Strengths:</h4>
+                <ul>
+                    <li>Flexibility and responsiveness</li>
+                    <li>Stackability for career progression</li>
+                    <li>Potential to bridge skill gaps</li>
+                </ul>
+                
+                <h4>Limitations:</h4>
+                <ul>
+                    <li>Limited effectiveness for platform economy new entrants</li>
+                    <li>May not fully substitute for work experience (especially soft skills)</li>
+                    <li>Quality assurance remains inconsistent</li>
+                </ul>
+            </div>
+
+            <div class="theme-section">
+                <h3 class="theme-title">Gig Economy Transformation</h3>
+                <p>Shift from stable employment to project-based, hybrid, and gig work requiring new forms of credentialing, trust, and support infrastructure.</p>
+                
+                <h4>Platform-based Signaling:</h4>
+                <ul>
+                    <li>Digital badges used on platforms like Upwork</li>
+                    <li>Builds reputational capital but with vulnerabilities</li>
+                    <li>Need for worker-centric models</li>
+                </ul>
+                
+                <h4>Workforce Adaptation:</h4>
+                <ul>
+                    <li>Apprenticeships and work-integrated learning</li>
+                    <li>Combining technical training with career advancement</li>
+                    <li>Addressing barriers: credit transfer, access for marginalized groups</li>
+                </ul>
+            </div>
+
+            <div class="theme-section">
+                <h3 class="theme-title">Community Resilience</h3>
+                <p>Community colleges, labor-community coalitions, and worker centers as key actors in building local capacity.</p>
+                
+                <h4>Key Actors:</h4>
+                <ul>
+                    <li>Community colleges</li>
+                    <li>Labor-community coalitions</li>
+                    <li>Worker centers</li>
+                </ul>
+                
+                <h4>Alignment with Local Needs:</h4>
+                <ul>
+                    <li>Essential services (energy, housing, health, care)</li>
+                    <li>Partnerships and regional initiatives</li>
+                    <li>Cooperative models fostering trust</li>
+                </ul>
+                
+                <p><em>Evidence limitation: Most studies focus on individual/system-level outcomes rather than community-level impacts</em></p>
+            </div>
+
+            <div class="theme-section">
+                <h3 class="theme-title">Equity, Access, and Inclusive Development</h3>
+                <p>Barriers faced by historically underserved populations including women, people of color, rural residents, refugees, and low-income groups.</p>
+                
+                <h4>Documented Barriers:</h4>
+                <ul>
+                    <li>Credit transfer and degree articulation challenges</li>
+                    <li>Access constraints for marginalized groups</li>
+                    <li>Quality concerns</li>
+                    <li>Exploitation risks in platform economy</li>
+                </ul>
+                
+                <h4>Effective Interventions:</h4>
+                <ul>
+                    <li>Targeted recruitment</li>
+                    <li>Partnerships with community-based organizations</li>
+                    <li>Supportive wraparound services</li>
+                    <li>Alternative credit scoring and flexible eligibility</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="visualizations" class="tab-content">
+            <h2>Data Visualizations</h2>
+            
+            <div class="chart-container">
+                <h3>Credentialing Systems Distribution</h3>
+                <div id="credential-chart"></div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Research Design Distribution</h3>
+                <div id="design-chart"></div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Geographic Distribution</h3>
+                <div id="geography-chart"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; margin-top: 4rem; border-top: 1px solid var(--muted-border-color);">
+        <p>Research Synthesis Lab | Gig Economy Credentialing Project</p>
+        <p><a href="../../index.html">Back to Hub</a></p>
+    </footer>
+
+    <script>
+        let studiesData = null;
+
+        // Tab navigation
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const navTabs = document.querySelectorAll('.nav-tab');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            navTabs.forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Load and display studies
+        async function loadStudies() {
+            try {
+                const response = await fetch('data/studies.json');
+                studiesData = await response.json();
+                displayStudies(studiesData.studies);
+                createVisualizations();
+                renderNotes();
+            } catch (error) {
+                console.error('Error loading studies:', error);
+                document.getElementById('studies-container').innerHTML = '<p>Error loading studies data.</p>';
+            }
+        }
+        
+        function renderNotes() {
+            if (!studiesData.notes) return;
+            
+            // Overview tab notes
+            if (studiesData.notes.overview) {
+                notesManager.renderNotes(studiesData.notes.overview, document.getElementById('overview'));
+            }
+            
+            // Themes tab notes
+            if (studiesData.notes.themes) {
+                notesManager.renderNotes(studiesData.notes.themes, document.getElementById('themes'));
+            }
+            
+            // Studies tab notes
+            if (studiesData.notes.studies) {
+                notesManager.renderNotes(studiesData.notes.studies, document.getElementById('studies'));
+            }
+            
+            // Update toggle button with note count
+            const totalNotes = Object.values(studiesData.notes).flat().length;
+            if (notesManager.toggleButton) {
+                notesManager.toggleButton.setAttribute('data-count', totalNotes);
+            }
+        }
+
+        function displayStudies(studies) {
+            const container = document.getElementById('studies-container');
+            
+            if (studies.length === 0) {
+                container.innerHTML = '<p>No studies match your filters.</p>';
+                return;
+            }
+            
+            container.innerHTML = studies.map(study => `
+                <div class="study-card">
+                    <div class="study-title">${study.title}</div>
+                    <div class="study-meta">
+                        <span><strong>Authors:</strong> ${study.authors}</span>
+                        ${study.year ? `<span><strong>Year:</strong> ${study.year}</span>` : ''}
+                        <span><strong>Design:</strong> ${study.research_design}</span>
+                    </div>
+                    <p><strong>Population:</strong> ${study.population}</p>
+                    <p><strong>Credentialing System:</strong> ${study.credentialing_system}</p>
+                    <div>
+                        ${study.key_themes.map(theme => `<span class="tag">${theme}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterStudies() {
+            if (!studiesData) return;
+            
+            const credentialFilter = document.getElementById('credential-filter').value.toLowerCase();
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            
+            let filtered = studiesData.studies;
+            
+            if (credentialFilter) {
+                filtered = filtered.filter(study => 
+                    study.credentialing_system.toLowerCase().includes(credentialFilter)
+                );
+            }
+            
+            if (searchTerm) {
+                filtered = filtered.filter(study =>
+                    study.title.toLowerCase().includes(searchTerm) ||
+                    study.authors.toLowerCase().includes(searchTerm) ||
+                    study.key_themes.some(theme => theme.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            displayStudies(filtered);
+        }
+
+        function createVisualizations() {
+            createCredentialChart();
+            createDesignChart();
+            createGeographyChart();
+        }
+
+        function createCredentialChart() {
+            const data = [
+                { type: 'Micro-credentials', count: 16 },
+                { type: 'Digital badges', count: 14 },
+                { type: 'Traditional certificates', count: 7 },
+                { type: 'Apprenticeship', count: 2 },
+                { type: 'Professional cert', count: 1 },
+                { type: 'No formal', count: 1 },
+                { type: 'Not mentioned', count: 10 }
+            ];
+
+            const width = 800;
+            const height = 400;
+            const margin = { top: 20, right: 30, bottom: 60, left: 60 };
+
+            const svg = d3.select('#credential-chart')
+                .append('svg')
+                .attr('width', '100%')
+                .attr('height', height)
+                .attr('viewBox', `0 0 ${width} ${height}`);
+
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.type))
+                .range([margin.left, width - margin.right])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.count)])
+                .nice()
+                .range([height - margin.bottom, margin.top]);
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .attr('transform', `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y));
+
+            svg.selectAll('rect')
+                .data(data)
+                .join('rect')
+                .attr('x', d => x(d.type))
+                .attr('y', d => y(d.count))
+                .attr('width', x.bandwidth())
+                .attr('height', d => y(0) - y(d.count))
+                .attr('fill', '#2563eb');
+        }
+
+        function createDesignChart() {
+            const data = [
+                { type: 'Case studies', count: 18 },
+                { type: 'Qualitative', count: 10 },
+                { type: 'Reviews', count: 9 },
+                { type: 'Survey/Admin', count: 5 },
+                { type: 'Mixed methods', count: 3 },
+                { type: 'Participatory', count: 1 }
+            ];
+
+            const width = 800;
+            const height = 400;
+            const margin = { top: 20, right: 30, bottom: 60, left: 60 };
+
+            const svg = d3.select('#design-chart')
+                .append('svg')
+                .attr('width', '100%')
+                .attr('height', height)
+                .attr('viewBox', `0 0 ${width} ${height}`);
+
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.type))
+                .range([margin.left, width - margin.right])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.count)])
+                .nice()
+                .range([height - margin.bottom, margin.top]);
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .attr('transform', `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y));
+
+            svg.selectAll('rect')
+                .data(data)
+                .join('rect')
+                .attr('x', d => x(d.type))
+                .attr('y', d => y(d.count))
+                .attr('width', x.bandwidth())
+                .attr('height', d => y(0) - y(d.count))
+                .attr('fill', '#7c3aed');
+        }
+
+        function createGeographyChart() {
+            const data = [
+                { location: 'United States', count: 26 },
+                { location: 'Global', count: 7 },
+                { location: 'Europe', count: 4 },
+                { location: 'Australia', count: 1 },
+                { location: 'Canada', count: 1 },
+                { location: 'Lebanon', count: 1 }
+            ];
+
+            const width = 800;
+            const height = 400;
+            const margin = { top: 20, right: 30, bottom: 60, left: 60 };
+
+            const svg = d3.select('#geography-chart')
+                .append('svg')
+                .attr('width', '100%')
+                .attr('height', height)
+                .attr('viewBox', `0 0 ${width} ${height}`);
+
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.location))
+                .range([margin.left, width - margin.right])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.count)])
+                .nice()
+                .range([height - margin.bottom, margin.top]);
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .attr('transform', `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y));
+
+            svg.selectAll('rect')
+                .data(data)
+                .join('rect')
+                .attr('x', d => x(d.location))
+                .attr('y', d => y(d.count))
+                .attr('width', x.bandwidth())
+                .attr('height', d => y(0) - y(d.count))
+                .attr('fill', '#059669');
+        }
+
+        // Initialize
+        loadStudies();
+    </script>
+</body>
+</html>

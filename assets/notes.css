@@ -1,0 +1,195 @@
+/* Research Notes System Styles */
+
+.notes-toggle-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 12px 20px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.notes-toggle-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+.notes-toggle-btn.active {
+    background: #10b981;
+}
+
+.notes-toggle-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Note Cards */
+.research-note {
+    background: #fefce8;
+    border-left: 4px solid #eab308;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px 0;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+
+.research-note.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Note Types */
+.research-note.insight {
+    background: #eff6ff;
+    border-left-color: #3b82f6;
+}
+
+.research-note.update {
+    background: #f0fdf4;
+    border-left-color: #10b981;
+}
+
+.research-note.caution {
+    background: #fef2f2;
+    border-left-color: #ef4444;
+}
+
+.research-note.methodology {
+    background: #f5f3ff;
+    border-left-color: #8b5cf6;
+}
+
+.research-note.context {
+    background: #fefce8;
+    border-left-color: #eab308;
+}
+
+.research-note.question {
+    background: #fdf4ff;
+    border-left-color: #d946ef;
+}
+
+/* Note Header */
+.note-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.note-icon {
+    font-size: 1.2em;
+}
+
+.note-label {
+    color: #374151;
+}
+
+.note-date {
+    margin-left: auto;
+    font-size: 0.85em;
+    color: #6b7280;
+    font-weight: 400;
+}
+
+/* Note Content */
+.note-content {
+    color: #1f2937;
+    line-height: 1.6;
+    font-size: 0.95em;
+}
+
+.note-content p {
+    margin-bottom: 8px;
+}
+
+.note-content p:last-child {
+    margin-bottom: 0;
+}
+
+.note-content a {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.note-content strong {
+    font-weight: 600;
+    color: #111827;
+}
+
+.note-content em {
+    font-style: italic;
+}
+
+.note-content code {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+/* Inline Notes (attached to specific elements) */
+.research-note.inline {
+    margin-top: 12px;
+    font-size: 0.9em;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .notes-toggle-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 16px;
+        font-size: 0.9em;
+    }
+    
+    .research-note {
+        padding: 12px;
+        margin: 16px 0;
+    }
+    
+    .note-header {
+        flex-wrap: wrap;
+    }
+    
+    .note-date {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 4px;
+    }
+}
+
+/* Animation for note count badge (optional enhancement) */
+.notes-toggle-btn::after {
+    content: attr(data-count);
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ef4444;
+    color: white;
+    font-size: 0.7em;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 700;
+    display: none;
+}
+
+.notes-toggle-btn[data-count]:not([data-count="0"])::after {
+    display: block;
+}

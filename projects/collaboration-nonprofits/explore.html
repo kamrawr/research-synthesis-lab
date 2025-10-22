@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nonprofit Collaboration & Efficiency | Research Synthesis Lab</title>
     <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="../../assets/notes.css">
     <style>
         .explorer-header {
             background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
@@ -213,6 +214,7 @@
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../scripts/notes.js"></script>
     <script>
         let researchData = null;
         
@@ -239,6 +241,30 @@
         function renderAll() {
             // Summary tab
             document.getElementById('execSummary').textContent = researchData.executiveSummary;
+            
+            // Render notes if available
+            if (researchData.notes) {
+                // Summary tab notes
+                if (researchData.notes.summary) {
+                    notesManager.renderNotes(researchData.notes.summary, document.getElementById('summary'));
+                }
+                
+                // Findings tab notes
+                if (researchData.notes.findings) {
+                    notesManager.renderNotes(researchData.notes.findings, document.getElementById('findings'));
+                }
+                
+                // Studies tab notes
+                if (researchData.notes.studies) {
+                    notesManager.renderNotes(researchData.notes.studies, document.getElementById('studies'));
+                }
+                
+                // Update toggle button with note count
+                const totalNotes = Object.values(researchData.notes).flat().length;
+                if (notesManager.toggleButton) {
+                    notesManager.toggleButton.setAttribute('data-count', totalNotes);
+                }
+            }
             
             const statsGrid = document.getElementById('statsGrid');
             statsGrid.innerHTML = `

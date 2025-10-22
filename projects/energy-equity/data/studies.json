@@ -1,0 +1,286 @@
+{
+  "metadata": {
+    "project_title": "Centering Community Needs in Energy Equity",
+    "research_question": "Which types of groups face historic disinvestment, high energy burdens, and limited access to the clean economy? How can social programs center lived experiences and partner with trusted CBOs to ensure solutions align with real needs?",
+    "total_studies": 39,
+    "search_corpus": "126 million academic papers (Semantic Scholar)",
+    "retrieved_papers": 500,
+    "date_generated": "2024"
+  },
+  "key_findings": {
+    "summary": "Black, Indigenous, rural, and low-income households face the highest energy burdens and historic disinvestment. Successful programs partner with trusted community-based organizations to deliver door-to-door outreach, flexible funding, and integrated health-energy solutions that align with community needs and strengthen local economies.",
+    "energy_burden_range": {
+      "low_income": "16.8% of income",
+      "general_population": "3.5% of income"
+    },
+    "burden_reduction_range": "10% to 91%",
+    "key_populations": [
+      "Black households",
+      "Indigenous/Native Hawaiian communities",
+      "Rural populations",
+      "Low-income households",
+      "Renters (especially in older housing stock)",
+      "Female-headed households"
+    ]
+  },
+  "studies": [
+    {
+      "id": "reames_2016",
+      "authors": "Reames",
+      "year": 2016,
+      "title": "Community-based weatherization and energy efficiency",
+      "study_focus": "Community-based weatherization and energy efficiency",
+      "target_population": "Predominantly African-American, low-income, renters, older homes",
+      "program_type": "Weatherization Assistance Program (WAP), community-based energy retrofits",
+      "geographic_context": "Kansas City, MO (urban)",
+      "cbo_role": "Community-based organizations leading outreach and service delivery",
+      "key_themes": ["weatherization", "African-American", "renters", "urban"]
+    },
+    {
+      "id": "borland_2024a",
+      "authors": "Borland",
+      "year": 2024,
+      "title": "Renewable energy and energy equity for off-grid and low-income renters",
+      "study_focus": "Renewable energy and energy equity for off-grid and low-income renters",
+      "target_population": "Native Hawaiian, low-income, health-vulnerable",
+      "program_type": "Solar plus battery, energy efficient appliances",
+      "geographic_context": "Molokai, Hawaii (rural/isolated)",
+      "cbo_role": "Community partnerships for technology deployment",
+      "key_themes": ["Native Hawaiian", "solar", "health equity", "rural"]
+    },
+    {
+      "id": "hoody_2021",
+      "authors": "Hoody et al.",
+      "year": 2021,
+      "title": "Peer-to-peer behavioral energy reduction",
+      "study_focus": "Peer-to-peer behavioral energy reduction",
+      "target_population": "Low-income, urban, minorities, renters",
+      "program_type": "Peer-to-peer education, energy walkthroughs",
+      "geographic_context": "Midwest US (urban)",
+      "cbo_role": "Peer educators from community",
+      "key_themes": ["peer education", "behavioral change", "low-income", "urban"]
+    },
+    {
+      "id": "asensio_2024",
+      "authors": "Asensio et al.",
+      "year": 2024,
+      "title": "Housing policy spillovers on energy efficiency",
+      "study_focus": "Housing policy spillovers on energy efficiency",
+      "target_population": "Low- and moderate-income, minority, disabled, seniors, renters",
+      "program_type": "Community Development Block Grant (CDBG)/HOME grants, energy efficiency, repairs",
+      "geographic_context": "Albany, GA (urban, high poverty)",
+      "cbo_role": "Partnership with local government",
+      "key_themes": ["CDBG", "housing policy", "seniors", "disabilities"]
+    },
+    {
+      "id": "filec_2023",
+      "authors": "Filec et al.",
+      "year": 2023,
+      "title": "Home repairs for health equity in older adults",
+      "study_focus": "Home repairs for health equity in older adults",
+      "target_population": "Black, low-income, older adults, homeowners",
+      "program_type": "Home repair program",
+      "geographic_context": "Chicago, IL (urban)",
+      "cbo_role": "Community-engaged research partnership",
+      "key_themes": ["health equity", "aging in place", "home repairs", "Black households"]
+    },
+    {
+      "id": "stenger_2023",
+      "authors": "Stenger et al.",
+      "year": 2023,
+      "title": "Weatherization and resilience in Los Angeles",
+      "study_focus": "Weatherization and resilience in Los Angeles",
+      "target_population": "Low-income, renters, multifamily, disadvantaged communities",
+      "program_type": "Weatherization, cooling, resilience",
+      "geographic_context": "Los Angeles, CA (urban)",
+      "cbo_role": "Community partners for program delivery",
+      "key_themes": ["weatherization", "resilience", "multifamily", "Los Angeles"]
+    },
+    {
+      "id": "borland_2024b",
+      "authors": "Borland",
+      "year": 2024,
+      "title": "Solar equity for Native Hawaiian homesteads/renters",
+      "study_focus": "Solar equity for Native Hawaiian homesteads/renters",
+      "target_population": "Native Hawaiian, low-income, health-vulnerable",
+      "program_type": "Solar plus battery, plug-and-play systems",
+      "geographic_context": "Molokai, Hawaii (rural/isolated)",
+      "cbo_role": "Partnership with Native Hawaiian organizations",
+      "key_themes": ["Native Hawaiian", "solar", "plug-and-play", "equity"]
+    },
+    {
+      "id": "robertson_2019",
+      "authors": "Robertson et al.",
+      "year": 2019,
+      "title": "Community-driven energy justice",
+      "study_focus": "Community-driven energy justice",
+      "target_population": "Low-income, non-white, renters",
+      "program_type": "Smart thermostats, peer education",
+      "geographic_context": "Dayton, OH (urban)",
+      "cbo_role": "Community-driven program design and delivery",
+      "key_themes": ["energy justice", "smart thermostats", "community-driven", "urban"]
+    },
+    {
+      "id": "jimenez_2024",
+      "authors": "Jimenez et al.",
+      "year": 2024,
+      "title": "Tribal energy sovereignty and microgrids",
+      "study_focus": "Tribal energy sovereignty and microgrids",
+      "target_population": "Native American, rural, remote",
+      "program_type": "Tribal utility, solar microgrids",
+      "geographic_context": "Kansas/Nebraska border (rural)",
+      "cbo_role": "Tribal government as primary actor",
+      "key_themes": ["tribal sovereignty", "microgrids", "Native American", "rural"]
+    },
+    {
+      "id": "brown_2015",
+      "authors": "Brown",
+      "year": 2015,
+      "title": "Integrated health and energy housing",
+      "study_focus": "Integrated health and energy housing",
+      "target_population": "Low-income, minority, children with asthma",
+      "program_type": "Holistic housing, health/energy intervention",
+      "geographic_context": "Baltimore, MD (urban)",
+      "cbo_role": "Green & Healthy Homes Initiative partnership",
+      "key_themes": ["health", "asthma", "integrated approach", "children"]
+    },
+    {
+      "id": "branson_2018",
+      "authors": "Branson",
+      "year": 2018,
+      "title": "Energy efficiency for Yurok Tribe",
+      "study_focus": "Energy efficiency for Yurok Tribe",
+      "target_population": "Low-income, tribal, substandard housing",
+      "program_type": "Woodstove replacement, insulation",
+      "geographic_context": "Yurok Reservation, CA (rural)",
+      "cbo_role": "Tribal partnership",
+      "key_themes": ["tribal", "Yurok", "substandard housing", "rural"]
+    },
+    {
+      "id": "mccreery_2022",
+      "authors": "McCreery et al.",
+      "year": 2022,
+      "title": "Ventilation retrofits for health/energy",
+      "study_focus": "Ventilation retrofits for health/energy",
+      "target_population": "Communities of color, low-income",
+      "program_type": "Mechanical ventilation, indoor air quality",
+      "geographic_context": "Chicago, IL (urban)",
+      "cbo_role": "Community partnerships for implementation",
+      "key_themes": ["indoor air quality", "ventilation", "health", "communities of color"]
+    },
+    {
+      "id": "sarin_2009",
+      "authors": "Sarin",
+      "year": 2009,
+      "title": "Weatherization jobs and equity",
+      "study_focus": "Weatherization jobs and equity",
+      "target_population": "Low-income, marginalized workers",
+      "program_type": "Weatherization Assistance Program, job training, labor ramp-up",
+      "geographic_context": "US (national)",
+      "cbo_role": "Workforce development partnerships",
+      "key_themes": ["job training", "workforce", "weatherization", "equity"]
+    },
+    {
+      "id": "brown_2023",
+      "authors": "Brown et al.",
+      "year": 2023,
+      "title": "Energy burden vulnerabilities in Southeast US",
+      "study_focus": "Energy burden vulnerabilities in Southeast US",
+      "target_population": "Black, low-income, female-headed",
+      "program_type": "Survey, energy burden analysis",
+      "geographic_context": "Georgia, Southeast US",
+      "cbo_role": "Not specified",
+      "key_themes": ["energy burden", "Black households", "female-headed", "Southeast"]
+    },
+    {
+      "id": "knox_hayes_2023",
+      "authors": "Knox‐Hayes et al.",
+      "year": 2023,
+      "title": "Community-based organizations in solar energy for low- and moderate-income",
+      "study_focus": "Community-based organizations in solar energy for low- and moderate-income",
+      "target_population": "Low- and moderate-income, BIPOC, tenants, community-based organizations",
+      "program_type": "Solar training, installation, education",
+      "geographic_context": "US (multi-region)",
+      "cbo_role": "CBOs as central implementers and trainers",
+      "key_themes": ["solar", "CBO leadership", "training", "BIPOC"]
+    }
+  ],
+  "thematic_analysis": {
+    "energy_burden_and_equity": {
+      "description": "Black, Indigenous, rural, and low-income households face disproportionate energy burdens",
+      "key_points": [
+        "Energy burdens as high as 16.8% of income for low-income households vs. 3.5% for general population",
+        "Black and female-headed renter households bearing disproportionate costs",
+        "Older homes often require pre-upgrade repairs, exacerbating energy inefficiencies",
+        "Historic disinvestment, redlining, and exclusion from mainstream energy programs exacerbate disparities",
+        "Targeted interventions reduced energy burdens by 10–91%"
+      ]
+    },
+    "cbo_partnership_models": {
+      "description": "Community-based organizations are central to program design, outreach, and delivery",
+      "key_points": [
+        "CBOs serve as trusted messengers and cultural brokers",
+        "Effective collaborations between CBOs, local governments, and technical experts",
+        "Challenges with staffing, funding, and technical expertise within CBOs",
+        "Selection based on existing community trust and representation most successful"
+      ]
+    },
+    "housing_stock_challenges": {
+      "description": "Older, inefficient, and poorly maintained housing stock is a major barrier",
+      "key_points": [
+        "Many programs require pre-upgrade repairs (lead abatement, structural fixes)",
+        "Split incentives between landlords and tenants complicate upgrades in rental housing",
+        "Successful strategies integrate health and energy interventions",
+        "Flexible funding (block grants) and landlord incentives help address barriers"
+      ]
+    },
+    "community_engagement": {
+      "description": "Centering lived experience and community engagement is key to program effectiveness",
+      "key_points": [
+        "Methods include peer-to-peer education, community-based social marketing, participatory research",
+        "Trust built through hiring staff reflective of community, using local leaders",
+        "Culturally and linguistically relevant outreach essential",
+        "Feedback mechanisms and iterative program design associated with higher satisfaction"
+      ]
+    },
+    "barriers_to_access": {
+      "description": "Multiple overlapping barriers limit program access",
+      "key_points": [
+        "Financial: upfront costs, lack of credit, inability to capture rebates/tax credits",
+        "Structural/policy: regulatory constraints, split incentives, limited eligibility",
+        "Technical: old housing stock, pre-upgrade repair needs, infrastructure limitations",
+        "Trust/communication: distrust of government, language barriers, lack of awareness",
+        "Systemic: historic disinvestment, redlining, exclusion, environmental injustice"
+      ]
+    },
+    "best_practices": {
+      "description": "Successful strategies for community-centered implementation",
+      "categories": [
+        {
+          "name": "Community-Based Outreach",
+          "strategies": ["Door-to-door", "peer-to-peer", "trusted messengers", "CBO-led engagement"],
+          "outcomes": ["Increased participation", "trust", "satisfaction"],
+          "sustainability": "Builds local capacity, fosters long-term relationships"
+        },
+        {
+          "name": "Flexible Funding and Policy",
+          "strategies": ["Block grants", "on-bill tariffs", "landlord incentives", "alternative credit scoring"],
+          "outcomes": ["Greater inclusion of LMI, renters, marginalized groups"],
+          "sustainability": "Adaptable to local needs, supports scaling"
+        },
+        {
+          "name": "Integrated Health and Energy",
+          "strategies": ["Holistic housing assessments", "combined health and energy upgrades"],
+          "outcomes": ["Improved health", "reduced hospitalizations", "increased stability"],
+          "sustainability": "Addresses root causes, supports aging in place"
+        },
+        {
+          "name": "Capacity Building and Workforce",
+          "strategies": ["Training programs", "job creation", "technical assistance", "toolkit dissemination"],
+          "outcomes": ["Local job growth", "increased technical skills", "empowered CBOs"],
+          "sustainability": "Retains benefits locally, supports economic development"
+        }
+      ]
+    }
+  }
+}
