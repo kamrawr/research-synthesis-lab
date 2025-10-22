@@ -20,19 +20,48 @@ A structured workspace for housing multiple research projects with:
 research-synthesis-lab/
 ├── index.html              # Main project hub
 ├── assets/                 # Shared styles and resources
+│   └── style.css          # Global styling
 ├── scripts/                # Reusable JavaScript modules
+│   └── projects.js        # Project registry
 └── projects/               # Each research project
     ├── collaboration-nonprofits/
     │   ├── explore.html    # Interactive viewer
     │   ├── summary.md      # Full report
-    │   ├── data/           # Extracted findings
-    │   └── visuals/        # Charts, diagrams
-    └── [next-project]/
+    │   ├── data/           # Extracted findings (JSON)
+    │   └── docs/           # Additional documentation
+    ├── college-underemployment/
+    │   ├── explore.html    # Interactive D3.js visualizations
+    │   ├── summary.md      # 554-line comprehensive report
+    │   ├── data/           # 7,703 institutions analyzed
+    │   ├── docs/           # Project README and methodology
+    │   └── visualizations/ # Future: static charts
+    ├── energy-equity/
+    │   └── [project files]
+    └── gig-economy-credentialing/
+        └── [project files]
 ```
 
 ## 🔬 Current Projects
 
-### 1. **Measuring Collaboration's Impact on Nonprofit Efficiency**
+### 1. **College Underemployment & Long-Term Career Trajectories**
+*October 2025 | PhD Research*
+
+Analysis of 7,703 U.S. higher education institutions examining whether initial underemployment creates persistent "scarring" effects or temporary mismatch that graduates recover from over time.
+
+**Key Findings:**
+- **30x variation** in underemployment risk across fields (Philosophy/Religion 30% → Architecture 0%)
+- **$13,400 earnings gap** between highest and lowest completion quartiles
+- **55.7% of institutions** show high-risk characteristics for long-term career scarring
+- **For-profit institutions** deliver 38% lower earnings than private nonprofits
+- **$20,550 SES gap** between low-Pell and very high-Pell institutions
+
+**Evidence:** Strong support for scarring hypothesis—initial underemployment creates lasting disadvantages through skill atrophy, credential devaluation, employer signaling, and debt accumulation.
+
+**[Explore Interactive →](projects/college-underemployment/explore.html)** | **[Read Full Report →](projects/college-underemployment/summary.md)**
+
+---
+
+### 2. **Measuring Collaboration's Impact on Nonprofit Efficiency**
 *October 2025*
 
 Quantitative synthesis of 40 empirical studies examining how inter-organizational collaboration affects operational efficiency and community impact in nonprofit organizations.
@@ -67,8 +96,10 @@ Quantitative synthesis of 40 empirical studies examining how inter-organizationa
 ## 🛠️ Tech Stack
 
 - **Pure HTML/CSS/JS** - No build process required
-- **Chart.js** - Data visualization
+- **D3.js v7** - Interactive data visualizations
+- **Chart.js** - Data visualization (legacy projects)
 - **Marked.js** - Markdown rendering
+- **PicoCSS** - Minimal styling framework
 - **GitHub Pages** - Static hosting
 
 ## 📊 Data Format
