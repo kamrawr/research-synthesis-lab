@@ -148,6 +148,7 @@
                 <button class="tab-btn" onclick="switchTab('stats')">Statistics</button>
                 <button class="tab-btn" onclick="switchTab('studies')">Studies</button>
                 <button class="tab-btn" onclick="switchTab('data')">Raw Data</button>
+                <button class="tab-btn" onclick="switchTab('notes')">Notes</button>
             </div>
         </div>
     </div>
@@ -204,6 +205,12 @@
                 </div>
             </div>
             <pre id="jsonView" style="background: #f3f4f6; padding: 20px; border-radius: 8px; overflow-x: auto; display: none;"></pre>
+        </div>
+
+        <!-- Notes Tab -->
+        <div id="notes" class="tab-panel">
+            <h2>Research Notes</h2>
+            <div id="notesPanel"></div>
         </div>
     </div>
     
@@ -264,6 +271,18 @@
                 if (notesManager.toggleButton) {
                     notesManager.toggleButton.setAttribute('data-count', totalNotes);
                 }
+
+                // Render combined notes panel
+                const panel = document.getElementById('notesPanel');
+                panel.innerHTML = '';
+                ['summary','findings','studies'].forEach(section => {
+                    if (researchData.notes[section]) {
+                        const h = document.createElement('h3');
+                        h.textContent = section.charAt(0).toUpperCase() + section.slice(1);
+                        panel.appendChild(h);
+                        notesManager.renderNotes(researchData.notes[section], panel);
+                    }
+                });
             }
             
             const statsGrid = document.getElementById('statsGrid');

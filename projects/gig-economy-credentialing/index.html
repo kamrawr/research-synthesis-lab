@@ -227,6 +227,7 @@
             <button class="nav-tab" onclick="showTab('studies')">Studies</button>
             <button class="nav-tab" onclick="showTab('themes')">Themes</button>
             <button class="nav-tab" onclick="showTab('visualizations')">Visualizations</button>
+            <button class="nav-tab" onclick="showTab('noteview')">Notes</button>
         </nav>
 
         <div id="overview" class="tab-content active">
@@ -418,6 +419,11 @@
                 <div id="geography-chart"></div>
             </div>
         </div>
+
+        <div id="noteview" class="tab-content">
+            <h2>Research Notes & Insights</h2>
+            <div id="notesPanel"></div>
+        </div>
     </main>
 
     <footer style="text-align: center; padding: 2rem; margin-top: 4rem; border-top: 1px solid var(--muted-border-color);">
@@ -476,6 +482,20 @@
             const totalNotes = Object.values(studiesData.notes).flat().length;
             if (notesManager.toggleButton) {
                 notesManager.toggleButton.setAttribute('data-count', totalNotes);
+            }
+
+            // Render combined notes panel
+            const panel = document.getElementById('notesPanel');
+            if (panel) {
+                panel.innerHTML = '';
+                ['overview','themes','studies'].forEach(section => {
+                    if (studiesData.notes[section]) {
+                        const h = document.createElement('h3');
+                        h.textContent = section.charAt(0).toUpperCase() + section.slice(1);
+                        panel.appendChild(h);
+                        notesManager.renderNotes(studiesData.notes[section], panel);
+                    }
+                });
             }
         }
 

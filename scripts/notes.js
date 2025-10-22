@@ -71,7 +71,8 @@ class NotesManager {
     createNoteElement(note, index) {
         const noteEl = document.createElement('div');
         noteEl.className = `research-note ${note.type || 'insight'}`;
-        noteEl.style.display = 'none';
+        noteEl.style.display = 'block';
+        noteEl.classList.add('visible');
         
         const icon = this.getIconForType(note.type);
         
