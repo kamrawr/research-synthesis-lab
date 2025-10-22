@@ -55,7 +55,8 @@
         const grid = document.getElementById('projectGrid');
         projects.forEach(project => {
             const card = document.createElement('a');
-            card.href = `projects/${project.folder}/index.html`;
+            const page = project.explorePage || 'index.html';
+            card.href = `projects/${project.folder}/${page}`;
             card.className = 'project-card';
             
             card.innerHTML = `

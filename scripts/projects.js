@@ -5,6 +5,7 @@ const projects = [
     {
         title: "Measuring Collaboration's Impact on Nonprofit Efficiency",
         folder: "collaboration-nonprofits",
+        explorePage: "explore.html",
         description: "Quantitative synthesis of 40 empirical studies assessing the relationship between inter-organizational collaboration, operational efficiency, and community impact in nonprofit organizations.",
         date: "October 2025",
         status: "active", // active | archived | in-progress
