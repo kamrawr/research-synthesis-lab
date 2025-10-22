@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Synthesis Lab</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <h1>🧠 Research Synthesis Lab</h1>
+            <p class="subtitle">Interactive exploration of literature reviews and research syntheses</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <section class="intro">
+            <h2>About This Lab</h2>
+            <p>
+                A structured workspace for organizing and exploring AI-assisted literature reviews, meta-analyses, 
+                and research syntheses. Each project includes interactive visualizations, structured data extraction, 
+                and comprehensive summaries.
+            </p>
+        </section>
+        
+        <section class="projects">
+            <h2>Research Projects</h2>
+            <div id="projectGrid" class="project-grid">
+                <!-- Projects loaded dynamically -->
+            </div>
+        </section>
+        
+        <section class="cta">
+            <div class="cta-card">
+                <h3>📚 How to Use</h3>
+                <p>Click any project card to explore interactive findings, view extracted data, and read full summaries.</p>
+            </div>
+            <div class="cta-card">
+                <h3>➕ Add Projects</h3>
+                <p>This lab is designed to scale. See the <a href="https://github.com/kamrawr/research-synthesis-lab">README</a> for instructions on adding new research projects.</p>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Research Synthesis Lab • Built with open tools • <a href="https://github.com/kamrawr/research-synthesis-lab">View on GitHub</a></p>
+        </div>
+    </footer>
+    
+    <script src="scripts/projects.js"></script>
+    <script>
+        // Render project cards
+        const grid = document.getElementById('projectGrid');
+        projects.forEach(project => {
+            const card = document.createElement('a');
+            card.href = `projects/${project.folder}/explore.html`;
+            card.className = 'project-card';
+            
+            card.innerHTML = `
+                <div class="project-meta">
+                    <span class="project-status ${project.status}">${project.status}</span>
+                    <span class="project-date">${project.date}</span>
+                </div>
+                <h3>${project.title}</h3>
+                <p>${project.description}</p>
+                <div class="project-stats">
+                    <span><strong>${project.studiesReviewed}</strong> studies</span>
+                    <span><strong>${project.dataPoints}</strong> data points</span>
+                </div>
+                <div class="project-link">Explore findings →</div>
+            `;
+            
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
