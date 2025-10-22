@@ -24,6 +24,30 @@ const projects = [
         dataPoints: 5693,
         keywords: ["higher education", "underemployment", "earnings", "social mobility", "career trajectories"],
         source: "College Scorecard institutional analysis"
+    },
+    
+    {
+        title: "Evolving Credentialing in the Gig Economy",
+        folder: "gig-economy-credentialing",
+        description: "Systematic review of 46 studies on labor dynamics and credentialing systems in the gig economy. Examines micro-credentials, digital badges, and their implications for Millennials, Gen Z, and community resilience.",
+        date: "October 2024",
+        status: "active",
+        studiesReviewed: 46,
+        dataPoints: 496,
+        keywords: ["gig economy", "micro-credentials", "digital badges", "Millennials", "Gen Z", "workforce development"],
+        source: "Elicit synthesis (138M papers)"
+    },
+    
+    {
+        title: "Centering Community Needs in Energy Equity",
+        folder: "energy-equity",
+        description: "Research synthesis of 39 studies examining energy burdens, clean energy access, and community-based solutions for Black, Indigenous, rural, and low-income households. Documents 10-91% burden reductions through CBO partnerships.",
+        date: "October 2024",
+        status: "active",
+        studiesReviewed: 39,
+        dataPoints: 500,
+        keywords: ["energy equity", "energy burden", "community-based organizations", "weatherization", "environmental justice"],
+        source: "Semantic Scholar synthesis (126M papers)"
     }
     
     // Add new projects below
