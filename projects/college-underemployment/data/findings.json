@@ -1,0 +1,275 @@
+{
+  "metadata": {
+    "generated": "2025-10-21T23:48:36.537637",
+    "source": "College Scorecard Data",
+    "analysis_date": "2025-10-22",
+    "total_institutions": 7703,
+    "institutions_with_earnings": 5693
+  },
+  "summary_statistics": {
+    "total_institutions": 7703,
+    "institutions_with_earnings": 5693,
+    "median_earnings": 30600.0,
+    "median_completion_rate": 0.46651285140562,
+    "median_pell_percentage": 0.5233
+  },
+  "field_risk": [
+    {
+      "field": "Philosophy/Religion",
+      "median_earnings": 28500.0,
+      "underemployment_proxy": 0.3,
+      "n_institutions": 10
+    },
+    {
+      "field": "Family/Consumer Sciences",
+      "median_earnings": 30200.0,
+      "underemployment_proxy": 0.24175824175824176,
+      "n_institutions": 91
+    },
+    {
+      "field": "Health Professions",
+      "median_earnings": 29500.0,
+      "underemployment_proxy": 0.20665083135391923,
+      "n_institutions": 2947
+    },
+    {
+      "field": "Legal Professions",
+      "median_earnings": 29100.0,
+      "underemployment_proxy": 0.18461538461538463,
+      "n_institutions": 65
+    },
+    {
+      "field": "Natural Resources",
+      "median_earnings": 32600.0,
+      "underemployment_proxy": 0.17391304347826086,
+      "n_institutions": 23
+    },
+    {
+      "field": "Public Administration",
+      "median_earnings": 34500.0,
+      "underemployment_proxy": 0.17391304347826086,
+      "n_institutions": 69
+    },
+    {
+      "field": "Security/Protective Services",
+      "median_earnings": 31700.0,
+      "underemployment_proxy": 0.13717693836978131,
+      "n_institutions": 503
+    },
+    {
+      "field": "Engineering Technologies",
+      "median_earnings": 38800.0,
+      "underemployment_proxy": 0.1286549707602339,
+      "n_institutions": 342
+    },
+    {
+      "field": "Theology",
+      "median_earnings": 30200.0,
+      "underemployment_proxy": 0.12612612612612611,
+      "n_institutions": 111
+    },
+    {
+      "field": "Business/Management",
+      "median_earnings": 35700.0,
+      "underemployment_proxy": 0.10317105850826262,
+      "n_institutions": 2239
+    },
+    {
+      "field": "Computer Science",
+      "median_earnings": 38800.0,
+      "underemployment_proxy": 0.09198113207547169,
+      "n_institutions": 424
+    },
+    {
+      "field": "Communications Technologies",
+      "median_earnings": 29400.0,
+      "underemployment_proxy": 0.0851063829787234,
+      "n_institutions": 47
+    },
+    {
+      "field": "Liberal Arts",
+      "median_earnings": 30150.0,
+      "underemployment_proxy": 0.08203125,
+      "n_institutions": 1024
+    },
+    {
+      "field": "Physical Sciences",
+      "median_earnings": 48150.0,
+      "underemployment_proxy": 0.07142857142857142,
+      "n_institutions": 14
+    },
+    {
+      "field": "Education",
+      "median_earnings": 36600.0,
+      "underemployment_proxy": 0.06941431670281996,
+      "n_institutions": 461
+    },
+    {
+      "field": "Agriculture",
+      "median_earnings": 34500.0,
+      "underemployment_proxy": 0.06818181818181818,
+      "n_institutions": 44
+    },
+    {
+      "field": "Visual/Performing Arts",
+      "median_earnings": 33800.0,
+      "underemployment_proxy": 0.05830903790087463,
+      "n_institutions": 343
+    },
+    {
+      "field": "English",
+      "median_earnings": 42700.0,
+      "underemployment_proxy": 0.047619047619047616,
+      "n_institutions": 42
+    },
+    {
+      "field": "Communication",
+      "median_earnings": 42300.0,
+      "underemployment_proxy": 0.04,
+      "n_institutions": 125
+    },
+    {
+      "field": "Biological Sciences",
+      "median_earnings": 44200.0,
+      "underemployment_proxy": 0.02973977695167286,
+      "n_institutions": 269
+    },
+    {
+      "field": "Engineering",
+      "median_earnings": 52900.0,
+      "underemployment_proxy": 0.013245033112582781,
+      "n_institutions": 151
+    },
+    {
+      "field": "Psychology",
+      "median_earnings": 40300.0,
+      "underemployment_proxy": 0.012084592145015106,
+      "n_institutions": 331
+    },
+    {
+      "field": "Social Sciences",
+      "median_earnings": 45400.0,
+      "underemployment_proxy": 0.01084010840108401,
+      "n_institutions": 369
+    },
+    {
+      "field": "Architecture",
+      "median_earnings": 46500.0,
+      "underemployment_proxy": 0.0,
+      "n_institutions": 17
+    }
+  ],
+  "completion_gradient": [
+    {
+      "quartile": "Q1: Lowest",
+      "median_earnings": 33100.0,
+      "mean_earnings": 33022.75,
+      "n_institutions": 523,
+      "repayment_rate": 0.33,
+      "pell_pct": 0.6
+    },
+    {
+      "quartile": "Q2: Low-Mid",
+      "median_earnings": 35900.0,
+      "mean_earnings": 35506.42,
+      "n_institutions": 561,
+      "repayment_rate": 0.45,
+      "pell_pct": 0.53
+    },
+    {
+      "quartile": "Q3: Mid-High",
+      "median_earnings": 39500.0,
+      "mean_earnings": 39225.53,
+      "n_institutions": 564,
+      "repayment_rate": 0.59,
+      "pell_pct": 0.41
+    },
+    {
+      "quartile": "Q4: Highest",
+      "median_earnings": 46500.0,
+      "mean_earnings": 47562.34,
+      "n_institutions": 555,
+      "repayment_rate": 0.72,
+      "pell_pct": 0.3
+    }
+  ],
+  "institution_effects": [
+    {
+      "institution_type": "Private For-Profit",
+      "median_earnings": 24450.0,
+      "mean_earnings": 26721.746,
+      "low_earnings_rate": 0.306,
+      "repayment_rate": 0.309,
+      "completion_rate": 0.369,
+      "pell_pct": 0.649
+    },
+    {
+      "institution_type": "Private Nonprofit",
+      "median_earnings": 39600.0,
+      "mean_earnings": 41340.509,
+      "low_earnings_rate": 0.065,
+      "repayment_rate": 0.587,
+      "completion_rate": 0.539,
+      "pell_pct": 0.424
+    },
+    {
+      "institution_type": "Public",
+      "median_earnings": 31700.0,
+      "mean_earnings": 34061.335,
+      "low_earnings_rate": 0.084,
+      "repayment_rate": 0.469,
+      "completion_rate": 0.452,
+      "pell_pct": 0.421
+    }
+  ],
+  "socioeconomic_patterns": [
+    {
+      "pell_category": "Low (<25%)",
+      "median_earnings": 43000.0,
+      "low_earnings_rate": 0.055,
+      "repayment_rate": 0.667,
+      "completion_rate": 0.709
+    },
+    {
+      "pell_category": "Moderate (25-50%)",
+      "median_earnings": 34800.0,
+      "low_earnings_rate": 0.077,
+      "repayment_rate": 0.52,
+      "completion_rate": 0.494
+    },
+    {
+      "pell_category": "High (50-75%)",
+      "median_earnings": 27900.0,
+      "low_earnings_rate": 0.23,
+      "repayment_rate": 0.344,
+      "completion_rate": 0.361
+    },
+    {
+      "pell_category": "Very High (75-100%)",
+      "median_earnings": 22450.0,
+      "low_earnings_rate": 0.425,
+      "repayment_rate": 0.261,
+      "completion_rate": 0.37
+    }
+  ],
+  "scarring_analysis": {
+    "high_risk_count": 4288,
+    "high_risk_percentage": 0.5566662339348306,
+    "comparison": [
+      {
+        "risk_level": "Lower Risk",
+        "median_earnings": 40750.0,
+        "completion_rate": 0.577,
+        "repayment_rate": 0.611,
+        "pell_pct": 0.411
+      },
+      {
+        "risk_level": "Higher Risk",
+        "median_earnings": 26000.0,
+        "completion_rate": 0.333,
+        "repayment_rate": 0.298,
+        "pell_pct": 0.624
+      }
+    ]
+  }
+}

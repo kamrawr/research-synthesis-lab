@@ -14,6 +14,18 @@ const projects = [
         source: "Elicit synthesis"
     },
     
+    {
+        title: "College Underemployment & Long-Term Career Trajectories",
+        folder: "college-underemployment",
+        description: "Analysis of 7,703 U.S. institutions examining whether initial underemployment creates persistent 'scarring' effects or temporary mismatch. Evidence supports scarring hypothesis with 30x field variation and 55.7% high-risk institutions.",
+        date: "October 2025",
+        status: "active",
+        studiesReviewed: 7703,
+        dataPoints: 5693,
+        keywords: ["higher education", "underemployment", "earnings", "social mobility", "career trajectories"],
+        source: "College Scorecard institutional analysis"
+    }
+    
     // Add new projects below
     // {
     //     title: "Your Next Project",
