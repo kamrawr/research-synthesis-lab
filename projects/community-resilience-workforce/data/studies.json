@@ -1,0 +1,282 @@
+{
+  "question": "How can community-oriented residential service systems—supported by local workforce development, credentialing frameworks, and cooperative delivery models—be designed to strengthen economic and environmental resilience in underserved or post-industrial regions?",
+  "summary": {
+    "total_studies": 21,
+    "key_finding": "Strategic partnerships combining workforce development credentialing with residential energy, housing, and care services create documented economic and environmental resilience outcomes, including job creation, expanded local tax bases, energy efficiency improvements, and emissions reductions of up to 82% in underserved or post-industrial regions.",
+    "studies_screened": 499,
+    "papers_searched": 138000000
+  },
+  "stats": {
+    "implementation_models": {
+      "community_based": 4,
+      "nonprofit_led": 4,
+      "collective_impact": 3,
+      "university_community": 2,
+      "public_private": 2
+    },
+    "primary_focus": {
+      "workforce": 14,
+      "energy_retrofits": 8,
+      "housing": 3,
+      "economic_development": 2
+    },
+    "outcomes": {
+      "economic": 20,
+      "environmental": 10,
+      "both": 8
+    },
+    "job_creation_range": "200-23000 per project",
+    "emissions_reduction_max": "82%"
+  },
+  "studies": [
+    {
+      "id": "stagg_2021",
+      "title": "Harnessing Strategic Partnerships to Increase Equitable Access to Homeownership",
+      "authors": ["Mackenzie Stagg", "Rusty Smith", "Elizabeth Farrell Garcia"],
+      "year": 2021,
+      "context": "Rural, Jackson County, FL; disaster-affected",
+      "implementation_model": "Strategic partnership (nonprofit, college, university)",
+      "primary_focus": "High-performance housing, workforce development",
+      "economic_outcomes": "Job creation, expanded local tax base, cost savings, skilled workforce",
+      "environmental_outcomes": "Energy Star/Green Home standards, energy efficiency, resilience, health improvements",
+      "credentialing": "NCCER certification, hands-on learning through college programs",
+      "success_factors": ["Strategic partnership", "Skilled workforce", "Technical protocols"],
+      "barriers": ["Zoning", "Workforce shortages", "Pandemic"],
+      "equity_mechanisms": "Targeted outreach to disaster-affected residents",
+      "full_text": true
+    },
+    {
+      "id": "lane_2023",
+      "title": "Using Collective Impact to Assess Home and Community-Based Services Worker Training and Credentialing",
+      "authors": ["Sandi J Lane", "Zavera K. Basrai", "Caroline Yoon", "Trish Farnham", "Kezia Scales", "Erin Carson", "Nathan Boucher"],
+      "year": 2023,
+      "context": "North Carolina, statewide",
+      "implementation_model": "Collective Impact (CI) model",
+      "primary_focus": "Direct care workforce training/credentialing",
+      "economic_outcomes": "Projected 23,000 new jobs",
+      "environmental_outcomes": null,
+      "credentialing": "Collective Impact framework for direct care modernization",
+      "success_factors": ["Collective Impact framework", "Diverse partners"],
+      "barriers": ["Training complexity", "Funding gaps"],
+      "equity_mechanisms": "Statewide reach for care workforce",
+      "full_text": false
+    },
+    {
+      "id": "basrai_2024",
+      "title": "Preparing North Carolina's Home and Community-Based Services Workforce: Current Challenges and the Path Forward",
+      "authors": ["Zavera K. Basrai", "Caroline Yoon", "Kezia Scales", "Trish Farnham", "Erin Carson", "Nathan Boucher"],
+      "year": 2024,
+      "context": "North Carolina, statewide",
+      "implementation_model": "Medicaid-funded, Collective Impact model",
+      "primary_focus": "Direct care workforce modernization",
+      "economic_outcomes": "Job growth, skill mobility, career ladders",
+      "environmental_outcomes": null,
+      "credentialing": "Multi-level certification frameworks, online portals for worker mobility",
+      "success_factors": ["Collective Impact", "Listening sessions", "Online portal"],
+      "barriers": ["Credentialing inconsistency", "Funding"],
+      "equity_mechanisms": "Career ladder development for marginalized workers",
+      "full_text": false
+    },
+    {
+      "id": "moe_2024",
+      "title": "Clean Energy Workforce and Employment Gap Analysis in the Hill District of Pittsburgh, PA",
+      "authors": ["Allison Moe"],
+      "year": 2024,
+      "context": "Hill District, Pittsburgh, PA (urban)",
+      "implementation_model": "Community coalition, NREL technical assistance",
+      "primary_focus": "Energy retrofits, workforce gap analysis",
+      "economic_outcomes": "9 million jobs (US), 900,000 in buildings sector, 200+ job years (local), wage data analysis",
+      "environmental_outcomes": "Energy efficiency improvements, retrofit outcomes",
+      "credentialing": "Fair Chance cohort for individuals with criminal records",
+      "success_factors": ["NREL technical assistance", "Local partners", "Wrap-around services"],
+      "barriers": ["Training program gaps", "Contractor support"],
+      "equity_mechanisms": "Fair Chance program targeting individuals with criminal records",
+      "full_text": true
+    },
+    {
+      "id": "le_2012",
+      "title": "Green Jobs or Green Careers: The Role of Apprenticeships to Train a Workforce for Energy Efficiency Retrofits",
+      "authors": ["Uyen P. Le", "D. Villao", "Stefanie Ritoper"],
+      "year": 2012,
+      "context": "Urban, Portland/OR, WA",
+      "implementation_model": "Joint labor-management apprenticeships, Community Workforce Agreements",
+      "primary_focus": "Energy efficiency retrofits, workforce development",
+      "economic_outcomes": "Construction job creation, access for disadvantaged populations",
+      "environmental_outcomes": null,
+      "credentialing": "Joint labor-management apprenticeships as established career pathways",
+      "success_factors": ["Apprenticeships", "Community Workforce Agreements"],
+      "barriers": ["Connecting jobs to training"],
+      "equity_mechanisms": "Community Workforce Agreements ensuring access for disadvantaged groups",
+      "full_text": false
+    },
+    {
+      "id": "anderson_2022",
+      "title": "Looking Beyond Bill Savings to Equity in Renewable Energy Microgrid Deployment",
+      "authors": ["Kate Anderson", "Amanda Farthing", "Emma M Elgqvist", "A. Warren"],
+      "year": 2022,
+      "context": "US, case studies",
+      "implementation_model": "Microgrid deployment, Cost-Benefit Analysis (CBA)",
+      "primary_focus": "Energy justice, microgrids",
+      "economic_outcomes": "Net Present Value: -$626,000–$19 million, job creation, bill savings",
+      "environmental_outcomes": "52–82% emissions reduction, resilience improvements",
+      "credentialing": null,
+      "success_factors": ["Energy justice Cost-Benefit Analysis"],
+      "barriers": ["Capital costs"],
+      "equity_mechanisms": "Energy justice framework prioritizing disadvantaged communities",
+      "full_text": false
+    },
+    {
+      "id": "mattiuzzi_2023",
+      "title": "Recent Innovations in Reducing Home Energy Costs and Improving Resilience for Low- and Moderate-Income Renters and Homeowners",
+      "authors": ["Elizabeth Mattiuzzi", "Sarah Simms"],
+      "year": 2023,
+      "context": "Western US, regional",
+      "implementation_model": "Public-private partnerships",
+      "primary_focus": "Energy retrofits, workforce, lending",
+      "economic_outcomes": "Cost savings, workforce development",
+      "environmental_outcomes": "Energy cost reduction (implied)",
+      "credentialing": null,
+      "success_factors": ["Partnerships", "New funding mechanisms"],
+      "barriers": ["Economic barriers", "Coordination"],
+      "equity_mechanisms": "Focus on low- and moderate-income renters and homeowners",
+      "full_text": false
+    },
+    {
+      "id": "rambert_2021",
+      "title": "Public Policy Considerations for Building an Equitable Clean Energy Workforce",
+      "authors": ["Reine Lauren Rambert"],
+      "year": 2021,
+      "context": "US, policy analysis",
+      "implementation_model": "Nonprofit, federal policy",
+      "primary_focus": "Clean energy workforce, equity",
+      "economic_outcomes": "High-quality jobs, wage premium",
+      "environmental_outcomes": "Greenhouse gas reduction (policy goals)",
+      "credentialing": "Policy frameworks for workforce development",
+      "success_factors": ["Equity focus", "Justice40"],
+      "barriers": ["Policy gaps", "Enforcement"],
+      "equity_mechanisms": "Justice40 initiative directing benefits to disadvantaged communities",
+      "full_text": false
+    },
+    {
+      "id": "nielsen_2024",
+      "title": "Upskilling the Workforce for Green Transition",
+      "authors": ["Per Sieverts Nielsen", "Ramazan Sari", "X. Liu", "Xiaobing Zhang", "Daniel Møller Sneum"],
+      "year": 2024,
+      "context": "Denmark, Lyngby-Taarbæk",
+      "implementation_model": "Micro-credential program",
+      "primary_focus": "Green transition, upskilling",
+      "economic_outcomes": "Career pathways in green sector",
+      "environmental_outcomes": null,
+      "credentialing": "Micro-credential program with online modules for renewable energy",
+      "success_factors": ["Micro-credentials", "Massive Open Online Course"],
+      "barriers": ["Skills gap"],
+      "equity_mechanisms": "Accessible online learning pathways",
+      "full_text": false
+    },
+    {
+      "id": "proksch_2025",
+      "title": "Just Circular Communities Collaborative (JC3): Mapping Circular City Networks to Foster Just Transition and Implementation",
+      "authors": ["Gundula Proksch", "Christoph Strouse", "Catherine de Almeida"],
+      "year": 2025,
+      "context": "Seattle, urban, frontline communities",
+      "implementation_model": "Community-university, circular economy",
+      "primary_focus": "Circular economy, resilience",
+      "economic_outcomes": "Resource circulation, resilience",
+      "environmental_outcomes": "Circularity, ecosystem regeneration",
+      "credentialing": null,
+      "success_factors": ["Bottom-up approach", "Transdisciplinary"],
+      "barriers": ["Funding", "Scale"],
+      "equity_mechanisms": "Focus on frontline communities, community ownership",
+      "full_text": false
+    },
+    {
+      "id": "mastronardi_2020",
+      "title": "Bridging Regional Gaps: Community-Based Cooperatives as a Tool for Italian Inner Areas Resilience",
+      "authors": ["L. Mastronardi", "Maria Giagnacovo", "L. Romagnoli"],
+      "year": 2020,
+      "context": "Italian inner areas, rural",
+      "implementation_model": "Community-based cooperatives",
+      "primary_focus": "Land care, job creation",
+      "economic_outcomes": "Job creation, social capital",
+      "environmental_outcomes": null,
+      "credentialing": null,
+      "success_factors": ["Statistical analysis", "Cooperatives"],
+      "barriers": null,
+      "equity_mechanisms": "Cooperative ownership in marginalized rural areas",
+      "full_text": false
+    },
+    {
+      "id": "li_2025",
+      "title": "Empowering Disadvantaged Communities Through University-Community Partnerships: Solar + Storage Design in Engineering Capstone Projects",
+      "authors": ["Bosong Li", "Daniel T. Schwartz", "Maria Batayola"],
+      "year": 2025,
+      "context": "Washington State, disadvantaged communities",
+      "implementation_model": "University-community partnership",
+      "primary_focus": "Solar plus storage, technical assistance",
+      "economic_outcomes": "Grant award, cost savings",
+      "environmental_outcomes": "Energy improvements, carbon reduction, resilience",
+      "credentialing": null,
+      "success_factors": ["University-community partnership", "Technical assistance"],
+      "barriers": ["Technical resource gaps"],
+      "equity_mechanisms": "Focus on disadvantaged communities",
+      "full_text": false
+    },
+    {
+      "id": "isaacson_2014",
+      "title": "Urban Flooding and Energy Efficiency: Leveraging Community Action",
+      "authors": ["M. Isaacson", "J. Miller", "J. Wiese", "Ryan D. Wilson"],
+      "year": 2014,
+      "context": "Cook County, IL, urban",
+      "implementation_model": "Nonprofit partnership",
+      "primary_focus": "Flood mitigation, energy efficiency",
+      "economic_outcomes": "Cost savings, property value increase",
+      "environmental_outcomes": "Energy improvements, climate adaptation, health",
+      "credentialing": null,
+      "success_factors": ["Nonprofit partnership", "Cross-training"],
+      "barriers": ["Technical complexity"],
+      "equity_mechanisms": "Bundled services addressing multiple community needs",
+      "full_text": false
+    }
+  ],
+  "key_themes": [
+    {
+      "theme": "Community-Based Workforce Development",
+      "description": "Most studies describe workforce development embedded within residential service delivery, using partnerships between nonprofits, community colleges, and universities",
+      "examples": ["Hands-on construction training for disaster-affected residents", "Coalition aligning retrofits with local workforce programs", "Joint labor-management apprenticeships"]
+    },
+    {
+      "theme": "Credentialing and Skills Integration",
+      "description": "Credentialing frameworks including NCCER certification, unified care worker credentials, apprenticeships, and micro-credentials",
+      "challenges": ["Fragmented requirements", "Limited portability", "Insufficient funding", "Need for inclusive pathways"]
+    },
+    {
+      "theme": "Economic Resilience",
+      "description": "Job creation ranging from 200+ local jobs to 23,000 statewide projections, plus wage gains, tax base expansion, and cost savings",
+      "metrics": ["Job creation", "Wage data", "Tax base", "Cost savings", "Skill mobility"]
+    },
+    {
+      "theme": "Environmental Resilience",
+      "description": "Energy efficiency improvements, retrofit outcomes, and emissions reductions of 52-82% documented in multiple studies",
+      "metrics": ["Energy efficiency", "Emissions reduction", "Resilience", "Adaptation", "Health improvements"]
+    },
+    {
+      "theme": "Equity and Inclusion",
+      "description": "Targeted initiatives including Justice40, Fair Chance programs for individuals with criminal records, community ownership models, and targeted outreach",
+      "approaches": ["Federal policy frameworks", "Workforce agreements", "Community-led models", "Accessible pathways"]
+    }
+  ],
+  "design_elements": [
+    {
+      "element": "Embed Credentialing in Service Delivery",
+      "description": "Integrate apprenticeships, certifications, and micro-credentials directly into residential energy, housing, and care services to boost skill mobility and workforce engagement"
+    },
+    {
+      "element": "Form Community Partnerships",
+      "description": "Leverage public-private collaborations, nonprofit-led models, and Collective Impact frameworks to coordinate funding, technical assistance, and regulatory support"
+    },
+    {
+      "element": "Implement Inclusive Pathways",
+      "description": "Create programs for marginalized groups including individuals with criminal records, low-income populations, and underserved communities to extend sustainable job opportunities"
+    }
+  ]
+}

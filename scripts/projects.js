@@ -48,6 +48,18 @@ const projects = [
         dataPoints: 500,
         keywords: ["energy equity", "energy burden", "community-based organizations", "weatherization", "environmental justice"],
         source: "Semantic Scholar synthesis (126M papers)"
+    },
+    
+    {
+        title: "Building Resilience through Community-Centric Work",
+        folder: "community-resilience-workforce",
+        description: "Analysis of 21 empirical studies examining how workforce development and credentialing frameworks strengthen economic and environmental resilience in underserved regions. Documents 82% emissions reductions and 23,000 projected jobs through strategic partnerships.",
+        date: "October 2024",
+        status: "active",
+        studiesReviewed: 21,
+        dataPoints: 499,
+        keywords: ["workforce development", "credentialing", "community resilience", "energy efficiency", "cooperative models", "economic development"],
+        source: "Elicit synthesis (138M papers)"
     }
     
     // Add new projects below
