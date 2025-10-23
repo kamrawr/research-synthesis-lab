@@ -36,7 +36,7 @@ Natural experiment comparing 2020-2022 graduates to pre-pandemic cohorts. Docume
 ### Intersectionality & Loan Default Risk
 Multilevel analysis showing 73.9% default risk for MSI + High-Pell + For-profit students (2.2x baseline), with 79% gap reduction at elite institutions.
 
-**[View All 9 Projects →](https://kamrawr.github.io/research-synthesis-lab/)**
+**[View All 11 Projects →](https://kamrawr.github.io/research-synthesis-lab/)**
 
 ---
 
@@ -50,11 +50,18 @@ This is a structured workspace for organizing research syntheses with interactiv
 
 ## 🛠️ For Developers
 
-To add new projects:
+### Adding New Projects
 1. Create folder in `projects/your-project-name/`
 2. Add `index.html`, `summary.md`, and `data/findings.json`
-3. Register in `scripts/projects.js`
+3. Register in `scripts/projects.js` with:
+   - Required fields: `title`, `folder`, `description`, `author`, `date`, `status`, `type`, `categories`
+   - `type`: Either `"literature-review"` or `"analysis"`
+   - `categories`: Array of relevant research areas
 4. Push to GitHub
+
+### Project Types
+- **📚 Literature Review** - Systematic reviews and syntheses of existing research
+- **📊 Analysis** - Quantitative analyses of datasets (College Scorecard, O*NET, etc.)
 
 See existing projects for templates and structure.
 
