@@ -141,7 +141,11 @@ function populateFieldDataTable() {
     tbody.innerHTML = '';
     
     fieldRiskData.forEach(field => {
-        const proposedRate = calculateRate(field.defaultRisk, 'state', 'medium', false).finalRate;
+        // Calculate pure risk-based rate (current base + risk premium, no subsidy/institution adjustment)
+        const fairPremium = (field.defaultRisk * pricingParams.lgd * 100) / pricingParams.duration;
+        const cappedPremium = fairPremium * pricingParams.riskCapMultiplier;
+        const pureRiskRate = currentRates.undergraduate + cappedPremium;
+        
         const row = document.createElement('tr');
         
         const isHigh = field.defaultRisk > 0.07;
@@ -153,7 +157,7 @@ function populateFieldDataTable() {
             <td>${(field.underemployment * 100).toFixed(1)}%</td>
             <td>${field.institutions}</td>
             <td class="${isHigh ? 'highlight-high' : isLow ? 'highlight-low' : ''}">${(field.defaultRisk * 100).toFixed(1)}%</td>
-            <td>${proposedRate.toFixed(2)}%</td>
+            <td>${pureRiskRate.toFixed(2)}%</td>
         `;
         
         tbody.appendChild(row);
