@@ -333,12 +333,19 @@ function renderRatesBarChart() {
         .append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
     
-    // Calculate proposed rates for each field
-    const rateData = fieldRiskData.map(field => ({
-        field: field.field,
-        currentRate: currentRates.undergraduate,
-        proposedRate: calculateRate(field.defaultRisk, 'state', 'medium', false).finalRate
-    })).sort((a, b) => b.proposedRate - a.proposedRate);
+    // Calculate pure risk-based rates for visualization (using current 5.50% base)
+    const rateData = fieldRiskData.map(field => {
+        // For visualization: Current base rate + risk premium (no subsidy, no institution multiplier)
+        const fairPremium = (field.defaultRisk * pricingParams.lgd * 100) / pricingParams.duration;
+        const cappedPremium = fairPremium * pricingParams.riskCapMultiplier;
+        const pureRiskRate = currentRates.undergraduate + cappedPremium;
+        
+        return {
+            field: field.field,
+            currentRate: currentRates.undergraduate,
+            proposedRate: pureRiskRate
+        };
+    }).sort((a, b) => b.proposedRate - a.proposedRate);
     
     // Scales
     const x = d3.scaleBand()
@@ -347,7 +354,7 @@ function renderRatesBarChart() {
         .padding(0.2);
     
     const y = d3.scaleLinear()
-        .domain([0, 7])
+        .domain([5.3, 5.9])
         .range([height, 0]);
     
     // Axes
