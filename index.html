@@ -27,6 +27,13 @@
         <section class="projects">
             <h2>Research Projects</h2>
             
+            <!-- Type Filter -->
+            <div class="type-filter">
+                <button class="type-btn active" data-type="all">All Projects</button>
+                <button class="type-btn" data-type="literature-review">📚 Literature Reviews</button>
+                <button class="type-btn" data-type="analysis">📊 Analyses</button>
+            </div>
+            
             <!-- Category Filter -->
             <div class="category-filter">
                 <button class="filter-btn active" data-category="all">All Projects</button>
@@ -64,9 +71,12 @@
     
     <script src="scripts/projects.js"></script>
     <script>
-        // Render project cards (updated 2025-10-23 with categories)
+        // Render project cards (updated 2025-10-23 with type tags and categories)
         console.log('Loading projects:', projects.length);
         const grid = document.getElementById('projectGrid');
+        
+        let currentTypeFilter = 'all';
+        let currentCategoryFilter = 'all';
         
         function renderProjects(filteredProjects = projects) {
             grid.innerHTML = '';
@@ -75,14 +85,16 @@
                 card.href = `projects/${project.folder}/`;
                 card.className = 'project-card';
                 card.dataset.categories = project.categories.join(',');
+                card.dataset.type = project.type;
                 
+                const typeLabel = project.type === 'literature-review' ? '📚 Literature Review' : '📊 Analysis';
                 const categoryTags = project.categories
                     .map(cat => `<span class="category-tag" data-category="${cat}">${cat}</span>`)
                     .join('');
                 
                 card.innerHTML = `
                     <div class="project-meta">
-                        <span class="project-status ${project.status}">${project.status}</span>
+                        <span class="project-type ${project.type}">${typeLabel}</span>
                         <span class="project-date">${project.date}</span>
                     </div>
                     <div class="project-categories">${categoryTags}</div>
@@ -105,20 +117,40 @@
         // Initial render
         renderProjects();
         
+        // Combined filtering function
+        function applyFilters() {
+            let filtered = projects;
+            
+            // Apply type filter
+            if (currentTypeFilter !== 'all') {
+                filtered = filtered.filter(p => p.type === currentTypeFilter);
+            }
+            
+            // Apply category filter
+            if (currentCategoryFilter !== 'all') {
+                filtered = filtered.filter(p => p.categories.includes(currentCategoryFilter));
+            }
+            
+            renderProjects(filtered);
+        }
+        
+        // Type filtering
+        document.querySelectorAll('.type-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentTypeFilter = btn.dataset.type;
+                applyFilters();
+            });
+        });
+        
         // Category filtering
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                // Update active button
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
-                const category = btn.dataset.category;
-                if (category === 'all') {
-                    renderProjects();
-                } else {
-                    const filtered = projects.filter(p => p.categories.includes(category));
-                    renderProjects(filtered);
-                }
+                currentCategoryFilter = btn.dataset.category;
+                applyFilters();
             });
         });
     </script>

@@ -134,6 +134,26 @@ section h2 {
     color: var(--gray-600);
 }
 
+/* Project Type Badge */
+.project-type {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.project-type.literature-review {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+.project-type.analysis {
+    background: #fef3c7;
+    color: #b45309;
+}
+
 .project-date {
     font-size: 0.85em;
     color: var(--gray-600);
@@ -186,6 +206,53 @@ section h2 {
     color: var(--primary);
     font-weight: 600;
     font-size: 0.95em;
+}
+
+/* Type Filter */
+.type-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.type-btn {
+    padding: 12px 24px;
+    background: var(--gray-100);
+    border: 2px solid transparent;
+    border-radius: 24px;
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.type-btn:hover {
+    background: var(--gray-200);
+    transform: translateY(-2px);
+}
+
+.type-btn.active[data-type="all"] {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary-dark);
+}
+
+.type-btn.active[data-type="literature-review"] {
+    background: #4338ca;
+    color: white;
+    border-color: #3730a3;
+}
+
+.type-btn.active[data-type="analysis"] {
+    background: #d97706;
+    color: white;
+    border-color: #b45309;
 }
 
 /* Category Filter */
