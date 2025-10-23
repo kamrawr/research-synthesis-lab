@@ -25,20 +25,33 @@ research-synthesis-lab/
 │   └── projects.js        # Project registry
 └── projects/               # Each research project
     ├── collaboration-nonprofits/
-    │   ├── explore.html    # Interactive viewer
-    │   ├── summary.md      # Full report
-    │   ├── data/           # Extracted findings (JSON)
-    │   └── docs/           # Additional documentation
+    │   ├── index.html      # Interactive viewer
+    │   ├── summary.md      # Full markdown report
+    │   ├── data/
+    │   │   └── findings.json
+    │   └── visuals/
     ├── college-underemployment/
-    │   ├── explore.html    # Interactive D3.js visualizations
+    │   ├── index.html      # Interactive D3.js explorer (8 tabs)
     │   ├── summary.md      # 554-line comprehensive report
-    │   ├── data/           # 7,703 institutions analyzed
-    │   ├── docs/           # Project README and methodology
-    │   └── visualizations/ # Future: static charts
+    │   ├── data/
+    │   │   └── findings.json  # 7,703 institutions
+    │   ├── docs/
+    │   │   └── README.md   # Project documentation
+    │   └── visualizations/
     ├── energy-equity/
-    │   └── [project files]
+    │   ├── index.html
+    │   ├── data/
+    │   │   └── studies.json
+    │   ├── docs/
+    │   │   └── executive-summary.md
+    │   └── visualizations/
     └── gig-economy-credentialing/
-        └── [project files]
+        ├── index.html
+        ├── data/
+        │   └── studies.json
+        ├── docs/
+        │   └── executive-summary.md
+        └── visualizations/
 ```
 
 ## 🔬 Current Projects
@@ -57,7 +70,7 @@ Analysis of 7,703 U.S. higher education institutions examining whether initial u
 
 **Evidence:** Strong support for scarring hypothesis—initial underemployment creates lasting disadvantages through skill atrophy, credential devaluation, employer signaling, and debt accumulation.
 
-**[Explore Interactive →](projects/college-underemployment/explore.html)** | **[Read Full Report →](projects/college-underemployment/summary.md)**
+**[Explore Interactive →](projects/college-underemployment/index.html)** | **[Read Full Report →](projects/college-underemployment/summary.md)**
 
 ---
 
@@ -71,27 +84,32 @@ Quantitative synthesis of 40 empirical studies examining how inter-organizationa
 - Mixed but generally positive community outcomes
 - Success heavily dependent on trust, autonomy, and voluntary participation
 
-**[Explore Interactive →](projects/collaboration-nonprofits/explore.html)**
+**[Explore Interactive →](projects/collaboration-nonprofits/index.html)**
 
 ---
 
-## ➕ Adding New Projects
+## ➞ Adding New Projects
 
 1. **Create project folder:**
    ```bash
-   mkdir -p projects/your-project-name/{data,visuals}
+   mkdir -p projects/your-project-name/{data,docs,visualizations}
    ```
 
 2. **Add required files:**
-   - `explore.html` - Interactive viewer (copy from existing project)
-   - `summary.md` - Full literature review
+   - `index.html` - Interactive viewer (copy template from existing project)
+   - `summary.md` - Full literature review/report
    - `data/findings.json` - Structured extracted data
+   - `docs/` - Additional documentation (optional)
 
 3. **Update project registry:**
    Add your project to `scripts/projects.js`
 
-4. **Upload your PDF:**
-   Place in `projects/your-project-name/` for reference
+4. **Push to GitHub:**
+   ```bash
+   git add projects/your-project-name/
+   git commit -m "Add [project-name] research synthesis"
+   git push origin main
+   ```
 
 ## 🛠️ Tech Stack
 

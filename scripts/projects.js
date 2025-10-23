@@ -51,6 +51,18 @@ const projects = [
     },
     
     {
+        title: "Intersectionality & Loan Default Risk: Compound Disadvantage",
+        folder: "intersectionality-default-risk",
+        description: "Multilevel analysis of how race, gender, and SES intersect to create compound disadvantage. Finds 73.9% default risk for MSI + High-Pell + For-profit institutions (2.2x baseline), with 79% gap reduction at elite institutions demonstrating leveling effects.",
+        date: "October 2025",
+        status: "active",
+        studiesReviewed: 7703,
+        dataPoints: 7703,
+        keywords: ["intersectionality", "student loans", "default risk", "racial equity", "minority-serving institutions", "compound disadvantage"],
+        source: "College Scorecard with intersectional interaction analysis"
+    }
+    
+    // Add new projects below
         title: "Building Resilience through Community-Centric Work",
         folder: "community-resilience-workforce",
         description: "Analysis of 21 empirical studies examining how workforce development and credentialing frameworks strengthen economic and environmental resilience in underserved regions. Documents 82% emissions reductions and 23,000 projected jobs through strategic partnerships.",

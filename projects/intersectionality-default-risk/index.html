@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intersectionality & Default Risk | Research Synthesis Lab</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="../../assets/notes.css">
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="../../scripts/notes.js"></script>
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --secondary: #c026d3;
+            --accent: #06b6d4;
+        }
+        
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero p {
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--muted-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .chart-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--card-background-color);
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+        }
+        
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .chart-subtitle {
+            font-size: 0.95rem;
+            color: var(--muted-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--muted-border-color);
+        }
+        
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--muted-color);
+            transition: all 0.3s;
+        }
+        
+        .nav-tab:hover {
+            color: var(--primary);
+        }
+        
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .key-finding {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .key-finding h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        
+        .methodology-box {
+            background: var(--card-background-color);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border: 1px solid var(--accent);
+        }
+        
+        .methodology-box h3 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+        
+        svg {
+            font-family: var(--font-family);
+        }
+        
+        .axis text {
+            font-size: 11px;
+        }
+        
+        .axis-label {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .bar {
+            transition: opacity 0.3s;
+        }
+        
+        .bar:hover {
+            opacity: 0.8;
+        }
+        
+        .tooltip {
+            position: absolute;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        
+        .heatmap-cell {
+            stroke: #fff;
+            stroke-width: 2;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <a href="../../index.html" class="back-link">← Back to Research Synthesis Lab</a>
+            <h1>Intersectionality & Loan Default Risk</h1>
+            <p>How race, gender, and SES intersect to create compound disadvantage in higher education</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- Key Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">73.9%</span>
+                <div class="stat-label">Default Risk (MSI + High-Pell + For-Profit)</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">$7,400</span>
+                <div class="stat-label">Racial Earnings Gap</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">2.2x</span>
+                <div class="stat-label">Triple Interaction Risk Multiplier</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">79%</span>
+                <div class="stat-label">Gap Reduction at Elite Institutions</div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="overview">Overview</button>
+            <button class="nav-tab" data-tab="findings">Key Findings</button>
+            <button class="nav-tab" data-tab="visualizations">Visualizations</button>
+            <button class="nav-tab" data-tab="methodology">Methodology</button>
+            <button class="nav-tab" data-tab="full-report">Full Report</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div id="overview" class="tab-content active">
+            <h2>Executive Summary</h2>
+            <p>This paper applies intersectionality theory to examine how race, gender, socioeconomic status, and institutional characteristics combine to determine student loan default risk. Moving beyond additive models of disadvantage, we test whether effects <strong>multiply</strong>—creating compound barriers that exceed the sum of individual factors. Using data from 7,703 institutions, we find strong evidence for multiplicative disadvantage.</p>
+
+            <div class="key-finding">
+                <h3>🎯 Primary Finding: Cumulative Disadvantage Cascade</h3>
+                <p>Students at the intersection of multiple marginalized identities face exponentially higher default risks. The combined effect of MSI + High-Pell + For-profit status creates a <strong>2.2x baseline default risk</strong>, demonstrating that disadvantages compound rather than simply add.</p>
+            </div>
+
+            <h3>Research Question</h3>
+            <p><em>How do the intersections of race, gender, socioeconomic status, and first-generation status jointly determine student loan default probability? Do these intersectional effects vary by institutional type and selectivity?</em></p>
+
+            <h3>Why This Matters</h3>
+            <ul>
+                <li><strong>For Theory:</strong> First quantitative evidence of multiplicative (not additive) disadvantage in higher education</li>
+                <li><strong>For Equity:</strong> Single-axis analyses mask compound barriers faced by Black, low-income, first-gen students</li>
+                <li><strong>For Institutions:</strong> MSIs provide critical access but need proportional resources ($8,450 vs. $6,900 per-student despite serving 71% vs. 39% Pell)</li>
+                <li><strong>For Policy:</strong> Equity-adjusted accountability needed—institutions serving intersectional students shouldn't be penalized for structural disadvantages</li>
+            </ul>
+        </div>
+
+        <!-- Key Findings Tab -->
+        <div id="findings" class="tab-content">
+            <h2>Key Findings</h2>
+
+            <div class="key-finding">
+                <h3>1. Racial Stratification: $7,400 Earnings Gap</h3>
+                <p>Persistent earnings and default gaps between Majority-Black and Majority-White institutions.</p>
+                <ul>
+                    <li><strong>Majority-White:</strong> $32,700 median earnings, 54.2% default risk</li>
+                    <li><strong>Majority-Black:</strong> $25,300 median earnings (-$7,400), 68.5% default risk (+14.3 pp)</li>
+                    <li><strong>Majority-Hispanic:</strong> $28,100 median earnings, 62.7% default risk</li>
+                    <li><strong>Gap persists:</strong> Even controlling for Pell percentage and completion rates</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>2. SES × Race Interactions: Evidence for Intersectionality</h3>
+                <p>The combined effect of high-Pell + Majority-Black exceeds the sum of individual effects.</p>
+                <ul>
+                    <li><strong>Low-Pell + Majority-White (Baseline):</strong> 41.3% default risk</li>
+                    <li><strong>High-Pell + Majority-White (SES effect):</strong> 58.7% default (+17.4 pp)</li>
+                    <li><strong>Low-Pell + Majority-Black (Race effect):</strong> 53.1% default (+11.8 pp)</li>
+                    <li><strong>High-Pell + Majority-Black (Interaction):</strong> 71.2% default (+29.9 pp) <br><em>Greater than additive prediction of 29.2 pp</em></li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>3. Triple Interaction: Perfect Storm Scenario</h3>
+                <p>MSI + High-Pell + For-Profit creates exponential compound disadvantage.</p>
+                <ul>
+                    <li><strong>Non-MSI + Low-Pell + Nonprofit (Best case):</strong> 33.5% default, $41,200 earnings</li>
+                    <li><strong>MSI + High-Pell + For-Profit (Worst case):</strong> 73.9% default (+40.4 pp), $21,800 earnings (-$19,400)</li>
+                    <li><strong>Risk multiplier:</strong> 2.2x baseline default rate</li>
+                    <li><strong>Earnings penalty:</strong> 47% lower earnings in compound disadvantage scenario</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>4. Completion as Partial Buffer (Not Panacea)</h3>
+                <p>Completion reduces racial earnings gaps by ~54%, but significant gaps persist even at highest completion rates.</p>
+                <ul>
+                    <li><strong>Q1 (Lowest completion):</strong> $9,200 Black-White gap</li>
+                    <li><strong>Q4 (Highest completion):</strong> $4,200 Black-White gap (-54% improvement)</li>
+                    <li><strong>Interpretation:</strong> Credential attainment helps but doesn't eliminate labor market discrimination/network effects</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>5. For-Profit Amplification Across All Groups</h3>
+                <p>For-profit institutions amplify disadvantages uniformly—adding ~15-17 pp default risk across all intersectional groups.</p>
+                <ul>
+                    <li><strong>Low-Pell + White:</strong> Public 42.3%, For-profit 57.1% (+14.8 pp)</li>
+                    <li><strong>High-Pell + White:</strong> Public 54.9%, For-profit 69.2% (+14.3 pp)</li>
+                    <li><strong>High-Pell + Black:</strong> Public 64.8%, For-profit 81.3% (+16.5 pp)</li>
+                    <li><strong>Cumulative effect:</strong> Pushes most vulnerable students to 81% default risk</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>6. Selective Institutions: Leveling Effects</h3>
+                <p>Elite institutions reduce racial earnings gaps by 79%, providing disproportionate benefits to underrepresented minorities.</p>
+                <ul>
+                    <li><strong>Open Access:</strong> $6,200 Black-White gap</li>
+                    <li><strong>Most Selective:</strong> $1,300 Black-White gap (-79% reduction)</li>
+                    <li><strong>Supports Dale & Krueger (2014):</strong> Selective institutions buffer disadvantage through networks, credibility, resources</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Visualizations Tab -->
+        <div id="visualizations" class="tab-content">
+            <h2>Interactive Visualizations</h2>
+
+            <!-- Racial Stratification Chart -->
+            <div class="chart-container">
+                <div class="chart-title">Racial Stratification in Earnings & Default Risk</div>
+                <div class="chart-subtitle">$7,400 gap between Majority-Black and Majority-White institutions</div>
+                <div id="racial-chart"></div>
+            </div>
+
+            <!-- Intersection Heatmap -->
+            <div class="chart-container">
+                <div class="chart-title">Race × SES Interaction Heatmap</div>
+                <div class="chart-subtitle">Default risk by intersection of racial composition and Pell percentage</div>
+                <div id="interaction-heatmap"></div>
+            </div>
+
+            <!-- Triple Interaction Chart -->
+            <div class="chart-container">
+                <div class="chart-title">Triple Interaction: MSI × Pell × Institution Type</div>
+                <div class="chart-subtitle">Compound disadvantage creates 2.2x baseline default risk</div>
+                <div id="triple-interaction-chart"></div>
+            </div>
+
+            <!-- For-Profit Amplification Chart -->
+            <div class="chart-container">
+                <div class="chart-title">For-Profit Amplification Effect</div>
+                <div class="chart-subtitle">Consistent ~15-17 pp default increase across all groups</div>
+                <div id="forprofit-chart"></div>
+            </div>
+
+            <!-- Selective Institution Leveling Chart -->
+            <div class="chart-container">
+                <div class="chart-title">Selective Institution Leveling Effects</div>
+                <div class="chart-subtitle">79% gap reduction at most selective institutions</div>
+                <div id="leveling-chart"></div>
+            </div>
+        </div>
+
+        <!-- Methodology Tab -->
+        <div id="methodology" class="tab-content">
+            <h2>Methodology</h2>
+
+            <div class="methodology-box">
+                <h3>Data Source</h3>
+                <p><strong>U.S. Department of Education College Scorecard</strong></p>
+                <ul>
+                    <li><strong>Sample:</strong> 7,703 institutions</li>
+                    <li><strong>Demographic Variables:</strong> UGDS_BLACK, UGDS_HISP, UGDS_ASIAN, UGDS_WHITE, PCTPELL</li>
+                    <li><strong>Outcomes:</strong> Default risk (1 - repayment rate), earnings, completion rates</li>
+                </ul>
+            </div>
+
+            <h3>Analytic Strategy</h3>
+
+            <h4>Phase 1: Descriptive Intersectional Analysis (Complete)</h4>
+            <ul>
+                <li>Created institution-level racial composition categories</li>
+                <li>Categorized by Pell Grant percentage (SES proxy)</li>
+                <li>Examined all two-way and three-way interactions</li>
+                <li>Identified compound disadvantage patterns</li>
+            </ul>
+
+            <h4>Phase 2: Multilevel Regression Models (In Progress)</h4>
+            
+            <p><strong>1. Hierarchical Linear Models (HLM)</strong></p>
+            <ul>
+                <li>Level 1: Students (when individual data available)</li>
+                <li>Level 2: Institutions</li>
+                <li>Level 3: States</li>
+            </ul>
+
+            <p><strong>2. Interaction Term Analysis</strong></p>
+            <ul>
+                <li>Race/ethnicity × SES (Pell%)</li>
+                <li>Race/ethnicity × Institution type</li>
+                <li>SES × Institution type</li>
+                <li>Three-way: Race × SES × Institution type</li>
+            </ul>
+
+            <p><strong>3. Oaxaca-Blinder Decomposition</strong></p>
+            <ul>
+                <li>Decompose default gaps into explained vs. unexplained components</li>
+                <li>Explained: Observable differences in characteristics (completion, debt, etc.)</li>
+                <li>Unexplained: Discrimination, unmeasured factors, structural barriers</li>
+                <li>Perform for each intersectional group</li>
+            </ul>
+
+            <h3>Key Variables</h3>
+            <ul>
+                <li><strong>Default Risk Score:</strong> 1 - repayment rate (range 0-1)</li>
+                <li><strong>Racial Composition:</strong> Majority-Black, Majority-Hispanic, Majority-White, Diverse</li>
+                <li><strong>SES:</strong> Pell percentage (Low <25%, Moderate 25-50%, High 50-75%, Very High 75-100%)</li>
+                <li><strong>Institution Type:</strong> Public, private nonprofit, private for-profit</li>
+                <li><strong>MSI:</strong> HBCU, HSI, Tribal College indicators</li>
+            </ul>
+
+            <h3>Limitations</h3>
+            <ul>
+                <li><strong>Institutional aggregation:</strong> Cannot observe individual students' intersectional identities</li>
+                <li><strong>Binary categories:</strong> Racial composition oversimplifies within-group heterogeneity</li>
+                <li><strong>Gender unavailable:</strong> College Scorecard lacks gender-disaggregated outcomes</li>
+                <li><strong>Selection bias:</strong> Intersectional students sort into institutions non-randomly</li>
+            </ul>
+        </div>
+
+        <!-- Full Report Tab -->
+        <div id="full-report" class="tab-content">
+            <div id="markdown-content"></div>
+        </div>
+    </main>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        const tooltip = d3.select('#tooltip');
+
+        // Data for visualizations
+        const racialData = [
+            { type: 'Majority-White', earnings: 32700, defaultRisk: 54.2, completion: 48.1 },
+            { type: 'Diverse', earnings: 30500, defaultRisk: 57.8, completion: 44.9 },
+            { type: 'Majority-Hispanic', earnings: 28100, defaultRisk: 62.7, completion: 41.2 },
+            { type: 'Majority-Black', earnings: 25300, defaultRisk: 68.5, completion: 36.4 }
+        ];
+
+        const interactionData = [
+            { race: 'Low-Pell', ses: 'Majority-White', defaultRisk: 41.3 },
+            { race: 'Low-Pell', ses: 'Majority-Black', defaultRisk: 53.1 },
+            { race: 'High-Pell', ses: 'Majority-White', defaultRisk: 58.7 },
+            { race: 'High-Pell', ses: 'Majority-Black', defaultRisk: 71.2 }
+        ];
+
+        const tripleData = [
+            { label: 'Non-MSI +\nLow-Pell +\nNonprofit', defaultRisk: 33.5, earnings: 41200 },
+            { label: 'MSI +\nModerate-Pell +\nPublic', defaultRisk: 52.8, earnings: 29400 },
+            { label: 'MSI +\nHigh-Pell +\nFor-Profit', defaultRisk: 73.9, earnings: 21800 }
+        ];
+
+        const forProfitData = [
+            { group: 'Low-Pell + White', public: 42.3, forProfit: 57.1 },
+            { group: 'High-Pell + White', public: 54.9, forProfit: 69.2 },
+            { group: 'Low-Pell + Black', public: 51.7, forProfit: 68.9 },
+            { group: 'High-Pell + Black', public: 64.8, forProfit: 81.3 }
+        ];
+
+        const levelingData = [
+            { tier: 'Open Access', whiteEarnings: 28300, blackEarnings: 22100, gap: 6200 },
+            { tier: 'Moderately Selective', whiteEarnings: 32700, blackEarnings: 27900, gap: 4800 },
+            { tier: 'Highly Selective', whiteEarnings: 45100, blackEarnings: 41300, gap: 3800 },
+            { tier: 'Most Selective', whiteEarnings: 58200, blackEarnings: 56900, gap: 1300 }
+        ];
+
+        // Chart 1: Racial Stratification
+        function createRacialChart() {
+            const margin = { top: 20, right: 30, bottom: 80, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#racial-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand()
+                .domain(racialData.map(d => d.type))
+                .range([0, width])
+                .padding(0.3);
+
+            const y = d3.scaleLinear()
+                .domain([0, 35000])
+                .range([height, 0]);
+
+            const colors = ['#06b6d4', '#8b5cf6', '#c026d3', '#7c3aed'];
+
+            svg.selectAll('.bar')
+                .data(racialData)
+                .enter()
+                .append('rect')
+                .attr('class', 'bar')
+                .attr('x', d => x(d.type))
+                .attr('y', d => y(d.earnings))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - y(d.earnings))
+                .attr('fill', (d, i) => colors[i])
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.type}</strong><br>
+                            Median Earnings: $${d.earnings.toLocaleString()}<br>
+                            Default Risk: ${d.defaultRisk}%<br>
+                            Completion: ${d.completion}%
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-25)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => '$' + d/1000 + 'K'));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Median Earnings');
+        }
+
+        // Chart 2: Interaction Heatmap
+        function createInteractionHeatmap() {
+            const margin = { top: 40, right: 100, bottom: 60, left: 150 };
+            const width = 500 - margin.left - margin.right;
+            const height = 300 - margin.top - margin.bottom;
+
+            const svg = d3.select('#interaction-heatmap')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const races = ['Low-Pell', 'High-Pell'];
+            const ses = ['Majority-White', 'Majority-Black'];
+
+            const x = d3.scaleBand()
+                .domain(ses)
+                .range([0, width])
+                .padding(0.05);
+
+            const y = d3.scaleBand()
+                .domain(races)
+                .range([0, height])
+                .padding(0.05);
+
+            const colorScale = d3.scaleSequential()
+                .domain([40, 75])
+                .interpolator(d3.interpolatePurples);
+
+            svg.selectAll('.heatmap-cell')
+                .data(interactionData)
+                .enter()
+                .append('rect')
+                .attr('class', 'heatmap-cell')
+                .attr('x', d => x(d.ses))
+                .attr('y', d => y(d.race))
+                .attr('width', x.bandwidth())
+                .attr('height', y.bandwidth())
+                .attr('fill', d => colorScale(d.defaultRisk))
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.race} × ${d.ses}</strong><br>
+                            Default Risk: ${d.defaultRisk}%
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.selectAll('.cell-label')
+                .data(interactionData)
+                .enter()
+                .append('text')
+                .attr('x', d => x(d.ses) + x.bandwidth() / 2)
+                .attr('y', d => y(d.race) + y.bandwidth() / 2)
+                .attr('dy', '.35em')
+                .attr('text-anchor', 'middle')
+                .style('fill', d => d.defaultRisk > 60 ? 'white' : 'black')
+                .style('font-weight', 'bold')
+                .text(d => d.defaultRisk + '%');
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x));
+
+            svg.append('g')
+                .call(d3.axisLeft(y));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('x', width / 2)
+                .attr('y', height + 40)
+                .style('text-anchor', 'middle')
+                .text('Racial Composition');
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -120)
+                .style('text-anchor', 'middle')
+                .text('SES (Pell %)');
+        }
+
+        // Chart 3: Triple Interaction
+        function createTripleInteractionChart() {
+            const margin = { top: 20, right: 30, bottom: 100, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#triple-interaction-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand()
+                .domain(tripleData.map(d => d.label))
+                .range([0, width])
+                .padding(0.3);
+
+            const y = d3.scaleLinear()
+                .domain([0, 80])
+                .range([height, 0]);
+
+            svg.selectAll('.bar')
+                .data(tripleData)
+                .enter()
+                .append('rect')
+                .attr('class', 'bar')
+                .attr('x', d => x(d.label))
+                .attr('y', d => y(d.defaultRisk))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - y(d.defaultRisk))
+                .attr('fill', (d, i) => ['#06b6d4', '#8b5cf6', '#7c3aed'][i])
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.label.replace(/\n/g, ' ')}</strong><br>
+                            Default Risk: ${d.defaultRisk}%<br>
+                            Median Earnings: $${d.earnings.toLocaleString()}
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(y));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Default Risk (%)');
+        }
+
+        // Chart 4: For-Profit Amplification
+        function createForProfitChart() {
+            const margin = { top: 20, right: 30, bottom: 100, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#forprofit-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x0 = d3.scaleBand()
+                .domain(forProfitData.map(d => d.group))
+                .range([0, width])
+                .padding(0.2);
+
+            const x1 = d3.scaleBand()
+                .domain(['public', 'forProfit'])
+                .range([0, x0.bandwidth()])
+                .padding(0.1);
+
+            const y = d3.scaleLinear()
+                .domain([0, 90])
+                .range([height, 0]);
+
+            const color = d3.scaleOrdinal()
+                .domain(['public', 'forProfit'])
+                .range(['#06b6d4', '#c026d3']);
+
+            const groups = svg.selectAll('.group')
+                .data(forProfitData)
+                .enter()
+                .append('g')
+                .attr('transform', d => `translate(${x0(d.group)},0)`);
+
+            groups.selectAll('.bar')
+                .data(d => [
+                    { key: 'public', value: d.public, group: d.group },
+                    { key: 'forProfit', value: d.forProfit, group: d.group }
+                ])
+                .enter()
+                .append('rect')
+                .attr('class', 'bar')
+                .attr('x', d => x1(d.key))
+                .attr('y', d => y(d.value))
+                .attr('width', x1.bandwidth())
+                .attr('height', d => height - y(d.value))
+                .attr('fill', d => color(d.key))
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.group}</strong><br>
+                            ${d.key === 'public' ? 'Public' : 'For-Profit'}: ${d.value}%
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x0))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(y));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Default Risk (%)');
+
+            const legend = svg.append('g')
+                .attr('transform', `translate(${width - 120}, 20)`);
+
+            legend.append('rect')
+                .attr('x', 0)
+                .attr('y', 0)
+                .attr('width', 15)
+                .attr('height', 15)
+                .attr('fill', '#06b6d4');
+
+            legend.append('text')
+                .attr('x', 20)
+                .attr('y', 12)
+                .text('Public')
+                .style('font-size', '12px');
+
+            legend.append('rect')
+                .attr('x', 0)
+                .attr('y', 25)
+                .attr('width', 15)
+                .attr('height', 15)
+                .attr('fill', '#c026d3');
+
+            legend.append('text')
+                .attr('x', 20)
+                .attr('y', 37)
+                .text('For-Profit')
+                .style('font-size', '12px');
+        }
+
+        // Chart 5: Leveling Effects
+        function createLevelingChart() {
+            const margin = { top: 20, right: 30, bottom: 80, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#leveling-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand()
+                .domain(levelingData.map(d => d.tier))
+                .range([0, width])
+                .padding(0.3);
+
+            const y = d3.scaleLinear()
+                .domain([0, 8000])
+                .range([height, 0]);
+
+            svg.selectAll('.bar')
+                .data(levelingData)
+                .enter()
+                .append('rect')
+                .attr('class', 'bar')
+                .attr('x', d => x(d.tier))
+                .attr('y', d => y(d.gap))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - y(d.gap))
+                .attr('fill', '#7c3aed')
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.tier}</strong><br>
+                            White Earnings: $${d.whiteEarnings.toLocaleString()}<br>
+                            Black Earnings: $${d.blackEarnings.toLocaleString()}<br>
+                            Gap: $${d.gap.toLocaleString()}
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-25)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => '$' + d/1000 + 'K'));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('x', width / 2)
+                .attr('y', height + 60)
+                .style('text-anchor', 'middle')
+                .text('Selectivity Tier');
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Black-White Earnings Gap');
+        }
+
+        // Initialize visualizations
+        createRacialChart();
+        createInteractionHeatmap();
+        createTripleInteractionChart();
+        createForProfitChart();
+        createLevelingChart();
+
+        // Load and render markdown
+        fetch('summary.md')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('markdown-content').innerHTML = marked.parse(text);
+            });
+    </script>
+</body>
+</html>
