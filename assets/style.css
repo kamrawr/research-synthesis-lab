@@ -223,6 +223,42 @@ section h2 {
     border-color: var(--primary-dark);
 }
 
+/* Color-coded filter buttons when active */
+.filter-btn.active[data-category="Higher Education"] {
+    background: #2563eb;
+    border-color: #1e40af;
+}
+
+.filter-btn.active[data-category="Workforce"] {
+    background: #d97706;
+    border-color: #92400e;
+}
+
+.filter-btn.active[data-category="Inequality"] {
+    background: #e11d48;
+    border-color: #9f1239;
+}
+
+.filter-btn.active[data-category="Community"] {
+    background: #059669;
+    border-color: #065f46;
+}
+
+.filter-btn.active[data-category="Energy & Environment"] {
+    background: #16a34a;
+    border-color: #166534;
+}
+
+.filter-btn.active[data-category="Technology & Data"] {
+    background: #4f46e5;
+    border-color: #3730a3;
+}
+
+.filter-btn.active[data-category="Social Infrastructure"] {
+    background: #be185d;
+    border-color: #831843;
+}
+
 /* Category Tags on Cards */
 .project-categories {
     display: flex;
@@ -233,12 +269,46 @@ section h2 {
 
 .category-tag {
     padding: 4px 12px;
-    background: var(--gray-100);
     border-radius: 12px;
     font-size: 0.75em;
     font-weight: 600;
-    color: var(--gray-700);
     white-space: nowrap;
+}
+
+/* Color-coded category tags */
+.category-tag[data-category="Higher Education"] {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.category-tag[data-category="Workforce"] {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.category-tag[data-category="Inequality"] {
+    background: #fce7f3;
+    color: #9f1239;
+}
+
+.category-tag[data-category="Community"] {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.category-tag[data-category="Energy & Environment"] {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.category-tag[data-category="Technology & Data"] {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.category-tag[data-category="Social Infrastructure"] {
+    background: #fce7f3;
+    color: #831843;
 }
 
 /* CTA Section */

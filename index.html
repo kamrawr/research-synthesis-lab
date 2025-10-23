@@ -77,7 +77,7 @@
                 card.dataset.categories = project.categories.join(',');
                 
                 const categoryTags = project.categories
-                    .map(cat => `<span class="category-tag">${cat}</span>`)
+                    .map(cat => `<span class="category-tag" data-category="${cat}">${cat}</span>`)
                     .join('');
                 
                 card.innerHTML = `
