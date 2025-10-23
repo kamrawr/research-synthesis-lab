@@ -54,7 +54,7 @@ const projects = [
         status: "active",
         studiesReviewed: 39,
         dataPoints: 500,
-        categories: ["Energy & Environment", "Community", "Inequality"],
+        categories: ["Energy & Environment", "Community", "Inequality", "Social Infrastructure"],
         keywords: ["energy equity", "energy burden", "community-based organizations", "weatherization", "environmental justice"],
         source: "Semantic Scholar synthesis (126M papers)"
     },
@@ -82,7 +82,7 @@ const projects = [
         status: "active",
         studiesReviewed: 21,
         dataPoints: 499,
-        categories: ["Workforce", "Energy & Environment", "Community"],
+        categories: ["Workforce", "Energy & Environment", "Community", "Social Infrastructure"],
         keywords: ["workforce development", "credentialing", "community resilience", "energy efficiency", "cooperative models", "economic development"],
         source: "Elicit synthesis (138M papers)"
     },
@@ -138,7 +138,7 @@ const projects = [
         status: "active",
         studiesReviewed: 38,
         dataPoints: 500,
-        categories: ["Energy & Environment", "Workforce", "Community"],
+        categories: ["Energy & Environment", "Workforce", "Community", "Social Infrastructure"],
         keywords: ["housing infrastructure", "workforce development", "energy retrofit", "intergenerational equity", "rural communities", "age-in-place", "climate adaptation"],
         source: "Elicit synthesis (138M papers)"
     }
