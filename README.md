@@ -1,177 +1,57 @@
 # 🧠 Research Synthesis Lab
 
-An interactive repository for organizing, exploring, and sharing literature reviews, meta-analyses, and AI-assisted research syntheses.
+Interactive research syntheses on education, labor markets, inequality, and social policy.
 
-## 🌐 Live Site
+## 🌐 **[View All Research Projects →](https://kamrawr.github.io/research-synthesis-lab/)**
 
-**[Launch Research Lab →](https://kamrawr.github.io/research-synthesis-lab/)**
-
-## 📚 What This Is
-
-A structured workspace for housing multiple research projects with:
-- **Interactive HTML explorers** for each literature review
-- **Structured data extraction** (JSON, CSV, BibTeX)
-- **Visual summaries** and insights
-- **GitHub Pages deployment** for easy sharing
-
-## 🗂️ Structure
-
-```
-research-synthesis-lab/
-├── index.html              # Main project hub
-├── assets/                 # Shared styles and resources
-│   └── style.css          # Global styling
-├── scripts/                # Reusable JavaScript modules
-│   └── projects.js        # Project registry
-└── projects/               # Each research project
-    ├── collaboration-nonprofits/
-    │   ├── index.html      # Interactive viewer
-    │   ├── summary.md      # Full markdown report
-    │   ├── data/
-    │   │   └── findings.json
-    │   └── visuals/
-    ├── college-underemployment/
-    │   ├── index.html      # Interactive D3.js explorer (8 tabs)
-    │   ├── summary.md      # 554-line comprehensive report
-    │   ├── data/
-    │   │   └── findings.json  # 7,703 institutions
-    │   ├── docs/
-    │   │   └── README.md   # Project documentation
-    │   └── visualizations/
-    ├── energy-equity/
-    │   ├── index.html
-    │   ├── data/
-    │   │   └── studies.json
-    │   ├── docs/
-    │   │   └── executive-summary.md
-    │   └── visualizations/
-    └── gig-economy-credentialing/
-        ├── index.html
-        ├── data/
-        │   └── studies.json
-        ├── docs/
-        │   └── executive-summary.md
-        └── visualizations/
-```
-
-## 🔬 Current Projects
-
-### 1. **College Underemployment & Long-Term Career Trajectories**
-*October 2025 | PhD Research*
-
-Analysis of 7,703 U.S. higher education institutions examining whether initial underemployment creates persistent "scarring" effects or temporary mismatch that graduates recover from over time.
-
-**Key Findings:**
-- **30x variation** in underemployment risk across fields (Philosophy/Religion 30% → Architecture 0%)
-- **$13,400 earnings gap** between highest and lowest completion quartiles
-- **55.7% of institutions** show high-risk characteristics for long-term career scarring
-- **For-profit institutions** deliver 38% lower earnings than private nonprofits
-- **$20,550 SES gap** between low-Pell and very high-Pell institutions
-
-**Evidence:** Strong support for scarring hypothesis—initial underemployment creates lasting disadvantages through skill atrophy, credential devaluation, employer signaling, and debt accumulation.
-
-**[Explore Interactive →](projects/college-underemployment/index.html)** | **[Read Full Report →](projects/college-underemployment/summary.md)**
+Each project includes interactive visualizations, key findings, comprehensive methodology, and full reports.
 
 ---
 
-### 2. **Measuring Collaboration's Impact on Nonprofit Efficiency**
-*October 2025*
+## 📊 Featured Research Areas
 
-Quantitative synthesis of 40 empirical studies examining how inter-organizational collaboration affects operational efficiency and community impact in nonprofit organizations.
+- **Higher Education & Careers** - Underemployment, earnings trajectories, institutional quality
+- **Labor Market Dynamics** - Automation, polarization, COVID-19 impacts, field-specific trends
+- **Inequality & Access** - Intersectionality, default risk, minority-serving institutions
+- **Machine Learning & Policy** - Predictive models, algorithmic fairness, precision interventions
+- **Social Infrastructure** - Nonprofit collaboration, energy equity, workforce development
 
-**Key Findings:**
-- Limited direct measurement of operational efficiency
-- Mixed but generally positive community outcomes
-- Success heavily dependent on trust, autonomy, and voluntary participation
+## 🔬 Sample Projects
 
-**[Explore Interactive →](projects/collaboration-nonprofits/index.html)**
+### College Underemployment & Career Scarring
+Analysis of 7,703 U.S. institutions examining long-term effects of initial underemployment. Finds 30x field variation, $13,400 earnings gaps, and evidence for persistent scarring effects.
 
----
+### Machine Learning for Default Risk Prediction
+Fairness-aware ML framework achieving 87% accuracy in predicting student loan defaults. Targeted interventions reduce defaults by 20-25% with 3.2:1 cost-benefit ratio.
 
-## ➞ Adding New Projects
+### COVID-19 Labor Market Disruption
+Natural experiment comparing 2020-2022 graduates to pre-pandemic cohorts. Documents permanent $8,200 remote work premium and 5-7 year acceleration of polarization trends.
 
-1. **Create project folder:**
-   ```bash
-   mkdir -p projects/your-project-name/{data,docs,visualizations}
-   ```
+### Intersectionality & Loan Default Risk
+Multilevel analysis showing 73.9% default risk for MSI + High-Pell + For-profit students (2.2x baseline), with 79% gap reduction at elite institutions.
 
-2. **Add required files:**
-   - `index.html` - Interactive viewer (copy template from existing project)
-   - `summary.md` - Full literature review/report
-   - `data/findings.json` - Structured extracted data
-   - `docs/` - Additional documentation (optional)
-
-3. **Update project registry:**
-   Add your project to `scripts/projects.js`
-
-4. **Push to GitHub:**
-   ```bash
-   git add projects/your-project-name/
-   git commit -m "Add [project-name] research synthesis"
-   git push origin main
-   ```
-
-## 🛠️ Tech Stack
-
-- **Pure HTML/CSS/JS** - No build process required
-- **D3.js v7** - Interactive data visualizations
-- **Chart.js** - Data visualization (legacy projects)
-- **Marked.js** - Markdown rendering
-- **PicoCSS** - Minimal styling framework
-- **GitHub Pages** - Static hosting
-
-## 📊 Data Format
-
-Each project includes structured JSON:
-
-```json
-{
-  "question": "Research question",
-  "summary": {
-    "key_finding_1": "Description",
-    "key_finding_2": "Description"
-  },
-  "stats": {
-    "studies_reviewed": 40,
-    "positive_effects": 9,
-    "negative_effects": 4
-  },
-  "studies": [
-    {
-      "title": "Study title",
-      "authors": ["Author 1", "Author 2"],
-      "year": 2024,
-      "findings": "Key results"
-    }
-  ]
-}
-```
-
-## 🎯 Use Cases
-
-- **Research aggregation** - Synthesize AI-generated lit reviews (Elicit, Consensus, etc.)
-- **Meta-analysis documentation** - Track findings across studies
-- **Knowledge management** - Organize research by topic
-- **Collaboration** - Share interactive findings with colleagues
-- **Teaching** - Demonstrate research synthesis methods
-
-## 🚀 Publishing
-
-This repo is designed for GitHub Pages:
-
-1. Push to GitHub
-2. Enable Pages in repository settings
-3. Select `main` branch, `/` (root)
-4. Site will be live at `https://[username].github.io/research-synthesis-lab/`
-
-## 📝 License
-
-Open for research and educational use. Data sources and original studies retain their respective licenses.
-
-## 🤝 Contributing
-
-This is a personal research workspace, but the structure and tools are freely reusable. Fork and adapt for your own research projects!
+**[View All 9 Projects →](https://kamrawr.github.io/research-synthesis-lab/)**
 
 ---
 
-**Built with curiosity** 🔬 **Powered by open research tools** 📚
+## 💻 About This Repository
+
+This is a structured workspace for organizing research syntheses with interactive visualizations. Built with vanilla JavaScript, D3.js, and deployed via GitHub Pages.
+
+**Tech Stack:** HTML/CSS/JS, D3.js v7, PicoCSS, Marked.js
+
+---
+
+## 🛠️ For Developers
+
+To add new projects:
+1. Create folder in `projects/your-project-name/`
+2. Add `index.html`, `summary.md`, and `data/findings.json`
+3. Register in `scripts/projects.js`
+4. Push to GitHub
+
+See existing projects for templates and structure.
+
+---
+
+**Built with curiosity 🔬 | Open for research and educational use 📚**
