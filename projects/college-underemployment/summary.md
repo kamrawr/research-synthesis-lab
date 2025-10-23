@@ -555,7 +555,7 @@ All structured data from this analysis is available in machine-readable format:
 ---
 
 **Citation:**  
-Research Synthesis Lab. (2025). *College Underemployment & Long-Term Career Trajectories: Evidence from 7,703 U.S. Institutions*. Retrieved from https://kamrawr.github.io/research-synthesis-lab/projects/college-underemployment/
+Kamrar, I. (2025). *College Underemployment & Long-Term Career Trajectories: Evidence from 7,703 U.S. Institutions*. Research Synthesis Lab. Retrieved from https://kamrawr.github.io/research-synthesis-lab/projects/college-underemployment/
 
 **License:** CC-BY-4.0  
 **Contact:** rawrdog92@yahoo.com

@@ -318,7 +318,7 @@ Interpretation: 10% automation shock → -2.3% earnings growth
 ---
 
 **Citation:**  
-Research Synthesis Lab. (2025). *Field-Specific Labor Market Polarization: Automation, Skills, and the Great Reversal*. Retrieved from https://kamrawr.github.io/research-synthesis-lab/projects/field-labor-polarization/
+Kamrar, I. (2025). *Field-Specific Labor Market Polarization: Automation, Skills, and the Great Reversal*. Research Synthesis Lab. Retrieved from https://kamrawr.github.io/research-synthesis-lab/projects/field-labor-polarization/
 
 **License:** CC-BY-4.0  
 **Contact:** rawrdog92@yahoo.com

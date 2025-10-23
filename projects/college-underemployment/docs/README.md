@@ -130,8 +130,8 @@ The `explore.html` page includes:
 ## Citation
 
 ```
-Research Synthesis Lab. (2025). College Underemployment & Long-Term Career Trajectories: 
-Evidence from 7,703 U.S. Institutions. Retrieved from 
+Kamrar, I. (2025). College Underemployment & Long-Term Career Trajectories: 
+Evidence from 7,703 U.S. Institutions. Research Synthesis Lab. Retrieved from 
 https://kamrawr.github.io/research-synthesis-lab/projects/college-underemployment/
 ```
 

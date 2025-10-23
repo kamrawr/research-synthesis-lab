@@ -305,7 +305,7 @@ Analysis scripts and processed datasets available at:
 ---
 
 **Citation:**  
-Research Synthesis Lab. (2025). *Intersectionality and Loan Default Risk: Compound Disadvantage in Higher Education*. Retrieved from https://kamrawr.github.io/research-synthesis-lab/projects/intersectionality-default-risk/
+Kamrar, I. (2025). *Intersectionality and Loan Default Risk: Compound Disadvantage in Higher Education*. Research Synthesis Lab. Retrieved from https://kamrawr.github.io/research-synthesis-lab/projects/intersectionality-default-risk/
 
 **License:** CC-BY-4.0  
 **Contact:** rawrdog92@yahoo.com

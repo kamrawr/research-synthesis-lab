@@ -324,7 +324,7 @@ COVID-19 represented not a **deviation** from pre-pandemic trends, but an **acce
 ---
 
 **Citation:**  
-Research Synthesis Lab. (2025). *COVID-19 Labor Market Disruption: A Natural Experiment in Accelerated Polarization*. Retrieved from https://kamrawr.github.io/research-synthesis-lab/projects/covid-labor-disruption/
+Kamrar, I. (2025). *COVID-19 Labor Market Disruption: A Natural Experiment in Accelerated Polarization*. Research Synthesis Lab. Retrieved from https://kamrawr.github.io/research-synthesis-lab/projects/covid-labor-disruption/
 
 **License:** CC-BY-4.0  
 **Contact:** rawrdog92@yahoo.com

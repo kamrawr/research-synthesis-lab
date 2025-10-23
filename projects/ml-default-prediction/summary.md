@@ -400,7 +400,7 @@ Code, models, and replication materials available at:
 ---
 
 **Citation:**  
-Research Synthesis Lab. (2025). *Machine Learning for Default Risk Prediction: Precision Intervention & Algorithmic Fairness*. Retrieved from https://kamrawr.github.io/research-synthesis-lab/projects/ml-default-prediction/
+Kamrar, I. (2025). *Machine Learning for Default Risk Prediction: Precision Intervention & Algorithmic Fairness*. Research Synthesis Lab. Retrieved from https://kamrawr.github.io/research-synthesis-lab/projects/ml-default-prediction/
 
 **License:** CC-BY-4.0  
 **Contact:** rawrdog92@yahoo.com
