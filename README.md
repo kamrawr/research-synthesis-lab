@@ -18,6 +18,9 @@ Each project includes interactive visualizations, key findings, comprehensive me
 
 ## 🔬 Sample Projects
 
+### Centering Community Needs in Energy Equity ⚡ _Recently Updated_
+Systematic review of 39 studies examining energy burdens, clean energy access, and CBO partnerships for Black, Indigenous, rural, and low-income households. Documents 10-91% energy burden reductions through community-centered approaches. **[View Project →](https://kamrawr.github.io/research-synthesis-lab/projects/energy-equity/)**
+
 ### College Underemployment & Career Scarring
 Analysis of 7,703 U.S. institutions examining long-term effects of initial underemployment. Finds 30x field variation, $13,400 earnings gaps, and evidence for persistent scarring effects.
 
