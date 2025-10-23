@@ -170,6 +170,18 @@ section h2 {
     font-size: 1.2em;
 }
 
+.project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-author {
+    font-size: 0.85em;
+    color: var(--gray-600);
+    font-style: italic;
+}
+
 .project-link {
     color: var(--primary);
     font-weight: 600;

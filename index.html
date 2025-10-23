@@ -58,7 +58,7 @@
     
     <footer>
         <div class="container">
-            <p>© 2025 Research Synthesis Lab • Built with open tools • <a href="https://github.com/kamrawr/research-synthesis-lab">View on GitHub</a></p>
+            <p>© 2025 Research Synthesis Lab by Isaiah Kamrar • Built with open tools • <a href="https://github.com/kamrawr/research-synthesis-lab">View on GitHub</a></p>
         </div>
     </footer>
     
@@ -92,7 +92,10 @@
                         <span><strong>${project.studiesReviewed}</strong> studies</span>
                         <span><strong>${project.dataPoints}</strong> data points</span>
                     </div>
-                    <div class="project-link">Explore findings →</div>
+                    <div class="project-footer">
+                        <span class="project-author">By ${project.author}</span>
+                        <span class="project-link">Explore findings →</span>
+                    </div>
                 `;
                 
                 grid.appendChild(card);
