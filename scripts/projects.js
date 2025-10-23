@@ -10,6 +10,7 @@ const projects = [
         status: "active", // active | archived | in-progress
         studiesReviewed: 40,
         dataPoints: 127,
+        categories: ["Social Infrastructure", "Community"],
         keywords: ["nonprofits", "collaboration", "efficiency", "network analysis"],
         source: "Elicit synthesis"
     },
@@ -22,6 +23,7 @@ const projects = [
         status: "active",
         studiesReviewed: 7703,
         dataPoints: 5693,
+        categories: ["Higher Education", "Workforce", "Inequality"],
         keywords: ["higher education", "underemployment", "earnings", "social mobility", "career trajectories"],
         source: "College Scorecard institutional analysis"
     },
@@ -34,6 +36,7 @@ const projects = [
         status: "active",
         studiesReviewed: 46,
         dataPoints: 496,
+        categories: ["Workforce", "Higher Education", "Community"],
         keywords: ["gig economy", "micro-credentials", "digital badges", "Millennials", "Gen Z", "workforce development"],
         source: "Elicit synthesis (138M papers)"
     },
@@ -46,6 +49,7 @@ const projects = [
         status: "active",
         studiesReviewed: 39,
         dataPoints: 500,
+        categories: ["Energy & Environment", "Community", "Inequality"],
         keywords: ["energy equity", "energy burden", "community-based organizations", "weatherization", "environmental justice"],
         source: "Semantic Scholar synthesis (126M papers)"
     },
@@ -58,6 +62,7 @@ const projects = [
         status: "active",
         studiesReviewed: 7703,
         dataPoints: 7703,
+        categories: ["Higher Education", "Inequality"],
         keywords: ["intersectionality", "student loans", "default risk", "racial equity", "minority-serving institutions", "compound disadvantage"],
         source: "College Scorecard with intersectional interaction analysis"
     },
@@ -70,6 +75,7 @@ const projects = [
         status: "active",
         studiesReviewed: 21,
         dataPoints: 499,
+        categories: ["Workforce", "Energy & Environment", "Community"],
         keywords: ["workforce development", "credentialing", "community resilience", "energy efficiency", "cooperative models", "economic development"],
         source: "Elicit synthesis (138M papers)"
     },
@@ -82,6 +88,7 @@ const projects = [
         status: "active",
         studiesReviewed: 6228,
         dataPoints: 6228,
+        categories: ["Higher Education", "Technology & Data", "Inequality"],
         keywords: ["machine learning", "default prediction", "algorithmic fairness", "precision intervention", "student loans"],
         source: "College Scorecard with ensemble ML methods"
     },
@@ -94,6 +101,7 @@ const projects = [
         status: "active",
         studiesReviewed: 7703,
         dataPoints: 7703,
+        categories: ["Workforce", "Higher Education", "Inequality"],
         keywords: ["COVID-19", "labor market", "remote work", "polarization", "natural experiment", "cohort analysis"],
         source: "College Scorecard cohort analysis (2015-2024)"
     },
@@ -106,6 +114,7 @@ const projects = [
         status: "active",
         studiesReviewed: 7703,
         dataPoints: 185000,
+        categories: ["Workforce", "Higher Education", "Technology & Data"],
         keywords: ["automation", "labor polarization", "college majors", "task content", "skills", "Great Reversal"],
         source: "College Scorecard + O*NET task linkage (25 years)"
     }

@@ -26,6 +26,19 @@
         
         <section class="projects">
             <h2>Research Projects</h2>
+            
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <button class="filter-btn active" data-category="all">All Projects</button>
+                <button class="filter-btn" data-category="Higher Education">Higher Education</button>
+                <button class="filter-btn" data-category="Workforce">Workforce</button>
+                <button class="filter-btn" data-category="Inequality">Inequality</button>
+                <button class="filter-btn" data-category="Community">Community</button>
+                <button class="filter-btn" data-category="Energy & Environment">Energy & Environment</button>
+                <button class="filter-btn" data-category="Technology & Data">Technology & Data</button>
+                <button class="filter-btn" data-category="Social Infrastructure">Social Infrastructure</button>
+            </div>
+            
             <div id="projectGrid" class="project-grid">
                 <!-- Projects loaded dynamically -->
             </div>
@@ -51,29 +64,59 @@
     
     <script src="scripts/projects.js"></script>
     <script>
-        // Render project cards (updated 2025-10-23)
+        // Render project cards (updated 2025-10-23 with categories)
         console.log('Loading projects:', projects.length);
         const grid = document.getElementById('projectGrid');
-        projects.forEach(project => {
-            const card = document.createElement('a');
-            card.href = `projects/${project.folder}/`;
-            card.className = 'project-card';
-            
-            card.innerHTML = `
-                <div class="project-meta">
-                    <span class="project-status ${project.status}">${project.status}</span>
-                    <span class="project-date">${project.date}</span>
-                </div>
-                <h3>${project.title}</h3>
-                <p>${project.description}</p>
-                <div class="project-stats">
-                    <span><strong>${project.studiesReviewed}</strong> studies</span>
-                    <span><strong>${project.dataPoints}</strong> data points</span>
-                </div>
-                <div class="project-link">Explore findings →</div>
-            `;
-            
-            grid.appendChild(card);
+        
+        function renderProjects(filteredProjects = projects) {
+            grid.innerHTML = '';
+            filteredProjects.forEach(project => {
+                const card = document.createElement('a');
+                card.href = `projects/${project.folder}/`;
+                card.className = 'project-card';
+                card.dataset.categories = project.categories.join(',');
+                
+                const categoryTags = project.categories
+                    .map(cat => `<span class="category-tag">${cat}</span>`)
+                    .join('');
+                
+                card.innerHTML = `
+                    <div class="project-meta">
+                        <span class="project-status ${project.status}">${project.status}</span>
+                        <span class="project-date">${project.date}</span>
+                    </div>
+                    <div class="project-categories">${categoryTags}</div>
+                    <h3>${project.title}</h3>
+                    <p>${project.description}</p>
+                    <div class="project-stats">
+                        <span><strong>${project.studiesReviewed}</strong> studies</span>
+                        <span><strong>${project.dataPoints}</strong> data points</span>
+                    </div>
+                    <div class="project-link">Explore findings →</div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // Initial render
+        renderProjects();
+        
+        // Category filtering
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                if (category === 'all') {
+                    renderProjects();
+                } else {
+                    const filtered = projects.filter(p => p.categories.includes(category));
+                    renderProjects(filtered);
+                }
+            });
         });
     </script>
 </body>

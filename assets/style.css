@@ -176,6 +176,59 @@ section h2 {
     font-size: 0.95em;
 }
 
+/* Category Filter */
+.category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 32px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    background: var(--gray-100);
+    border: 2px solid transparent;
+    border-radius: 24px;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background: var(--gray-200);
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary-dark);
+}
+
+/* Category Tags on Cards */
+.project-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.category-tag {
+    padding: 4px 12px;
+    background: var(--gray-100);
+    border-radius: 12px;
+    font-size: 0.75em;
+    font-weight: 600;
+    color: var(--gray-700);
+    white-space: nowrap;
+}
+
 /* CTA Section */
 .cta {
     display: grid;
