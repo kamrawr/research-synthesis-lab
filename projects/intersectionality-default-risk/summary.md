@@ -1,11 +1,18 @@
 # Intersectionality and Loan Default Risk: Compound Disadvantage in Higher Education
 
+**Author:** Isaiah Kamrar  
 **Research Question:** How do the intersections of race, gender, socioeconomic status, and first-generation status jointly determine student loan default probability?
 
 **Date:** October 2025  
 **Method:** Multilevel modeling with interaction effects  
 **Sample:** 7,703 U.S. higher education institutions  
 **Status:** Preliminary analysis complete; multilevel regression in progress
+
+---
+
+## Suggested Citation
+
+Kamrar, I. (2025). *Intersectionality and Loan Default Risk: Compound Disadvantage in Higher Education*. Research Synthesis Lab. https://kamrawr.github.io/research-synthesis-lab/projects/intersectionality-default-risk/
 
 ---
 

@@ -1,11 +1,18 @@
 # Field-Specific Labor Market Polarization: Automation, Skills, and the Great Reversal
 
+**Author:** Isaiah Kamrar  
 **Research Question:** How has the "Great Reversal" in cognitive skill demand differentially affected underemployment and earnings across college majors?
 
 **Date:** October 2025  
 **Method:** Time-series analysis with O*NET task linkage  
 **Sample:** 7,703 institutions × 24 fields of study (2000-2025)  
 **Status:** 40% complete; O*NET linkage in progress
+
+---
+
+## Suggested Citation
+
+Kamrar, I. (2025). *Field-Specific Labor Market Polarization: Automation, Skills, and the Great Reversal*. Research Synthesis Lab. https://kamrawr.github.io/research-synthesis-lab/projects/field-labor-polarization/
 
 ---
 

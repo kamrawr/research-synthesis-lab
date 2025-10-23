@@ -1,11 +1,18 @@
 # College Underemployment & Long-Term Career Trajectories
 
+**Author:** Isaiah Kamrar  
 **Research Question:** Does initial underemployment causally determine long-term earnings trajectories, or do graduates recover over time?
 
 **Date:** October 2025  
 **Method:** Institutional-level analysis using College Scorecard data  
 **Sample:** 7,703 U.S. higher education institutions  
 **Fields Analyzed:** 24 fields of study
+
+---
+
+## Suggested Citation
+
+Kamrar, I. (2025). *College Underemployment & Long-Term Career Trajectories: Evidence from 7,703 U.S. Institutions*. Research Synthesis Lab. https://kamrawr.github.io/research-synthesis-lab/projects/college-underemployment/
 
 ---
 

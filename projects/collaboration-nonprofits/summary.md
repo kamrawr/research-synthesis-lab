@@ -1,10 +1,19 @@
 # Measuring Collaboration's Impact on Nonprofit Efficiency
 
+**Author:** Isaiah Kamrar  
 **Research Question:** What quantifiable metrics demonstrate the positive and negative effects of inter-organizational collaboration on operational efficiency and community impact for nonprofit organizations?
 
 **Date:** October 2025  
 **Method:** AI-assisted literature synthesis (Elicit)  
 **Studies Reviewed:** 40 of 500 screened
+
+---
+
+## Suggested Citation
+
+Kamrar, I. (2025). *Measuring Collaboration's Impact on Nonprofit Efficiency: A Quantitative Synthesis*. Research Synthesis Lab. https://kamrawr.github.io/research-synthesis-lab/projects/collaboration-nonprofits/
+
+---
 
 ## Executive Summary
 
@@ -144,8 +153,5 @@ All structured data from this synthesis is available in machine-readable format:
 - Interactive explorer: `explore.html`
 
 ---
-
-**Citation:**  
-[Your name]. (2025). *Measuring Collaboration's Impact on Nonprofit Efficiency: A Quantitative Synthesis*. Research Synthesis Lab. https://kamrawr.github.io/research-synthesis-lab/projects/collaboration-nonprofits/
 
 **License:** CC-BY-4.0

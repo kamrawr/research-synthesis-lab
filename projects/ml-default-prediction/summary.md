@@ -1,5 +1,6 @@
 # Machine Learning for Default Risk Prediction: Precision Intervention & Algorithmic Fairness
 
+**Author:** Isaiah Kamrar  
 **Research Question:** Can machine learning models accurately predict individual-level default risk at college entry, and how do these predictions inform optimal targeting of interventions?
 
 **Date:** October 2025  
@@ -7,6 +8,12 @@
 **Sample:** 6,228 U.S. institutions with valid repayment data  
 **Model Accuracy:** 87%  
 **Status:** 80% complete; fairness enhancements in progress
+
+---
+
+## Suggested Citation
+
+Kamrar, I. (2025). *Machine Learning for Default Risk Prediction: Precision Intervention & Algorithmic Fairness*. Research Synthesis Lab. https://kamrawr.github.io/research-synthesis-lab/projects/ml-default-prediction/
 
 ---
 

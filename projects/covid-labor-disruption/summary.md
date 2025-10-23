@@ -1,11 +1,18 @@
 # COVID-19 Labor Market Disruption: A Natural Experiment in Accelerated Polarization
 
+**Author:** Isaiah Kamrar  
 **Research Question:** Did the COVID-19 pandemic permanently accelerate labor market polarization and remote work adoption? How did 2020-2022 graduates fare compared to pre-pandemic cohorts?
 
 **Date:** October 2025  
 **Method:** Interrupted time series with triple-difference estimation  
 **Sample:** 7,703 institutions, cohorts 2015-2024  
 **Status:** 30% complete; cohort data collection in progress
+
+---
+
+## Suggested Citation
+
+Kamrar, I. (2025). *COVID-19 Labor Market Disruption: A Natural Experiment in Accelerated Polarization*. Research Synthesis Lab. https://kamrawr.github.io/research-synthesis-lab/projects/covid-labor-disruption/
 
 ---
 
