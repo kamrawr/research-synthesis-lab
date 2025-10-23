@@ -60,9 +60,9 @@ const projects = [
         dataPoints: 7703,
         keywords: ["intersectionality", "student loans", "default risk", "racial equity", "minority-serving institutions", "compound disadvantage"],
         source: "College Scorecard with intersectional interaction analysis"
-    }
+    },
     
-    // Add new projects below
+    {
         title: "Building Resilience through Community-Centric Work",
         folder: "community-resilience-workforce",
         description: "Analysis of 21 empirical studies examining how workforce development and credentialing frameworks strengthen economic and environmental resilience in underserved regions. Documents 82% emissions reductions and 23,000 projected jobs through strategic partnerships.",
