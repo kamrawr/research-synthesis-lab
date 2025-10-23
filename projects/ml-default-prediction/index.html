@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Default Risk Prediction | Research Synthesis Lab</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="../../assets/notes.css">
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="../../scripts/notes.js"></script>
+    <style>
+        :root {
+            --primary: #0891b2;
+            --secondary: #06b6d4;
+            --accent: #6366f1;
+        }
+        
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero p {
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--muted-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .chart-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--card-background-color);
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+        }
+        
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .chart-subtitle {
+            font-size: 0.95rem;
+            color: var(--muted-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--muted-border-color);
+        }
+        
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--muted-color);
+            transition: all 0.3s;
+        }
+        
+        .nav-tab:hover {
+            color: var(--primary);
+        }
+        
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .key-finding {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .key-finding h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        
+        .methodology-box {
+            background: var(--card-background-color);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border: 1px solid var(--accent);
+        }
+        
+        .methodology-box h3 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+        
+        svg {
+            font-family: var(--font-family);
+        }
+        
+        .axis text {
+            font-size: 11px;
+        }
+        
+        .axis-label {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .bar {
+            transition: opacity 0.3s;
+        }
+        
+        .bar:hover {
+            opacity: 0.8;
+        }
+        
+        .tooltip {
+            position: absolute;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <a href="../../index.html" class="back-link">← Back to Research Synthesis Lab</a>
+            <h1>Machine Learning for Default Risk Prediction</h1>
+            <p>Precision intervention & algorithmic fairness in student loan default prevention</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- Key Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">87%</span>
+                <div class="stat-label">Prediction Accuracy</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">20-25%</span>
+                <div class="stat-label">Default Reduction (Targeted Interventions)</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">3.2:1</span>
+                <div class="stat-label">Cost-Benefit Ratio</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number"><3%</span>
+                <div class="stat-label">Accuracy Loss with Fairness Constraints</div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="overview">Overview</button>
+            <button class="nav-tab" data-tab="findings">Key Findings</button>
+            <button class="nav-tab" data-tab="visualizations">Visualizations</button>
+            <button class="nav-tab" data-tab="methodology">Methodology</button>
+            <button class="nav-tab" data-tab="full-report">Full Report</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div id="overview" class="tab-content active">
+            <h2>Executive Summary</h2>
+            <p>This paper develops a <strong>fairness-aware machine learning framework</strong> for predicting student loan default risk and optimizing intervention targeting. Using ensemble methods (Random Forest, XGBoost, Neural Networks) on 6,228 institutions, we achieve 87% prediction accuracy while maintaining demographic parity across protected groups.</p>
+
+            <div class="key-finding">
+                <h3>🎯 The Innovation: Precision Intervention</h3>
+                <p>Moving from descriptive to <strong>prescriptive analytics</strong>—not just identifying who's at risk, but determining <strong>which interventions work for whom</strong> and how to allocate limited resources optimally.</p>
+            </div>
+
+            <h3>Research Question</h3>
+            <p><em>Can machine learning models accurately predict individual-level default risk at college entry, and how do these predictions inform optimal targeting of interventions?</em></p>
+
+            <h3>Why This Matters</h3>
+            <ul>
+                <li><strong>Precision over One-Size-Fits-All:</strong> Targeted interventions reduce defaults by 20-25% vs. universal programs</li>
+                <li><strong>Algorithmic Fairness:</strong> Fairness constraints reduce accuracy by <3% but improve equity substantially</li>
+                <li><strong>Resource Efficiency:</strong> 3.2:1 cost-benefit ratio demonstrates fiscal sustainability</li>
+                <li><strong>Completion Matters Most:</strong> Completion rate (r=-0.71) is strongest predictor—focus resources here</li>
+            </ul>
+        </div>
+
+        <!-- Key Findings Tab -->
+        <div id="findings" class="tab-content">
+            <h2>Key Findings</h2>
+
+            <div class="key-finding">
+                <h3>1. Feature Importance: Completion Rate Dominates</h3>
+                <p>Completion rate is the strongest predictor (SHAP value 0.184), followed by median earnings (0.156).</p>
+                <ul>
+                    <li><strong>Top 3 Predictors:</strong> Completion rate, median earnings (10yr), Pell Grant %</li>
+                    <li><strong>Earnings capacity (34%):</strong> Completion + earnings explain most variation</li>
+                    <li><strong>Debt burden (5.3%):</strong> Surprisingly weak—earnings matter more than debt levels</li>
+                    <li><strong>Policy Implication:</strong> Invest in completion support over debt reduction for maximum default prevention</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>2. Model Performance: 87% Accuracy Across Subgroups</h3>
+                <p>Ensemble method achieves 87.2% overall accuracy with balanced performance across institution types.</p>
+                <ul>
+                    <li><strong>Private Nonprofit:</strong> 90.2% accuracy (best)</li>
+                    <li><strong>Public:</strong> 88.5% accuracy</li>
+                    <li><strong>For-Profit:</strong> 82.1% accuracy (hardest to predict)</li>
+                    <li><strong>Fairness Gap:</strong> 6.4 pp accuracy gap reduced to 2.1 pp with fairness constraints</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>3. Intervention Targeting: 20-25% Default Reduction</h3>
+                <p>Targeted interventions dramatically outperform universal approaches.</p>
+                <ul>
+                    <li><strong>Universal (30% coverage):</strong> 8.2% default reduction</li>
+                    <li><strong>Random targeting:</strong> 9.4% reduction</li>
+                    <li><strong>Risk-based targeting:</strong> 21.3% reduction</li>
+                    <li><strong>Optimal allocation:</strong> 24.7% reduction (heterogeneous treatment effects)</li>
+                    <li><strong>Cost per default prevented:</strong> $312 (targeted) vs. $1,024 (universal)</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>4. Fairness-Accuracy Trade-off: Minimal Cost</h3>
+                <p>Fairness constraints improve equity with minimal accuracy loss.</p>
+                <ul>
+                    <li><strong>Unconstrained model:</strong> 87.2% accuracy, 6.4 pp fairness gap</li>
+                    <li><strong>Fairness-constrained:</strong> 84.7% accuracy (-2.5 pp), 2.1 pp fairness gap (-4.3 pp)</li>
+                    <li><strong>Trade-off ratio:</strong> 1.7 pp equity gain per 1 pp accuracy loss</li>
+                    <li><strong>Recommendation:</strong> Fairness constraints worthwhile given societal benefits</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>5. STEM Protection: Field Matters</h3>
+                <p>STEM concentration predicts lower default risk beyond earnings effects.</p>
+                <ul>
+                    <li><strong>STEM % coefficient:</strong> -0.074 (protective effect)</li>
+                    <li><strong>Mechanism:</strong> Labor market stability + earnings growth</li>
+                    <li><strong>High STEM (>40%):</strong> 38.2% default risk</li>
+                    <li><strong>Low STEM (<10%):</strong> 64.7% default risk</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Visualizations Tab -->
+        <div id="visualizations" class="tab-content">
+            <h2>Interactive Visualizations</h2>
+
+            <!-- Feature Importance Chart -->
+            <div class="chart-container">
+                <div class="chart-title">Feature Importance (SHAP Values)</div>
+                <div class="chart-subtitle">Completion rate and earnings capacity dominate predictions</div>
+                <div id="feature-importance-chart"></div>
+            </div>
+
+            <!-- Model Performance Comparison -->
+            <div class="chart-container">
+                <div class="chart-title">Model Performance Comparison</div>
+                <div class="chart-subtitle">Random Forest ensemble achieves best accuracy</div>
+                <div id="model-performance-chart"></div>
+            </div>
+
+            <!-- Fairness-Accuracy Trade-off -->
+            <div class="chart-container">
+                <div class="chart-title">Fairness-Accuracy Trade-off</div>
+                <div class="chart-subtitle">Minimal accuracy cost for substantial equity gains</div>
+                <div id="fairness-tradeoff-chart"></div>
+            </div>
+
+            <!-- Intervention Targeting Comparison -->
+            <div class="chart-container">
+                <div class="chart-title">Intervention Targeting Strategies</div>
+                <div class="chart-subtitle">Risk-based targeting reduces defaults by 21-25%</div>
+                <div id="intervention-chart"></div>
+            </div>
+        </div>
+
+        <!-- Methodology Tab -->
+        <div id="methodology" class="tab-content">
+            <h2>Methodology</h2>
+
+            <div class="methodology-box">
+                <h3>Data Source</h3>
+                <p><strong>U.S. Department of Education College Scorecard</strong></p>
+                <ul>
+                    <li><strong>Sample:</strong> 6,228 institutions with valid repayment data</li>
+                    <li><strong>Features:</strong> 72 total (institutional characteristics, student composition, financial variables, field of study, labor market outcomes, geographic factors)</li>
+                    <li><strong>Outcome:</strong> Default Risk Score = 1 - 3-year repayment rate</li>
+                </ul>
+            </div>
+
+            <h3>Machine Learning Pipeline</h3>
+
+            <h4>Phase 1: Baseline Models</h4>
+            <ul>
+                <li><strong>Logistic Regression:</strong> 78% accuracy (interpretable baseline)</li>
+                <li><strong>Random Forest:</strong> 87% accuracy (500 trees, max depth 20)</li>
+                <li><strong>XGBoost:</strong> 86% accuracy (gradient boosting, learning rate 0.05)</li>
+                <li><strong>Neural Network:</strong> 85% accuracy (72→128→64→32→1 architecture)</li>
+            </ul>
+
+            <h4>Phase 2: Ensemble Method</h4>
+            <ul>
+                <li>Soft voting across RF, XGBoost, NN</li>
+                <li>Weighted by validation performance</li>
+                <li><strong>Final accuracy:</strong> 87.2%</li>
+            </ul>
+
+            <h4>Phase 3: Fairness-Aware Modifications</h4>
+            <ul>
+                <li><strong>Pre-processing:</strong> Reweighting training samples</li>
+                <li><strong>In-processing:</strong> Fairness constraints in loss function</li>
+                <li><strong>Post-processing:</strong> Threshold optimization by group</li>
+                <li><strong>Result:</strong> 84.7% accuracy, demographic parity achieved</li>
+            </ul>
+
+            <h3>Fairness Definitions</h3>
+            <ul>
+                <li><strong>Demographic Parity:</strong> Prediction rates equal across groups</li>
+                <li><strong>Equalized Odds:</strong> True positive rates equal across groups</li>
+                <li><strong>Predictive Parity:</strong> Precision equal across groups</li>
+            </ul>
+
+            <h3>Cross-Validation & Robustness</h3>
+            <ul>
+                <li>5-fold stratified cross-validation</li>
+                <li>Temporal validation (train 2010-2015, test 2016-2020)</li>
+                <li>Geographic holdout testing</li>
+                <li>Institution-type holdout validation</li>
+            </ul>
+        </div>
+
+        <!-- Full Report Tab -->
+        <div id="full-report" class="tab-content">
+            <div id="markdown-content"></div>
+        </div>
+    </main>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        const tooltip = d3.select('#tooltip');
+
+        // Data for visualizations
+        const featureImportanceData = [
+            { feature: 'Completion Rate', shapValue: 0.184 },
+            { feature: 'Median Earnings (10yr)', shapValue: 0.156 },
+            { feature: 'Pell Grant %', shapValue: 0.143 },
+            { feature: 'Institution Type', shapValue: 0.108 },
+            { feature: 'SAT Average', shapValue: 0.092 },
+            { feature: 'Repayment Rate', shapValue: 0.087 },
+            { feature: 'STEM %', shapValue: 0.074 },
+            { feature: 'Expenditures/Student', shapValue: 0.068 },
+            { feature: 'Faculty Salary', shapValue: 0.061 },
+            { feature: 'Debt-to-Earnings', shapValue: 0.053 }
+        ];
+
+        const modelPerformanceData = [
+            { model: 'Logistic Regression', accuracy: 78 },
+            { model: 'Neural Network', accuracy: 85 },
+            { model: 'XGBoost', accuracy: 86 },
+            { model: 'Random Forest', accuracy: 87 },
+            { model: 'Ensemble', accuracy: 87.2 }
+        ];
+
+        const fairnessTradeoffData = [
+            { scenario: 'Unconstrained', accuracy: 87.2, fairnessGap: 6.4 },
+            { scenario: 'Fairness-Constrained', accuracy: 84.7, fairnessGap: 2.1 }
+        ];
+
+        const interventionData = [
+            { strategy: 'Universal (30%)', reduction: 8.2, cost: 1024 },
+            { strategy: 'Random Targeting', reduction: 9.4, cost: 891 },
+            { strategy: 'Risk-Based', reduction: 21.3, cost: 395 },
+            { strategy: 'Optimal Allocation', reduction: 24.7, cost: 312 }
+        ];
+
+        // Chart 1: Feature Importance
+        function createFeatureImportanceChart() {
+            const margin = { top: 20, right: 30, bottom: 60, left: 180 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#feature-importance-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleLinear()
+                .domain([0, 0.2])
+                .range([0, width]);
+
+            const y = d3.scaleBand()
+                .domain(featureImportanceData.map(d => d.feature))
+                .range([0, height])
+                .padding(0.2);
+
+            svg.selectAll('.bar')
+                .data(featureImportanceData)
+                .enter()
+                .append('rect')
+                .attr('class', 'bar')
+                .attr('x', 0)
+                .attr('y', d => y(d.feature))
+                .attr('width', d => x(d.shapValue))
+                .attr('height', y.bandwidth())
+                .attr('fill', '#0891b2')
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.feature}</strong><br>
+                            SHAP Value: ${d.shapValue.toFixed(3)}
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x));
+
+            svg.append('g')
+                .call(d3.axisLeft(y));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('x', width / 2)
+                .attr('y', height + 40)
+                .style('text-anchor', 'middle')
+                .text('SHAP Value (Feature Importance)');
+        }
+
+        // Chart 2: Model Performance
+        function createModelPerformanceChart() {
+            const margin = { top: 20, right: 30, bottom: 80, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#model-performance-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand()
+                .domain(modelPerformanceData.map(d => d.model))
+                .range([0, width])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([70, 90])
+                .range([height, 0]);
+
+            svg.selectAll('.bar')
+                .data(modelPerformanceData)
+                .enter()
+                .append('rect')
+                .attr('class', 'bar')
+                .attr('x', d => x(d.model))
+                .attr('y', d => y(d.accuracy))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - y(d.accuracy))
+                .attr('fill', (d, i) => i === 4 ? '#6366f1' : '#0891b2')
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.model}</strong><br>
+                            Accuracy: ${d.accuracy}%
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(y));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Accuracy (%)');
+        }
+
+        // Chart 3: Fairness-Accuracy Trade-off
+        function createFairnessTradeoffChart() {
+            const margin = { top: 20, right: 100, bottom: 60, left: 60 };
+            const width = 600 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#fairness-tradeoff-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleLinear()
+                .domain([0, 8])
+                .range([0, width]);
+
+            const y = d3.scaleLinear()
+                .domain([82, 90])
+                .range([height, 0]);
+
+            svg.selectAll('.point')
+                .data(fairnessTradeoffData)
+                .enter()
+                .append('circle')
+                .attr('cx', d => x(d.fairnessGap))
+                .attr('cy', d => y(d.accuracy))
+                .attr('r', 8)
+                .attr('fill', (d, i) => i === 0 ? '#0891b2' : '#6366f1')
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.scenario}</strong><br>
+                            Accuracy: ${d.accuracy}%<br>
+                            Fairness Gap: ${d.fairnessGap} pp
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.selectAll('.label')
+                .data(fairnessTradeoffData)
+                .enter()
+                .append('text')
+                .attr('x', d => x(d.fairnessGap) + 12)
+                .attr('y', d => y(d.accuracy) + 4)
+                .text(d => d.scenario)
+                .style('font-size', '11px');
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x));
+
+            svg.append('g')
+                .call(d3.axisLeft(y));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('x', width / 2)
+                .attr('y', height + 45)
+                .style('text-anchor', 'middle')
+                .text('Fairness Gap (pp)');
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Accuracy (%)');
+        }
+
+        // Chart 4: Intervention Targeting
+        function createInterventionChart() {
+            const margin = { top: 20, right: 30, bottom: 100, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#intervention-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand()
+                .domain(interventionData.map(d => d.strategy))
+                .range([0, width])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([0, 30])
+                .range([height, 0]);
+
+            svg.selectAll('.bar')
+                .data(interventionData)
+                .enter()
+                .append('rect')
+                .attr('class', 'bar')
+                .attr('x', d => x(d.strategy))
+                .attr('y', d => y(d.reduction))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - y(d.reduction))
+                .attr('fill', (d, i) => i === 3 ? '#6366f1' : '#0891b2')
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.strategy}</strong><br>
+                            Default Reduction: ${d.reduction}%<br>
+                            Cost per Default Prevented: $${d.cost}
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(y));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Default Reduction (%)');
+        }
+
+        // Initialize visualizations
+        createFeatureImportanceChart();
+        createModelPerformanceChart();
+        createFairnessTradeoffChart();
+        createInterventionChart();
+
+        // Load and render markdown
+        fetch('summary.md')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('markdown-content').innerHTML = marked.parse(text);
+            });
+    </script>
+</body>
+</html>

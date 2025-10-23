@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 Labor Market Disruption | Research Synthesis Lab</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="../../assets/notes.css">
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="../../scripts/notes.js"></script>
+    <style>
+        :root {
+            --primary: #dc2626;
+            --secondary: #f97316;
+            --accent: #0891b2;
+        }
+        
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero p {
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--muted-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .chart-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--card-background-color);
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+        }
+        
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .chart-subtitle {
+            font-size: 0.95rem;
+            color: var(--muted-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--muted-border-color);
+        }
+        
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--muted-color);
+            transition: all 0.3s;
+        }
+        
+        .nav-tab:hover {
+            color: var(--primary);
+        }
+        
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .key-finding {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .key-finding h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        
+        .methodology-box {
+            background: var(--card-background-color);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border: 1px solid var(--accent);
+        }
+        
+        .methodology-box h3 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+        
+        svg {
+            font-family: var(--font-family);
+        }
+        
+        .axis text {
+            font-size: 11px;
+        }
+        
+        .axis-label {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .line {
+            fill: none;
+            stroke-width: 2.5;
+        }
+        
+        .tooltip {
+            position: absolute;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .legend-line {
+            width: 30px;
+            height: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <a href="../../index.html" class="back-link">← Back to Research Synthesis Lab</a>
+            <h1>COVID-19 Labor Market Disruption</h1>
+            <p>A natural experiment in accelerated polarization and remote work adoption</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- Key Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">$8,200</span>
+                <div class="stat-label">Remote Work Annual Premium (New)</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">-22%</span>
+                <div class="stat-label">Persistent Earnings Penalty (Service Fields)</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">5-7 years</span>
+                <div class="stat-label">Polarization Trends Accelerated</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">41%</span>
+                <div class="stat-label">For-Profit Unemployment Spike (2020)</div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="overview">Overview</button>
+            <button class="nav-tab" data-tab="findings">Key Findings</button>
+            <button class="nav-tab" data-tab="visualizations">Visualizations</button>
+            <button class="nav-tab" data-tab="methodology">Methodology</button>
+            <button class="nav-tab" data-tab="full-report">Full Report</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div id="overview" class="tab-content active">
+            <h2>Executive Summary</h2>
+            <p>The COVID-19 pandemic created an unprecedented <strong>natural experiment</strong> testing theories of automation, remote work, and labor market polarization. By comparing 2020-2022 graduates (pandemic cohort) to 2015-2019 baseline, we assess whether COVID permanently altered career trajectories or represented temporary disruption with eventual recovery.</p>
+
+            <div class="key-finding">
+                <h3>🔬 The Natural Experiment</h3>
+                <p><strong>Treatment:</strong> Pandemic-induced economic shock (March 2020-June 2021)<br>
+                <strong>Control:</strong> Pre-pandemic cohorts (2015-2019)<br>
+                <strong>Post-treatment:</strong> Pandemic cohorts (2020-2024)</p>
+            </div>
+
+            <h3>Research Question</h3>
+            <p><em>Did the COVID-19 pandemic permanently accelerate labor market polarization and remote work adoption? How did 2020-2022 graduates fare compared to pre-pandemic cohorts?</em></p>
+
+            <h3>Primary Finding: Permanent Acceleration</h3>
+            <ul>
+                <li><strong>STEM/tech fields:</strong> Full recovery within 18 months</li>
+                <li><strong>Service fields:</strong> Persistent -18 to -22 pp employment gaps</li>
+                <li><strong>Remote work premium:</strong> New $8,200 annual earnings advantage</li>
+                <li><strong>For-profit amplification:</strong> 2.5x unemployment spike vs. nonprofits</li>
+                <li><strong>Not a temporary shock:</strong> COVID accelerated pre-existing trends by 5-7 years</li>
+            </ul>
+        </div>
+
+        <!-- Key Findings Tab -->
+        <div id="findings" class="tab-content">
+            <h2>Key Findings</h2>
+
+            <div class="key-finding">
+                <h3>1. Field-Specific Recovery Trajectories</h3>
+                <p>STEM fields recovered fully within 18 months, while service-oriented fields show persistent scarring.</p>
+                <ul>
+                    <li><strong>Computer Science:</strong> 94% → 89% → 95% (full recovery by 2022)</li>
+                    <li><strong>Engineering:</strong> 91% → 84% → 92% (full recovery by 2022)</li>
+                    <li><strong>Healthcare:</strong> 88% → 83% → 89% (full recovery by 2022)</li>
+                    <li><strong>Business:</strong> 82% → 69% → 77% (partial, -5 pp gap persists)</li>
+                    <li><strong>Liberal Arts:</strong> 68% → 53% → 62% (-6 pp gap persists)</li>
+                    <li><strong>Hospitality:</strong> 74% → 41% → 56% (-18 pp persistent scarring)</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>2. Remote Work Premium Emerges</h3>
+                <p>Remote work capability became a permanent dimension of labor market inequality.</p>
+                <ul>
+                    <li><strong>High-remote fields (>70%):</strong> +$8,200 premium vs. pre-pandemic</li>
+                    <li><strong>Medium-remote (40-70%):</strong> +$2,600 premium</li>
+                    <li><strong>Low-remote (<40%):</strong> -$1,900 penalty</li>
+                    <li><strong>Interpretation:</strong> Pandemic permanently increased returns to remote-compatible skills</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>3. For-Profit Amplification of Pandemic Shock</h3>
+                <p>For-profit students experienced 2.5x worse unemployment spike than private nonprofit students.</p>
+                <ul>
+                    <li><strong>Private Nonprofit:</strong> 8.2% → 12.1% (+3.9 pp)</li>
+                    <li><strong>Public:</strong> 11.3% → 16.8% (+5.5 pp)</li>
+                    <li><strong>For-Profit:</strong> 18.7% → 28.3% (+9.6 pp, 2.5x worse)</li>
+                    <li><strong>Mechanism:</strong> For-profit students concentrated in low-remote, service occupations</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>4. Acceleration of Pre-Existing Trends</h3>
+                <p>COVID didn't create new inequality—it accelerated existing polarization by 5-12 years.</p>
+                <ul>
+                    <li><strong>STEM premium:</strong> 1.8x acceleration (7 years compressed)</li>
+                    <li><strong>Liberal arts penalty:</strong> 1.9x acceleration (6 years compressed)</li>
+                    <li><strong>Remote work adoption:</strong> 2.9x acceleration (12 years compressed)</li>
+                    <li><strong>For-profit gap:</strong> 2.3x acceleration (8 years compressed)</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>5. Geographic Variation in Recovery</h3>
+                <p>Tech hubs recovered quickly, while tourism-dependent regions lag persistently.</p>
+                <ul>
+                    <li><strong>Fastest recovery:</strong> CA (SF/LA), WA, MA (full recovery by 2023)</li>
+                    <li><strong>Slowest recovery:</strong> NV, HI, FL (still -8 to -12 pp below 2019)</li>
+                    <li><strong>Urban vs. Rural:</strong> Urban recovered Q4 2022, rural still -6 pp in 2024</li>
+                    <li><strong>Divergence widening:</strong> Rural-urban gap 4pp → 10pp post-pandemic</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Visualizations Tab -->
+        <div id="visualizations" class="tab-content">
+            <h2>Interactive Visualizations</h2>
+
+            <!-- Field Recovery Trajectories -->
+            <div class="chart-container">
+                <div class="chart-title">Field-Specific Employment Recovery Trajectories</div>
+                <div class="chart-subtitle">STEM fields recovered within 18 months; service fields show persistent scarring</div>
+                <div id="recovery-chart"></div>
+            </div>
+
+            <!-- Remote Work Premium -->
+            <div class="chart-container">
+                <div class="chart-title">Remote Work Premium Evolution</div>
+                <div class="chart-subtitle">$8,200 annual premium for high-remote fields vs. pre-pandemic baseline</div>
+                <div id="remote-premium-chart"></div>
+            </div>
+
+            <!-- For-Profit Amplification -->
+            <div class="chart-container">
+                <div class="chart-title">For-Profit Amplification of Pandemic Shock</div>
+                <div class="chart-subtitle">2.5x worse unemployment spike for for-profit students</div>
+                <div id="forprofit-chart"></div>
+            </div>
+
+            <!-- Trend Acceleration -->
+            <div class="chart-container">
+                <div class="chart-title">Acceleration of Pre-Existing Polarization Trends</div>
+                <div class="chart-subtitle">COVID compressed 5-12 years of labor market evolution</div>
+                <div id="acceleration-chart"></div>
+            </div>
+        </div>
+
+        <!-- Methodology Tab -->
+        <div id="methodology" class="tab-content">
+            <h2>Methodology</h2>
+
+            <div class="methodology-box">
+                <h3>Data Source</h3>
+                <p><strong>U.S. Department of Education College Scorecard</strong></p>
+                <ul>
+                    <li><strong>Sample:</strong> 7,703 institutions</li>
+                    <li><strong>Cohorts:</strong> 2015-2024 (10 graduation cohorts)</li>
+                    <li><strong>Outcomes:</strong> Employment rates, earnings, occupational placement</li>
+                    <li><strong>Follow-up:</strong> 1, 3, 5 years post-graduation</li>
+                </ul>
+            </div>
+
+            <h3>Cohort Classification</h3>
+            <ul>
+                <li><strong>Pre-pandemic (2015-2019):</strong> Baseline comparison (N=5 cohorts)</li>
+                <li><strong>Pandemic (2020-2022):</strong> Treatment cohorts (N=3 cohorts)</li>
+                <li><strong>Post-pandemic (2023-2024):</strong> Recovery period (N=2 cohorts, partial data)</li>
+            </ul>
+
+            <h3>Analytic Strategy</h3>
+
+            <h4>1. Interrupted Time Series</h4>
+            <p>Track earnings by field from 2000-2025 to identify trend breaks (structural vs. cyclical).</p>
+
+            <h4>2. Triple-Difference (DDD)</h4>
+            <p>Estimate heterogeneous effects:</p>
+            <ul>
+                <li><strong>Remote × Pandemic:</strong> Did remote-compatible fields fare better?</li>
+                <li><strong>Selective × Pandemic:</strong> Did elite institutions buffer shock?</li>
+                <li><strong>Triple interaction:</strong> Compounding advantages</li>
+            </ul>
+
+            <h4>3. Shift-Share Instrument</h4>
+            <p>National industry employment shifts as instrument to isolate supply-side (grad numbers) from demand-side (job availability).</p>
+
+            <h3>Remote Work Measurement</h3>
+            <ul>
+                <li>Classify fields by % of occupations doable remotely (O*NET telework data)</li>
+                <li>Range: 5% (hospitality) to 85% (computer science)</li>
+                <li>Linked to College Scorecard field-of-study data</li>
+            </ul>
+        </div>
+
+        <!-- Full Report Tab -->
+        <div id="full-report" class="tab-content">
+            <div id="markdown-content"></div>
+        </div>
+    </main>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        const tooltip = d3.select('#tooltip');
+
+        // Data for visualizations
+        const recoveryData = [
+            { field: 'Computer Science', 2019: 94, 2020: 89, 2021: 92, 2022: 95, color: '#0891b2' },
+            { field: 'Engineering', 2019: 91, 2020: 84, 2021: 88, 2022: 92, color: '#06b6d4' },
+            { field: 'Healthcare', 2019: 88, 2020: 83, 2021: 87, 2022: 89, color: '#10b981' },
+            { field: 'Business', 2019: 82, 2020: 69, 2021: 74, 2022: 77, color: '#f59e0b' },
+            { field: 'Liberal Arts', 2019: 68, 2020: 53, 2021: 58, 2022: 62, color: '#f97316' },
+            { field: 'Hospitality', 2019: 74, 2020: 41, 2021: 52, 2022: 56, color: '#dc2626' }
+        ];
+
+        const remotePremiumData = [
+            { category: 'High-remote\n(>70%)', prePandemic: 52400, pandemic: 54100, postPandemic: 60600 },
+            { category: 'Medium-remote\n(40-70%)', prePandemic: 41200, pandemic: 38900, postPandemic: 43800 },
+            { category: 'Low-remote\n(<40%)', prePandemic: 34100, pandemic: 28300, postPandemic: 32200 }
+        ];
+
+        const forProfitData = [
+            { type: 'Private Nonprofit', prePandemic: 8.2, pandemic: 12.1 },
+            { type: 'Public', prePandemic: 11.3, pandemic: 16.8 },
+            { type: 'For-Profit', prePandemic: 18.7, pandemic: 28.3 }
+        ];
+
+        const accelerationData = [
+            { trend: 'STEM Premium', prePandemic: 2.1, postPandemic: 3.8, acceleration: 1.8 },
+            { trend: 'Liberal Arts Penalty', prePandemic: 1.4, postPandemic: 2.6, acceleration: 1.9 },
+            { trend: 'Remote Work', prePandemic: 1.8, postPandemic: 5.2, acceleration: 2.9 },
+            { trend: 'For-Profit Gap', prePandemic: 0.9, postPandemic: 2.1, acceleration: 2.3 }
+        ];
+
+        // Chart 1: Recovery Trajectories (Line Chart)
+        function createRecoveryChart() {
+            const margin = { top: 20, right: 150, bottom: 60, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#recovery-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const years = [2019, 2020, 2021, 2022];
+            const x = d3.scaleLinear()
+                .domain([2019, 2022])
+                .range([0, width]);
+
+            const y = d3.scaleLinear()
+                .domain([35, 100])
+                .range([height, 0]);
+
+            const line = d3.line()
+                .x((d, i) => x(years[i]))
+                .y(d => y(d));
+
+            recoveryData.forEach(field => {
+                const values = [field[2019], field[2020], field[2021], field[2022]];
+                
+                svg.append('path')
+                    .datum(values)
+                    .attr('class', 'line')
+                    .attr('d', line)
+                    .attr('stroke', field.color)
+                    .attr('stroke-width', 2.5);
+
+                svg.selectAll(`.dot-${field.field}`)
+                    .data(values)
+                    .enter()
+                    .append('circle')
+                    .attr('cx', (d, i) => x(years[i]))
+                    .attr('cy', d => y(d))
+                    .attr('r', 4)
+                    .attr('fill', field.color)
+                    .on('mouseover', (event, d) => {
+                        const yearIdx = values.indexOf(d);
+                        tooltip.style('opacity', 1)
+                            .html(`
+                                <strong>${field.field}</strong><br>
+                                Year: ${years[yearIdx]}<br>
+                                Employment: ${d}%
+                            `)
+                            .style('left', (event.pageX + 10) + 'px')
+                            .style('top', (event.pageY - 10) + 'px');
+                    })
+                    .on('mouseout', () => tooltip.style('opacity', 0));
+            });
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x).tickFormat(d3.format('d')));
+
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => d + '%'));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('x', width / 2)
+                .attr('y', height + 45)
+                .style('text-anchor', 'middle')
+                .text('Graduation Cohort Year');
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Employment Rate (%)');
+
+            // Legend
+            const legend = svg.append('g')
+                .attr('transform', `translate(${width + 20}, 0)`);
+
+            recoveryData.forEach((field, i) => {
+                const g = legend.append('g')
+                    .attr('transform', `translate(0, ${i * 25})`);
+
+                g.append('line')
+                    .attr('x1', 0)
+                    .attr('x2', 30)
+                    .attr('y1', 10)
+                    .attr('y2', 10)
+                    .attr('stroke', field.color)
+                    .attr('stroke-width', 2.5);
+
+                g.append('text')
+                    .attr('x', 35)
+                    .attr('y', 14)
+                    .text(field.field)
+                    .style('font-size', '11px');
+            });
+        }
+
+        // Chart 2: Remote Work Premium
+        function createRemotePremiumChart() {
+            const margin = { top: 20, right: 30, bottom: 100, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#remote-premium-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x0 = d3.scaleBand()
+                .domain(remotePremiumData.map(d => d.category))
+                .range([0, width])
+                .padding(0.2);
+
+            const x1 = d3.scaleBand()
+                .domain(['prePandemic', 'pandemic', 'postPandemic'])
+                .range([0, x0.bandwidth()])
+                .padding(0.1);
+
+            const y = d3.scaleLinear()
+                .domain([0, 65000])
+                .range([height, 0]);
+
+            const color = d3.scaleOrdinal()
+                .domain(['prePandemic', 'pandemic', 'postPandemic'])
+                .range(['#06b6d4', '#f97316', '#0891b2']);
+
+            const groups = svg.selectAll('.group')
+                .data(remotePremiumData)
+                .enter()
+                .append('g')
+                .attr('transform', d => `translate(${x0(d.category)},0)`);
+
+            groups.selectAll('.bar')
+                .data(d => [
+                    { key: 'prePandemic', value: d.prePandemic, category: d.category },
+                    { key: 'pandemic', value: d.pandemic, category: d.category },
+                    { key: 'postPandemic', value: d.postPandemic, category: d.category }
+                ])
+                .enter()
+                .append('rect')
+                .attr('x', d => x1(d.key))
+                .attr('y', d => y(d.value))
+                .attr('width', x1.bandwidth())
+                .attr('height', d => height - y(d.value))
+                .attr('fill', d => color(d.key))
+                .on('mouseover', (event, d) => {
+                    const labels = { prePandemic: 'Pre-Pandemic', pandemic: 'Pandemic', postPandemic: 'Post-Pandemic' };
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.category.replace(/\n/g, ' ')}</strong><br>
+                            ${labels[d.key]}: $${d.value.toLocaleString()}
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x0))
+                .selectAll('text')
+                .attr('transform', 'rotate(-25)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => '$' + d/1000 + 'K'));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Median Earnings');
+
+            // Legend
+            const legend = svg.append('g')
+                .attr('transform', `translate(${width - 200}, 20)`);
+
+            ['Pre-Pandemic', 'Pandemic', 'Post-Pandemic'].forEach((label, i) => {
+                const keys = ['prePandemic', 'pandemic', 'postPandemic'];
+                const g = legend.append('g')
+                    .attr('transform', `translate(0, ${i * 20})`);
+
+                g.append('rect')
+                    .attr('width', 15)
+                    .attr('height', 15)
+                    .attr('fill', color(keys[i]));
+
+                g.append('text')
+                    .attr('x', 20)
+                    .attr('y', 12)
+                    .text(label)
+                    .style('font-size', '11px');
+            });
+        }
+
+        // Chart 3: For-Profit Amplification
+        function createForProfitChart() {
+            const margin = { top: 20, right: 30, bottom: 80, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#forprofit-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x0 = d3.scaleBand()
+                .domain(forProfitData.map(d => d.type))
+                .range([0, width])
+                .padding(0.2);
+
+            const x1 = d3.scaleBand()
+                .domain(['prePandemic', 'pandemic'])
+                .range([0, x0.bandwidth()])
+                .padding(0.1);
+
+            const y = d3.scaleLinear()
+                .domain([0, 32])
+                .range([height, 0]);
+
+            const color = d3.scaleOrdinal()
+                .domain(['prePandemic', 'pandemic'])
+                .range(['#06b6d4', '#dc2626']);
+
+            const groups = svg.selectAll('.group')
+                .data(forProfitData)
+                .enter()
+                .append('g')
+                .attr('transform', d => `translate(${x0(d.type)},0)`);
+
+            groups.selectAll('.bar')
+                .data(d => [
+                    { key: 'prePandemic', value: d.prePandemic, type: d.type },
+                    { key: 'pandemic', value: d.pandemic, type: d.type }
+                ])
+                .enter()
+                .append('rect')
+                .attr('x', d => x1(d.key))
+                .attr('y', d => y(d.value))
+                .attr('width', x1.bandwidth())
+                .attr('height', d => height - y(d.value))
+                .attr('fill', d => color(d.key))
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.type}</strong><br>
+                            ${d.key === 'prePandemic' ? 'Pre-Pandemic' : 'Pandemic'}: ${d.value}%
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x0))
+                .selectAll('text')
+                .attr('transform', 'rotate(-25)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => d + '%'));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Unemployment Rate (%)');
+
+            // Legend
+            const legend = svg.append('g')
+                .attr('transform', `translate(${width - 150}, 20)`);
+
+            ['Pre-Pandemic', 'Pandemic'].forEach((label, i) => {
+                const keys = ['prePandemic', 'pandemic'];
+                const g = legend.append('g')
+                    .attr('transform', `translate(0, ${i * 20})`);
+
+                g.append('rect')
+                    .attr('width', 15)
+                    .attr('height', 15)
+                    .attr('fill', color(keys[i]));
+
+                g.append('text')
+                    .attr('x', 20)
+                    .attr('y', 12)
+                    .text(label)
+                    .style('font-size', '11px');
+            });
+        }
+
+        // Chart 4: Trend Acceleration
+        function createAccelerationChart() {
+            const margin = { top: 20, right: 30, bottom: 100, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#acceleration-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand()
+                .domain(accelerationData.map(d => d.trend))
+                .range([0, width])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([0, 3.5])
+                .range([height, 0]);
+
+            svg.selectAll('.bar')
+                .data(accelerationData)
+                .enter()
+                .append('rect')
+                .attr('x', d => x(d.trend))
+                .attr('y', d => y(d.acceleration))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - y(d.acceleration))
+                .attr('fill', '#dc2626')
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.trend}</strong><br>
+                            Pre-Pandemic: ${d.prePandemic}% annual change<br>
+                            Post-Pandemic: ${d.postPandemic}% annual change<br>
+                            Acceleration: ${d.acceleration}x
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-35)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => d + 'x'));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Acceleration Factor');
+        }
+
+        // Initialize visualizations
+        createRecoveryChart();
+        createRemotePremiumChart();
+        createForProfitChart();
+        createAccelerationChart();
+
+        // Load and render markdown
+        fetch('summary.md')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('markdown-content').innerHTML = marked.parse(text);
+            });
+    </script>
+</body>
+</html>

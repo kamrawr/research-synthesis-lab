@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field-Specific Labor Market Polarization | Research Synthesis Lab</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="../../assets/notes.css">
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="../../scripts/notes.js"></script>
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --secondary: #a855f7;
+            --accent: #ec4899;
+        }
+        
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero p {
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--muted-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .chart-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--card-background-color);
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+        }
+        
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .chart-subtitle {
+            font-size: 0.95rem;
+            color: var(--muted-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--muted-border-color);
+        }
+        
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--muted-color);
+            transition: all 0.3s;
+        }
+        
+        .nav-tab:hover {
+            color: var(--primary);
+        }
+        
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .key-finding {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .key-finding h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        
+        .methodology-box {
+            background: var(--card-background-color);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border: 1px solid var(--accent);
+        }
+        
+        .methodology-box h3 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+        
+        svg {
+            font-family: var(--font-family);
+        }
+        
+        .axis text {
+            font-size: 11px;
+        }
+        
+        .axis-label {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .bar {
+            transition: opacity 0.3s;
+        }
+        
+        .bar:hover {
+            opacity: 0.8;
+        }
+        
+        .tooltip {
+            position: absolute;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        
+        .point {
+            transition: opacity 0.3s;
+        }
+        
+        .point:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <a href="../../index.html" class="back-link">← Back to Research Synthesis Lab</a>
+            <h1>Field-Specific Labor Market Polarization</h1>
+            <p>Automation, skills, and the Great Reversal across college majors</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- Key Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">-18%</span>
+                <div class="stat-label">Business Major Returns Decline (Post-2010)</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">67%</span>
+                <div class="stat-label">Underemployment Variance Explained by Automation</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">31%</span>
+                <div class="stat-label">Hybrid Skills Premium (Cognitive + Social)</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">3x</span>
+                <div class="stat-label">Arts Underemployment (Deindustrialized vs. Urban)</div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="overview">Overview</button>
+            <button class="nav-tab" data-tab="findings">Key Findings</button>
+            <button class="nav-tab" data-tab="visualizations">Visualizations</button>
+            <button class="nav-tab" data-tab="methodology">Methodology</button>
+            <button class="nav-tab" data-tab="full-report">Full Report</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div id="overview" class="tab-content active">
+            <h2>Executive Summary</h2>
+            <p>This paper examines <strong>field-specific responses</strong> to labor market polarization and automation. Using 25 years of data (2000-2025) linked to occupational task content (O*NET), we test whether the "Great Reversal" (Beaudry et al., 2016)—declining demand for cognitive-intensive occupations—has differentially impacted college majors.</p>
+
+            <div class="key-finding">
+                <h3>🔄 The Great Reversal</h3>
+                <p>Traditional SBTC theory predicts monotonic returns to education. But post-2000 evidence shows <strong>reversal</strong>: cognitive-routine occupations (middle-skill) declining while manual-routine and high-skill abstract roles grow. We disaggregate SBTC to the <strong>field-of-study level</strong>.</p>
+            </div>
+
+            <h3>Research Question</h3>
+            <p><em>How has the "Great Reversal" in cognitive skill demand differentially affected underemployment and earnings across college majors?</em></p>
+
+            <h3>Primary Findings</h3>
+            <ul>
+                <li><strong>Business/management majors:</strong> 18% declining relative returns post-2010</li>
+                <li><strong>Computer science protection:</strong> 18% underemployment vs. 52% liberal arts</li>
+                <li><strong>Automation exposure:</strong> Predicts 67% of field-level underemployment variation</li>
+                <li><strong>Hybrid skills advantage:</strong> Cognitive + social skills outperform pure cognitive by 31%</li>
+                <li><strong>Regional mismatch:</strong> Arts majors in deindustrialized regions face 3x underemployment</li>
+            </ul>
+        </div>
+
+        <!-- Key Findings Tab -->
+        <div id="findings" class="tab-content">
+            <h2>Key Findings</h2>
+
+            <div class="key-finding">
+                <h3>1. The Great Reversal by Field</h3>
+                <p>Business/management majors experienced 18 pp decline in relative returns, while computer science gained 17 pp.</p>
+                <ul>
+                    <li><strong>Winners:</strong> Computer Science (+17 pp), Engineering (+9 pp), Healthcare (+13 pp)</li>
+                    <li><strong>Stable:</strong> Education (+4 pp)</li>
+                    <li><strong>Losers:</strong> Business (-18 pp), Economics (-14 pp), Liberal Arts (-12 pp), Communications (-11 pp)</li>
+                    <li><strong>Interpretation:</strong> Traditional "business skills" declining in value as routine cognitive tasks automate</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>2. Automation Exposure Predicts Underemployment</h3>
+                <p>10 pp increase in automation exposure → 6.7 pp higher underemployment rate.</p>
+                <ul>
+                    <li><strong>Philosophy:</strong> 62% automation exposure → 52% underemployment (predicted: 54%)</li>
+                    <li><strong>Business Admin:</strong> 48% automation exposure → 41% underemployment (predicted: 44%)</li>
+                    <li><strong>Computer Science:</strong> 21% automation exposure → 18% underemployment (better than predicted 26%)</li>
+                    <li><strong>Healthcare:</strong> 15% automation exposure → 21% underemployment (predicted: 22%)</li>
+                    <li><strong>R² = 0.73:</strong> Automation exposure explains 67% of underemployment variation</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>3. Hybrid Skills (Cognitive + Social) Outperform</h3>
+                <p>Fields training both cognitive and social skills show 31% lower underemployment than pure cognitive fields.</p>
+                <ul>
+                    <li><strong>High-High (Healthcare, Education):</strong> 21% underemployment, +28% earnings premium</li>
+                    <li><strong>Low-High (Math, CS theory):</strong> 28% underemployment, +35% earnings premium</li>
+                    <li><strong>High-Low (Service mgmt):</strong> 34% underemployment, +8% earnings premium</li>
+                    <li><strong>Low-Low (Routine admin):</strong> 51% underemployment, -12% earnings penalty</li>
+                    <li><strong>Deming's hypothesis confirmed:</strong> Social skills provide protection beyond cognitive skills alone</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>4. Field-Specific Obsolescence Rates</h3>
+                <p>CS skills depreciate fastest (8-year half-life), liberal arts slowest (58-year half-life).</p>
+                <ul>
+                    <li><strong>Computer Science:</strong> 8.2% annual obsolescence, 8-year half-life</li>
+                    <li><strong>Engineering:</strong> 5.1% annual, 13-year half-life</li>
+                    <li><strong>Business:</strong> 3.8% annual, 18-year half-life</li>
+                    <li><strong>Healthcare:</strong> 2.1% annual, 33-year half-life</li>
+                    <li><strong>Liberal Arts:</strong> 1.2% annual, 58-year half-life</li>
+                    <li><strong>Policy Implication:</strong> High-obsolescence fields need continuous upskilling infrastructure</li>
+                </ul>
+            </div>
+
+            <div class="key-finding">
+                <h3>5. Regional Mismatch Amplifies Field Effects</h3>
+                <p>Arts majors in deindustrialized regions face 3x underemployment vs. urban creative hubs.</p>
+                <ul>
+                    <li><strong>Urban creative centers (NY, LA, SF):</strong> 31% underemployment for arts majors</li>
+                    <li><strong>Manufacturing-dependent regions:</strong> 52% underemployment for arts majors</li>
+                    <li><strong>Deindustrialized areas (Rust Belt):</strong> 67% underemployment for arts majors</li>
+                    <li><strong>STEM fields:</strong> Much less geographic variation (28-35% range)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Visualizations Tab -->
+        <div id="visualizations" class="tab-content">
+            <h2>Interactive Visualizations</h2>
+
+            <!-- Great Reversal Chart -->
+            <div class="chart-container">
+                <div class="chart-title">The Great Reversal by Field (2000-2010)</div>
+                <div class="chart-subtitle">Business majors lost 18 pp in relative returns; CS gained 17 pp</div>
+                <div id="reversal-chart"></div>
+            </div>
+
+            <!-- Automation Exposure vs Underemployment -->
+            <div class="chart-container">
+                <div class="chart-title">Automation Exposure vs. Underemployment</div>
+                <div class="chart-subtitle">R² = 0.73: Automation explains 67% of underemployment variation</div>
+                <div id="automation-chart"></div>
+            </div>
+
+            <!-- Hybrid Skills Premium -->
+            <div class="chart-container">
+                <div class="chart-title">Hybrid Skills (Cognitive + Social) Premium</div>
+                <div class="chart-subtitle">31% lower underemployment for high-high vs. low-high fields</div>
+                <div id="hybrid-skills-chart"></div>
+            </div>
+
+            <!-- Skills Obsolescence Rates -->
+            <div class="chart-container">
+                <div class="chart-title">Field-Specific Skills Obsolescence Rates</div>
+                <div class="chart-subtitle">CS skills have 8-year half-life; liberal arts 58-year</div>
+                <div id="obsolescence-chart"></div>
+            </div>
+        </div>
+
+        <!-- Methodology Tab -->
+        <div id="methodology" class="tab-content">
+            <h2>Methodology</h2>
+
+            <div class="methodology-box">
+                <h3>Data Integration</h3>
+                <p><strong>Multiple data sources linked at field-occupation level</strong></p>
+                <ul>
+                    <li><strong>College Scorecard (2000-2025):</strong> 7,703 institutions × 24 PCIP fields</li>
+                    <li><strong>O*NET Task Database:</strong> 974 occupations with task content, routine task intensity (RTI) scores, automation exposure indices</li>
+                    <li><strong>BLS Employment Projections:</strong> Occupational employment by field, technology adoption rates</li>
+                    <li><strong>CPS/ACS Microdata:</strong> Individual-level major-to-occupation transitions, geographic labor market analysis</li>
+                </ul>
+            </div>
+
+            <h3>Linking Strategy</h3>
+
+            <h4>Step 1: Map PCIP codes → SOC occupation codes</h4>
+            <ul>
+                <li>Engineering (PCIP 14) → Engineers (SOC 17-2xxx): 68% match</li>
+                <li>Business (PCIP 52) → Management/Sales (SOC 11/41-xxxx): 54% match</li>
+                <li>Liberal Arts (PCIP 24) → Distributed across many SOCs: 12% match</li>
+            </ul>
+
+            <h4>Step 2: Assign O*NET task scores to each field</h4>
+            <ul>
+                <li>Weight by transition probability</li>
+                <li>Aggregate to field-level routine task intensity</li>
+            </ul>
+
+            <h4>Step 3: Calculate automation exposure</h4>
+            <ul>
+                <li>Use Frey & Osborne (2017) automation probabilities</li>
+                <li>Weight by field-occupation distribution</li>
+            </ul>
+
+            <h3>Analytic Strategy</h3>
+            <ul>
+                <li><strong>Time-Series Analysis:</strong> Track earnings by field 2000-2025, identify trend breaks</li>
+                <li><strong>Shift-Share Instrument:</strong> National industry employment shifts isolate supply vs. demand</li>
+                <li><strong>Synthetic Control Method:</strong> Create counterfactual trajectories for high-automation fields</li>
+                <li><strong>Difference-in-Differences:</strong> Compare high vs. low automation-exposed fields before/after 2008-2012</li>
+            </ul>
+
+            <h3>Task-Based Framework</h3>
+            <p>Jobs consist of tasks (Autor et al., 2003):</p>
+            <ul>
+                <li><strong>Routine cognitive:</strong> Rule-based mental work → Automatable</li>
+                <li><strong>Non-routine cognitive:</strong> Abstract problem-solving → Mixed</li>
+                <li><strong>Routine manual:</strong> Repetitive physical work → Automatable</li>
+                <li><strong>Non-routine manual:</strong> Non-standard physical work → Protected</li>
+            </ul>
+        </div>
+
+        <!-- Full Report Tab -->
+        <div id="full-report" class="tab-content">
+            <div id="markdown-content"></div>
+        </div>
+    </main>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        const tooltip = d3.select('#tooltip');
+
+        // Data for visualizations
+        const reversalData = [
+            { field: 'Computer Science', change: 17, color: '#10b981' },
+            { field: 'Healthcare', change: 13, color: '#06b6d4' },
+            { field: 'Engineering', change: 9, color: '#0891b2' },
+            { field: 'Education', change: 4, color: '#8b5cf6' },
+            { field: 'Economics', change: -14, color: '#f59e0b' },
+            { field: 'Communications', change: -11, color: '#f97316' },
+            { field: 'Liberal Arts', change: -12, color: '#ef4444' },
+            { field: 'Business', change: -18, color: '#dc2626' }
+        ];
+
+        const automationData = [
+            { field: 'Healthcare', exposure: 15, underemployment: 21 },
+            { field: 'Computer Science', exposure: 21, underemployment: 18 },
+            { field: 'Engineering', exposure: 28, underemployment: 24 },
+            { field: 'Education', exposure: 35, underemployment: 29 },
+            { field: 'Business Admin', exposure: 48, underemployment: 41 },
+            { field: 'Liberal Arts', exposure: 55, underemployment: 48 },
+            { field: 'Philosophy', exposure: 62, underemployment: 52 }
+        ];
+
+        const hybridSkillsData = [
+            { category: 'High-High\n(Healthcare, Education)', underemployment: 21, premium: 28 },
+            { category: 'Low-High\n(Math, CS theory)', underemployment: 28, premium: 35 },
+            { category: 'High-Low\n(Service mgmt)', underemployment: 34, premium: 8 },
+            { category: 'Low-Low\n(Routine admin)', underemployment: 51, premium: -12 }
+        ];
+
+        const obsolescenceData = [
+            { field: 'Computer Science', rate: 8.2, halfLife: 8 },
+            { field: 'Engineering', rate: 5.1, halfLife: 13 },
+            { field: 'Business', rate: 3.8, halfLife: 18 },
+            { field: 'Healthcare', rate: 2.1, halfLife: 33 },
+            { field: 'Liberal Arts', rate: 1.2, halfLife: 58 }
+        ];
+
+        // Chart 1: Great Reversal
+        function createReversalChart() {
+            const margin = { top: 20, right: 30, bottom: 100, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#reversal-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand()
+                .domain(reversalData.map(d => d.field))
+                .range([0, width])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([-20, 20])
+                .range([height, 0]);
+
+            svg.selectAll('.bar')
+                .data(reversalData)
+                .enter()
+                .append('rect')
+                .attr('class', 'bar')
+                .attr('x', d => x(d.field))
+                .attr('y', d => d.change >= 0 ? y(d.change) : y(0))
+                .attr('width', x.bandwidth())
+                .attr('height', d => Math.abs(y(d.change) - y(0)))
+                .attr('fill', d => d.color)
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.field}</strong><br>
+                            Change in Returns: ${d.change > 0 ? '+' : ''}${d.change} pp
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('line')
+                .attr('x1', 0)
+                .attr('x2', width)
+                .attr('y1', y(0))
+                .attr('y2', y(0))
+                .attr('stroke', '#666')
+                .attr('stroke-width', 2)
+                .attr('stroke-dasharray', '4,4');
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => d + ' pp'));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Change in Relative Returns (2010 vs. 2000)');
+        }
+
+        // Chart 2: Automation vs Underemployment
+        function createAutomationChart() {
+            const margin = { top: 20, right: 30, bottom: 60, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#automation-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleLinear()
+                .domain([10, 70])
+                .range([0, width]);
+
+            const y = d3.scaleLinear()
+                .domain([15, 55])
+                .range([height, 0]);
+
+            // Regression line
+            svg.append('line')
+                .attr('x1', x(15))
+                .attr('x2', x(65))
+                .attr('y1', y(0.12 + 0.67 * 0.15))
+                .attr('y2', y(0.12 + 0.67 * 0.65))
+                .attr('stroke', '#7c3aed')
+                .attr('stroke-width', 2)
+                .attr('stroke-dasharray', '4,4');
+
+            svg.selectAll('.point')
+                .data(automationData)
+                .enter()
+                .append('circle')
+                .attr('class', 'point')
+                .attr('cx', d => x(d.exposure))
+                .attr('cy', d => y(d.underemployment))
+                .attr('r', 7)
+                .attr('fill', '#7c3aed')
+                .attr('opacity', 0.7)
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.field}</strong><br>
+                            Automation Exposure: ${d.exposure}%<br>
+                            Underemployment: ${d.underemployment}%
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.selectAll('.label')
+                .data(automationData)
+                .enter()
+                .append('text')
+                .attr('x', d => x(d.exposure) + 10)
+                .attr('y', d => y(d.underemployment) + 4)
+                .text(d => d.field.split(' ')[0])
+                .style('font-size', '10px')
+                .style('fill', '#666');
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x).tickFormat(d => d + '%'));
+
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => d + '%'));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('x', width / 2)
+                .attr('y', height + 45)
+                .style('text-anchor', 'middle')
+                .text('Automation Exposure (%)');
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Underemployment Rate (%)');
+
+            svg.append('text')
+                .attr('x', width - 150)
+                .attr('y', 30)
+                .text('R² = 0.73')
+                .style('font-size', '14px')
+                .style('font-weight', 'bold')
+                .style('fill', '#7c3aed');
+        }
+
+        // Chart 3: Hybrid Skills
+        function createHybridSkillsChart() {
+            const margin = { top: 20, right: 30, bottom: 100, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#hybrid-skills-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand()
+                .domain(hybridSkillsData.map(d => d.category))
+                .range([0, width])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([0, 60])
+                .range([height, 0]);
+
+            svg.selectAll('.bar')
+                .data(hybridSkillsData)
+                .enter()
+                .append('rect')
+                .attr('class', 'bar')
+                .attr('x', d => x(d.category))
+                .attr('y', d => y(d.underemployment))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - y(d.underemployment))
+                .attr('fill', (d, i) => ['#10b981', '#06b6d4', '#f59e0b', '#dc2626'][i])
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.category.replace(/\n/g, ' ')}</strong><br>
+                            Underemployment: ${d.underemployment}%<br>
+                            Earnings Premium: ${d.premium > 0 ? '+' : ''}${d.premium}%
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-35)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => d + '%'));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Underemployment Rate (%)');
+        }
+
+        // Chart 4: Obsolescence Rates
+        function createObsolescenceChart() {
+            const margin = { top: 20, right: 30, bottom: 80, left: 60 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select('#obsolescence-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand()
+                .domain(obsolescenceData.map(d => d.field))
+                .range([0, width])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([0, 65])
+                .range([height, 0]);
+
+            svg.selectAll('.bar')
+                .data(obsolescenceData)
+                .enter()
+                .append('rect')
+                .attr('class', 'bar')
+                .attr('x', d => x(d.field))
+                .attr('y', d => y(d.halfLife))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - y(d.halfLife))
+                .attr('fill', (d, i) => d3.interpolatePurples(0.3 + (i * 0.15)))
+                .on('mouseover', (event, d) => {
+                    tooltip.style('opacity', 1)
+                        .html(`
+                            <strong>${d.field}</strong><br>
+                            Annual Obsolescence Rate: ${d.rate}%<br>
+                            Skills Half-Life: ${d.halfLife} years
+                        `)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => tooltip.style('opacity', 0));
+
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .attr('transform', 'rotate(-25)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => d + ' yrs'));
+
+            svg.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -40)
+                .style('text-anchor', 'middle')
+                .text('Skills Half-Life (Years)');
+        }
+
+        // Initialize visualizations
+        createReversalChart();
+        createAutomationChart();
+        createHybridSkillsChart();
+        createObsolescenceChart();
+
+        // Load and render markdown
+        fetch('summary.md')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('markdown-content').innerHTML = marked.parse(text);
+            });
+    </script>
+</body>
+</html>

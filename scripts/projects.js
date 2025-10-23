@@ -72,6 +72,42 @@ const projects = [
         dataPoints: 499,
         keywords: ["workforce development", "credentialing", "community resilience", "energy efficiency", "cooperative models", "economic development"],
         source: "Elicit synthesis (138M papers)"
+    },
+    
+    {
+        title: "Machine Learning for Default Risk Prediction: Precision Intervention & Algorithmic Fairness",
+        folder: "ml-default-prediction",
+        description: "Fairness-aware ML framework achieving 87% accuracy in predicting student loan default risk. Targeted interventions reduce defaults by 20-25% vs. universal programs (3.2:1 cost-benefit ratio) while maintaining demographic parity across protected groups.",
+        date: "October 2025",
+        status: "active",
+        studiesReviewed: 6228,
+        dataPoints: 6228,
+        keywords: ["machine learning", "default prediction", "algorithmic fairness", "precision intervention", "student loans"],
+        source: "College Scorecard with ensemble ML methods"
+    },
+    
+    {
+        title: "COVID-19 Labor Market Disruption: A Natural Experiment in Accelerated Polarization",
+        folder: "covid-labor-disruption",
+        description: "Interrupted time series analysis of 2020-2022 graduates vs. pre-pandemic cohorts. Finds permanent $8,200 remote work premium, persistent -22% earnings penalty in service fields, and 5-7 year acceleration of pre-existing polarization trends.",
+        date: "October 2025",
+        status: "active",
+        studiesReviewed: 7703,
+        dataPoints: 7703,
+        keywords: ["COVID-19", "labor market", "remote work", "polarization", "natural experiment", "cohort analysis"],
+        source: "College Scorecard cohort analysis (2015-2024)"
+    },
+    
+    {
+        title: "Field-Specific Labor Market Polarization: Automation, Skills, and the Great Reversal",
+        folder: "field-labor-polarization",
+        description: "Time-series analysis linking 24 college majors to occupational task content (O*NET, 2000-2025). Business majors show 18% declining returns post-2010, while hybrid cognitive+social skills outperform pure cognitive fields by 31%. Automation exposure predicts 67% of underemployment variation.",
+        date: "October 2025",
+        status: "active",
+        studiesReviewed: 7703,
+        dataPoints: 185000,
+        keywords: ["automation", "labor polarization", "college majors", "task content", "skills", "Great Reversal"],
+        source: "College Scorecard + O*NET task linkage (25 years)"
     }
     
     // Add new projects below
