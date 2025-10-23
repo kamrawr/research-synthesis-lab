@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resilient Homes, Thriving Communities | Research Synthesis Lab</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        :root {
+            --primary: #059669;
+            --secondary: #0891b2;
+            --accent: #f59e0b;
+        }
+        
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero p {
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border-color);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--muted-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .highlight-stat {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+        }
+        
+        .highlight-stat .stat-number {
+            color: white;
+        }
+        
+        .highlight-stat .stat-label {
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .theme-section {
+            background: var(--card-background-color);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .theme-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--muted-border-color);
+        }
+        
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--muted-color);
+            transition: all 0.3s;
+        }
+        
+        .nav-tab:hover {
+            color: var(--primary);
+        }
+        
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: white;
+            text-decoration: none;
+            opacity: 0.95;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+            opacity: 1;
+        }
+        
+        .program-card {
+            background: var(--card-background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--muted-border-color);
+        }
+        
+        .program-title {
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <a href="../../index.html" class="back-link">← Back to Research Synthesis Lab</a>
+            <h1>Resilient Homes, Thriving Communities</h1>
+            <p>Housing Infrastructure as Workforce Development and Climate Adaptation Strategy</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="stats-grid">
+            <div class="stat-card highlight-stat">
+                <span class="stat-number">15-40%</span>
+                <span class="stat-label">Energy Savings Range</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">85+</span>
+                <span class="stat-label">Jobs Created</span>
+            </div>
+            <div class="stat-card highlight-stat">
+                <span class="stat-number">$5.9M</span>
+                <span class="stat-label">Cost Savings</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">38</span>
+                <span class="stat-label">Studies Analyzed</span>
+            </div>
+        </div>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+            <button class="nav-tab" onclick="showTab('programs')">Program Examples</button>
+            <button class="nav-tab" onclick="showTab('implications')">Key Implications</button>
+        </nav>
+
+        <div id="overview" class="tab-content active">
+            <article>
+                <h2>Research Question</h2>
+                <p>How can treating homes as community infrastructure—through coordinated programs in retrofit, repair, and workforce development—create sustainable pathways for economic resilience, intergenerational equity, and climate adaptation in rural and underserved Oregon communities?</p>
+
+                <h2>Executive Summary</h2>
+                <div class="theme-section">
+                    <p>Integrated home retrofit and workforce development programs in rural and underserved communities create sustainable pathways by generating local jobs, serving aging homeowners while training younger workers, and achieving <strong>15-40% energy savings</strong> that support economic resilience, intergenerational equity, and climate adaptation.</p>
+                </div>
+
+                <h3>Key Findings</h3>
+                
+                <div class="theme-section">
+                    <h4 class="theme-title">1. Community-Based Delivery Models</h4>
+                    <ul>
+                        <li>14 studies used partnership, coalition, or multi-partner models</li>
+                        <li>6 studies led by community-based organizations or nonprofits</li>
+                        <li>Programs treating homes as community infrastructure associated with collective benefits</li>
+                        <li>34 studies in the United States (16 urban, 11 rural, 2 tribal contexts)</li>
+                    </ul>
+                </div>
+
+                <div class="theme-section">
+                    <h4 class="theme-title">2. Integrated Workforce Development</h4>
+                    <ul>
+                        <li>18 studies measured workforce, jobs, or training outcomes</li>
+                        <li>Formal apprenticeships, credentialing, and job placement for at-risk populations</li>
+                        <li><strong>85 jobs created, $5.9M savings</strong> (Colorado regional collaboration)</li>
+                        <li><strong>550-750 jobs/year, $120M savings</strong> (Louisville Local Energy Action Program)</li>
+                        <li><strong>1.17M jobs</strong> projected (Department of Energy national analysis)</li>
+                    </ul>
+                </div>
+
+                <div class="theme-section">
+                    <h4 class="theme-title">3. Intergenerational Equity & Age-in-Place</h4>
+                    <ul>
+                        <li>Programs combining home modifications with workforce development benefit both older adults and younger workers</li>
+                        <li>Accessibility improvements, health and safety upgrades support age-in-place outcomes</li>
+                        <li>9 studies reported youth or young worker opportunities</li>
+                        <li>In tribal and rural contexts, programs align with local traditions and cultural preservation</li>
+                    </ul>
+                </div>
+
+                <div class="theme-section">
+                    <h4 class="theme-title">4. Climate Adaptation Through Housing Resilience</h4>
+                    <ul>
+                        <li><strong>15-40% energy savings</strong> range consistently reported</li>
+                        <li><strong>19,350 tons CO₂</strong> reduction (Colorado program)</li>
+                        <li><strong>40% energy savings</strong> (California whole-house upgrades, rural Southeast Asia)</li>
+                        <li>15 studies reported greenhouse gas or carbon dioxide reduction</li>
+                        <li>Improved indoor air quality and reduced asthma rates documented</li>
+                    </ul>
+                </div>
+
+                <h3>Geographic Distribution</h3>
+                <p><strong>Most common locations:</strong></p>
+                <ul>
+                    <li>California (8 studies)</li>
+                    <li>Massachusetts (5 studies)</li>
+                    <li>Oregon (3 studies)</li>
+                    <li>Washington (3 studies)</li>
+                </ul>
+
+                <h3>Links</h3>
+                <p><a href="docs/full-report.pdf" download>Download Full Report (PDF)</a></p>
+                <p><a href="summary.md" download>Download Summary (Markdown)</a></p>
+            </article>
+        </div>
+
+        <div id="programs" class="tab-content">
+            <h2>Successful Program Examples</h2>
+            
+            <div class="program-card">
+                <div class="program-title">Regional Collaboration (Colorado)</div>
+                <p><strong>Model:</strong> Regional collaboration with Energy Advisors</p>
+                <p><strong>Outcomes:</strong> 85 jobs, $5.9M savings, 19,350 tons CO₂ reduction</p>
+                <p><strong>Key success factors:</strong> Multi-partner coordination, comprehensive support services</p>
+            </div>
+
+            <div class="program-card">
+                <div class="program-title">Strategic Partnership (Rural Florida)</div>
+                <p><strong>Model:</strong> Habitat + college + university workforce-integrated partnership</p>
+                <p><strong>Outcomes:</strong> Local jobs, community cohesion, energy savings, resilience certification</p>
+                <p><strong>Key success factors:</strong> Age-in-place focus, youth workforce development</p>
+            </div>
+
+            <div class="program-card">
+                <div class="program-title">Participatory Vocational (Southeast Asia/Eastern Europe)</div>
+                <p><strong>Model:</strong> Participatory design with vocational training</p>
+                <p><strong>Outcomes:</strong> 100+ jobs, $2M savings, 40% energy reduction, 3.5 tons CO₂</p>
+                <p><strong>Key success factors:</strong> Community engagement, young worker satisfaction</p>
+            </div>
+
+            <div class="program-card">
+                <div class="program-title">Louisville Local Energy Action Program (Urban Kentucky)</div>
+                <p><strong>Model:</strong> City + National Renewable Energy Laboratory + CBOs</p>
+                <p><strong>Outcomes:</strong> 550-750 jobs/year, $120M savings, 11-37% energy reduction</p>
+                <p><strong>Key success factors:</strong> Technical assistance, equity focus, comprehensive standards</p>
+            </div>
+
+            <div class="program-card">
+                <div class="program-title">Tribal Government (Rural California)</div>
+                <p><strong>Model:</strong> Yurok Tribe housing efficiency program</p>
+                <p><strong>Outcomes:</strong> $1,000+/year savings per household, quality of life improvements</p>
+                <p><strong>Key success factors:</strong> Cultural fit, tradition alignment, woodstove/insulation focus</p>
+            </div>
+        </div>
+
+        <div id="implications" class="tab-content">
+            <h2>Key Implications</h2>
+            
+            <div class="theme-section">
+                <h4 class="theme-title">For Oregon Policymakers</h4>
+                <ol>
+                    <li><strong>Treat housing as infrastructure:</strong> Align state housing and energy programs to support integrated retrofit-workforce models</li>
+                    <li><strong>Support community partnerships:</strong> Direct funding to CBOs, cooperatives, and public-private partnerships</li>
+                    <li><strong>Intergenerational focus:</strong> Design programs that simultaneously serve aging homeowners and create youth employment pathways</li>
+                    <li><strong>Rural adaptation:</strong> Address unique barriers in rural communities through flexible funding and technical assistance</li>
+                </ol>
+            </div>
+
+            <div class="theme-section">
+                <h4 class="theme-title">For Workforce Development Programs</h4>
+                <ol>
+                    <li><strong>Integrate with housing initiatives:</strong> Partner with weatherization, repair, and retrofit programs for hands-on training</li>
+                    <li><strong>Formal credentialing:</strong> Develop clear pathways from training to apprenticeship to career advancement</li>
+                    <li><strong>Target marginalized populations:</strong> Focus on at-risk youth, underemployed, and disadvantaged communities</li>
+                    <li><strong>Educational partnerships:</strong> Work with community colleges, unions, and employers for comprehensive support</li>
+                </ol>
+            </div>
+
+            <div class="theme-section">
+                <h4 class="theme-title">For Community-Based Organizations</h4>
+                <ol>
+                    <li><strong>Lead delivery:</strong> Position as trusted local partners for retrofit and workforce programs</li>
+                    <li><strong>Cultural alignment:</strong> Ensure programs respect local traditions, especially in tribal and rural contexts</li>
+                    <li><strong>Capacity building:</strong> Invest in technical skills and program management capabilities</li>
+                    <li><strong>Document outcomes:</strong> Track and report economic, social, and environmental benefits</li>
+                </ol>
+            </div>
+
+            <div class="theme-section">
+                <h4 class="theme-title">For Funders and Investors</h4>
+                <ol>
+                    <li><strong>Integrated funding:</strong> Support programs that combine housing, energy, and workforce goals</li>
+                    <li><strong>Long-term investment:</strong> Recognize that community capacity building requires sustained support</li>
+                    <li><strong>ROI metrics:</strong> Value multiple returns—energy savings, job creation, health improvements, community resilience</li>
+                    <li><strong>Rural focus:</strong> Direct resources to underserved regions with aging housing stock</li>
+                </ol>
+            </div>
+
+            <h3>Barriers and Solutions</h3>
+            <ul>
+                <li><strong>Financial:</strong> Upfront costs, access to capital → Solutions: Flexible financing, on-bill tariffs, grants/loans</li>
+                <li><strong>Regulatory:</strong> Permitting complexity → Solutions: Simplified processes, targeted outreach</li>
+                <li><strong>Workforce:</strong> Skill gaps, shortage of trained workers → Solutions: Formal apprenticeships, educational partnerships</li>
+                <li><strong>Technical:</strong> Old housing stock, infrastructure limitations → Solutions: Pre-upgrade assessments, integrated approaches</li>
+                <li><strong>Rural Implementation:</strong> Limited capacity → Solutions: Regional collaborations, technical assistance</li>
+            </ul>
+        </div>
+    </main>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
