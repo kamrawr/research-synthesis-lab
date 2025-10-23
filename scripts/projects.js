@@ -127,6 +127,20 @@ const projects = [
         categories: ["Workforce", "Higher Education", "Technology & Data"],
         keywords: ["automation", "labor polarization", "college majors", "task content", "skills", "Great Reversal"],
         source: "College Scorecard + O*NET task linkage (25 years)"
+    },
+    
+    {
+        title: "Resilient Homes, Thriving Communities",
+        folder: "resilient-homes-communities",
+        description: "Synthesis of 38 studies examining how treating homes as community infrastructure through integrated retrofit, repair, and workforce development creates pathways for economic resilience, intergenerational equity, and climate adaptation. Documents 15-40% energy savings, 85+ jobs created, and $5.9M in cost savings through community partnerships.",
+        author: "Isaiah Kamrar",
+        date: "October 2024",
+        status: "active",
+        studiesReviewed: 38,
+        dataPoints: 500,
+        categories: ["Energy & Environment", "Workforce", "Community"],
+        keywords: ["housing infrastructure", "workforce development", "energy retrofit", "intergenerational equity", "rural communities", "age-in-place", "climate adaptation"],
+        source: "Elicit synthesis (138M papers)"
     }
     
     // Add new projects below

@@ -18,7 +18,10 @@ Each project includes interactive visualizations, key findings, comprehensive me
 
 ## 🔬 Sample Projects
 
-### Centering Community Needs in Energy Equity ⚡ _Recently Updated_
+### Resilient Homes, Thriving Communities 🏘️ _New_
+Synthesis of 38 studies on treating homes as community infrastructure through integrated retrofit, repair, and workforce development. Documents 15-40% energy savings, 85+ jobs created, and $5.9M cost savings while supporting aging homeowners and training younger workers in rural and underserved communities. **[View Project →](https://kamrawr.github.io/research-synthesis-lab/projects/resilient-homes-communities/)**
+
+### Centering Community Needs in Energy Equity
 Systematic review of 39 studies examining energy burdens, clean energy access, and CBO partnerships for Black, Indigenous, rural, and low-income households. Documents 10-91% energy burden reductions through community-centered approaches. **[View Project →](https://kamrawr.github.io/research-synthesis-lab/projects/energy-equity/)**
 
 ### College Underemployment & Career Scarring
