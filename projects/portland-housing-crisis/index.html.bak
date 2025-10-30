@@ -552,5 +552,220 @@
         </div>
     </footer>
     
+    <script>
+        // Tab switching
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById('tab-' + tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Load and visualize data
+        d3.json('data.json').then(data => {
+            // Populate stats
+            document.getElementById('total-properties').textContent = 
+                data.metadata.total_properties.toLocaleString();
+            document.getElementById('total-value').textContent = 
+                '$' + (data.metadata.total_market_value / 1e9).toFixed(1) + 'B';
+            document.getElementById('median-value').textContent = 
+                '$' + (data.metadata.median_value / 1000).toFixed(0) + 'K';
+            document.getElementById('neighborhoods').textContent = 
+                data.metadata.neighborhoods;
+            
+            // Visualization 1: Top Neighborhoods
+            createBarChart('#viz-top-neighborhoods', data.top_neighborhoods, 'value', 'neighborhood',
+                d => '$' + (d.value / 1000).toFixed(0) + 'K', '#dc2626');
+            
+            // Visualization 2: Bottom Neighborhoods
+            createBarChart('#viz-bottom-neighborhoods', data.bottom_neighborhoods, 'value', 'neighborhood',
+                d => '$' + (d.value / 1000).toFixed(0) + 'K', '#16a34a');
+            
+            // Visualization 3: Building Decades
+            createBarChart('#viz-building-decades', data.building_decades, 'count', 'decade',
+                d => d.count.toLocaleString() + ' properties', '#3b82f6', true);
+            
+            // Visualization 4: Affordability Tiers
+            createBarChart('#viz-affordability', data.affordability_tiers, 'percentage', 'tier',
+                d => d.count.toLocaleString() + ' (' + d.percentage + '%)', '#f59e0b');
+            
+            // Visualization 5: Displacement Risk
+            createBarChart('#viz-displacement-risk', data.displacement_risk, 'risk_score', 'neighborhood',
+                d => 'Risk: ' + d.risk_score + ' | $' + (d.median_value/1000).toFixed(0) + 'K', '#dc2626');
+            
+            // Visualization 6: Ownership
+            createOwnershipChart('#viz-ownership', data.ownership_breakdown);
+            
+            // Visualization 7: Corporate Concentration
+            createBarChart('#viz-corporate-concentration', data.corporate_concentration, 'corporate_pct', 'neighborhood',
+                d => d.corporate_pct + '% corporate (' + d.corporate_count + ' of ' + d.total_count + ')', '#7c2d12');
+            
+            // Visualization 8: Value Concentration
+            createBarChart('#viz-concentration', data.value_concentration, 'percentage', 'neighborhood',
+                d => '$' + (d.total_value / 1e9).toFixed(1) + 'B (' + d.percentage + '%)', '#dc2626');
+            
+            // Visualization 9: Ultra Luxury
+            createBarChart('#viz-ultra-luxury', data.ultra_luxury, 'count', 'neighborhood',
+                d => d.count + ' mansions | Max: $' + (d.max_value / 1e6).toFixed(1) + 'M', '#7c2d12');
+        });
+        
+        function createBarChart(selector, data, valueKey, labelKey, tooltipFormat, color, isHistogram = false) {
+            const container = d3.select(selector);
+            const width = container.node().clientWidth;
+            const height = isHistogram ? 400 : Math.max(400, data.length * 30);
+            const margin = { top: 20, right: 30, bottom: 50, left: isHistogram ? 80 : 250 };
+            
+            const svg = container.append('svg')
+                .attr('width', width)
+                .attr('height', height);
+            
+            if (isHistogram) {
+                // Horizontal histogram
+                const x = d3.scaleLinear()
+                    .domain([0, d3.max(data, d => d[valueKey])])
+                    .range([margin.left, width - margin.right]);
+                
+                const y = d3.scaleBand()
+                    .domain(data.map(d => d[labelKey]))
+                    .range([margin.top, height - margin.bottom])
+                    .padding(0.2);
+                
+                svg.append('g')
+                    .selectAll('rect')
+                    .data(data)
+                    .join('rect')
+                    .attr('class', 'bar')
+                    .attr('x', margin.left)
+                    .attr('y', d => y(d[labelKey]))
+                    .attr('width', d => x(d[valueKey]) - margin.left)
+                    .attr('height', y.bandwidth())
+                    .attr('fill', color)
+                    .on('mouseover', function(event, d) {
+                        showTooltip(event, d[labelKey] + ': ' + tooltipFormat(d));
+                    })
+                    .on('mouseout', hideTooltip);
+                
+                svg.append('g')
+                    .attr('class', 'axis')
+                    .attr('transform', `translate(0,${height - margin.bottom})`)
+                    .call(d3.axisBottom(x).ticks(5));
+                
+                svg.append('g')
+                    .attr('class', 'axis')
+                    .attr('transform', `translate(${margin.left},0)`)
+                    .call(d3.axisLeft(y));
+            } else {
+                // Vertical bar chart
+                const x = d3.scaleBand()
+                    .domain(data.map(d => d[labelKey]))
+                    .range([margin.left, width - margin.right])
+                    .padding(0.2);
+                
+                const y = d3.scaleLinear()
+                    .domain([0, d3.max(data, d => d[valueKey])])
+                    .range([height - margin.bottom, margin.top]);
+                
+                svg.append('g')
+                    .selectAll('rect')
+                    .data(data)
+                    .join('rect')
+                    .attr('class', 'bar')
+                    .attr('x', d => x(d[labelKey]))
+                    .attr('y', d => y(d[valueKey]))
+                    .attr('width', x.bandwidth())
+                    .attr('height', d => height - margin.bottom - y(d[valueKey]))
+                    .attr('fill', color)
+                    .on('mouseover', function(event, d) {
+                        showTooltip(event, d[labelKey] + ': ' + tooltipFormat(d));
+                    })
+                    .on('mouseout', hideTooltip);
+                
+                svg.append('g')
+                    .attr('class', 'axis')
+                    .attr('transform', `translate(0,${height - margin.bottom})`)
+                    .call(d3.axisBottom(x))
+                    .selectAll('text')
+                    .attr('transform', 'rotate(-45)')
+                    .style('text-anchor', 'end');
+                
+                svg.append('g')
+                    .attr('class', 'axis')
+                    .attr('transform', `translate(${margin.left},0)`)
+                    .call(d3.axisLeft(y));
+            }
+        }
+        
+        function createOwnershipChart(selector, data) {
+            const container = d3.select(selector);
+            const width = container.node().clientWidth;
+            const height = 400;
+            const margin = { top: 20, right: 120, bottom: 50, left: 80 };
+            
+            const svg = container.append('svg')
+                .attr('width', width)
+                .attr('height', height);
+            
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.type))
+                .range([margin.left, width - margin.right])
+                .padding(0.3);
+            
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.total_value)])
+                .range([height - margin.bottom, margin.top]);
+            
+            const colorScale = d3.scaleOrdinal()
+                .domain(data.map(d => d.type))
+                .range(['#7c2d12', '#16a34a']);
+            
+            svg.append('g')
+                .selectAll('rect')
+                .data(data)
+                .join('rect')
+                .attr('class', 'bar')
+                .attr('x', d => x(d.type))
+                .attr('y', d => y(d.total_value))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - margin.bottom - y(d.total_value))
+                .attr('fill', d => colorScale(d.type))
+                .on('mouseover', function(event, d) {
+                    showTooltip(event, d.type + '<br>Properties: ' + d.count.toLocaleString() + 
+                        '<br>Total Value: $' + (d.total_value / 1e9).toFixed(1) + 'B' +
+                        '<br>Median Value: $' + (d.median_value / 1000).toFixed(0) + 'K');
+                })
+                .on('mouseout', hideTooltip);
+            
+            svg.append('g')
+                .attr('class', 'axis')
+                .attr('transform', `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .style('text-anchor', 'middle');
+            
+            svg.append('g')
+                .attr('class', 'axis')
+                .attr('transform', `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y).tickFormat(d => '$' + (d / 1e9).toFixed(0) + 'B'));
+        }
+        
+        function showTooltip(event, html) {
+            const tooltip = d3.select('body').append('div')
+                .attr('class', 'tooltip')
+                .style('left', (event.pageX + 10) + 'px')
+                .style('top', (event.pageY - 10) + 'px')
+                .html(html);
+        }
+        
+        function hideTooltip() {
+            d3.selectAll('.tooltip').remove();
+        }
+    </script>
 </body>
 </html>
