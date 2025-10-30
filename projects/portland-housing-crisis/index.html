@@ -552,5 +552,32 @@
         </div>
     </footer>
     
+    <script>
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById('tab-' + tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // Populate stats on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update hero stats
+            document.getElementById('total-properties').textContent = '789,024';
+            document.getElementById('total-value').textContent = '$715B';
+            document.getElementById('median-value').textContent = '$533K';
+            document.getElementById('neighborhoods').textContent = '217';
+            
+            console.log('Stats loaded successfully');
+        });
+    </script>
 </body>
 </html>
