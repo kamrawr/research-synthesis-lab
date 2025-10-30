@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Resilience and Rental Transformation Initiative</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        :root {
+            --primary: #2c5f8d;
+            --secondary: #4a9d5f;
+            --accent: #f4a261;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-top: 1rem;
+        }
+
+        .component-card {
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            background: var(--card-background-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .component-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .component-card.active {
+            border-left-color: var(--secondary);
+            background: rgba(74, 157, 95, 0.05);
+        }
+
+        .component-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .component-details.expanded {
+            max-height: 1000px;
+            margin-top: 1rem;
+        }
+
+        .metric-box {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--card-background-color);
+            border-radius: 8px;
+            border-top: 3px solid var(--accent);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+        }
+
+        .metric-label {
+            color: var(--muted-color);
+            font-size: 0.9rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-button {
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .guarantee-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin: 0.5rem;
+        }
+
+        #impact-chart {
+            width: 100%;
+            height: 300px;
+            margin: 2rem 0;
+        }
+
+        .tab-navigation {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            border-bottom: 2px solid var(--muted-border-color);
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            color: var(--muted-color);
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stakeholder-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 1rem;
+        }
+
+        .icon-tenant { background: #e8f5e9; }
+        .icon-landlord { background: #e3f2fd; }
+        .icon-contractor { background: #fff3e0; }
+
+        ul.checkmark-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul.checkmark-list li:before {
+            content: "✓";
+            color: var(--secondary);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Community Resilience and Rental Transformation Initiative</h1>
+            <p class="hero-subtitle">Empowering communities through collaborative rental market transformation</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Overview Section -->
+        <section style="margin-top: 3rem;">
+            <h2>Program Overview</h2>
+            <p>
+                The <strong>Community Resilience and Rental Transformation Initiative</strong> empowers 
+                community-based organizations (CBOs) to enhance participation and engagement among tenants, 
+                landlords, and contractors in the rental market. This program addresses critical barriers to 
+                participation and resource access, fostering a collaborative environment that drives energy 
+                efficiency upgrades, tenant stability, and sustainable community development.
+            </p>
+        </section>
+
+        <!-- Key Metrics -->
+        <section style="margin: 3rem 0;">
+            <h2>Guaranteed Impact</h2>
+            <div class="grid">
+                <div class="metric-box">
+                    <span class="metric-value">70%</span>
+                    <span class="metric-label">Minimum Funding Approval Rate</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-value">20%</span>
+                    <span class="metric-label">Increase in Participation (Year 1)</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-value">6</span>
+                    <span class="metric-label">Months to Measurable Results</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Components -->
+        <section style="margin: 3rem 0;">
+            <h2>Key Program Components</h2>
+            <p style="color: var(--muted-color); margin-bottom: 2rem;">
+                <em>Click on each component to explore details</em>
+            </p>
+
+            <div class="component-card" data-component="value-stacking">
+                <h3>🎯 Value Stacking</h3>
+                <p>Comprehensive resources and support tailored to your community needs</p>
+                <div class="component-details">
+                    <ul class="checkmark-list">
+                        <li><strong>Tailored Training and Technical Assistance</strong>: Comprehensive workshops for landlords, tenants, and contractors on energy efficiency best practices, funding opportunities, and program navigation</li>
+                        <li><strong>Resource Access</strong>: Exclusive access to a centralized Program Implementation Platform with templates, marketing collateral, and educational resources</li>
+                        <li><strong>Networking Opportunities</strong>: Regular community forums facilitating stakeholder connections and shared learning</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="component-card" data-component="pain-points">
+                <h3>🔧 Pain Point Resolution</h3>
+                <p>Targeted solutions to overcome common barriers to participation</p>
+                <div class="component-details">
+                    <ul class="checkmark-list">
+                        <li><strong>Funding Pathways</strong>: Expert guidance on securing grants and incentives for property upgrades</li>
+                        <li><strong>Capacity Building</strong>: Tools and training to facilitate effective community engagement and education</li>
+                        <li><strong>Pilot Programs</strong>: A/B tested initiatives to assess and optimize engagement strategies based on real community feedback</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="component-card" data-component="guarantees">
+                <h3>✅ Powerful Guarantees</h3>
+                <p>Our commitment to measurable outcomes and flexible support</p>
+                <div class="component-details">
+                    <ul class="checkmark-list">
+                        <li><strong>Funding Alignment</strong>: Minimum 70% approval rate on funding applications submitted through our program</li>
+                        <li><strong>Measurable Outcomes</strong>: 20% increase in tenant participation and landlord engagement within the first year, with regular progress reports</li>
+                        <li><strong>Flexible Support</strong>: Ongoing adaptations based on community needs and feedback, ensuring responsiveness to emerging challenges</li>
+                        <li><strong>Outcome-Based Assurance</strong>: If goals aren't met within six months, we provide additional resources and support at no cost</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="component-card" data-component="transformation">
+                <h3>🌟 Transformation Potential</h3>
+                <p>Long-term impact on community resilience and sustainability</p>
+                <div class="component-details">
+                    <ul class="checkmark-list">
+                        <li>Establish robust partnerships among tenants, landlords, and contractors</li>
+                        <li>Reduce energy costs and improve tenant financial stability</li>
+                        <li>Increase investment in property upgrades and energy efficiency</li>
+                        <li>Foster more resilient, equitable, and sustainable communities</li>
+                        <li>Improve housing quality and tenant rights</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stakeholder Benefits -->
+        <section style="margin: 3rem 0;">
+            <h2>Stakeholder Benefits</h2>
+            
+            <div class="tab-navigation">
+                <button class="tab-button active" data-tab="tenants">Tenants</button>
+                <button class="tab-button" data-tab="landlords">Landlords</button>
+                <button class="tab-button" data-tab="contractors">Contractors</button>
+                <button class="tab-button" data-tab="cbos">CBOs</button>
+            </div>
+
+            <div id="tenants" class="tab-content active">
+                <div class="stakeholder-icon icon-tenant">🏠</div>
+                <h3>Benefits for Tenants</h3>
+                <ul class="checkmark-list">
+                    <li>Reduced energy and living costs through efficiency upgrades</li>
+                    <li>Improved housing quality and comfort</li>
+                    <li>Enhanced tenant rights and stability</li>
+                    <li>Access to educational resources and support</li>
+                    <li>Opportunity to participate in community decision-making</li>
+                </ul>
+            </div>
+
+            <div id="landlords" class="tab-content">
+                <div class="stakeholder-icon icon-landlord">🏢</div>
+                <h3>Benefits for Landlords</h3>
+                <ul class="checkmark-list">
+                    <li>Increased property values through energy-efficient upgrades</li>
+                    <li>Access to funding opportunities and financial incentives</li>
+                    <li>Improved tenant retention and satisfaction</li>
+                    <li>Reduced operational and maintenance costs</li>
+                    <li>Expert guidance on best practices and program navigation</li>
+                </ul>
+            </div>
+
+            <div id="contractors" class="tab-content">
+                <div class="stakeholder-icon icon-contractor">🔨</div>
+                <h3>Benefits for Contractors</h3>
+                <ul class="checkmark-list">
+                    <li>Access to new project opportunities and networks</li>
+                    <li>Training on energy efficiency best practices</li>
+                    <li>Connection to funding sources and qualified leads</li>
+                    <li>Enhanced reputation through certified program participation</li>
+                    <li>Collaborative partnerships with community organizations</li>
+                </ul>
+            </div>
+
+            <div id="cbos" class="tab-content">
+                <div class="stakeholder-icon icon-landlord">🤝</div>
+                <h3>Benefits for Community-Based Organizations</h3>
+                <ul class="checkmark-list">
+                    <li>Enhanced capacity to serve community members effectively</li>
+                    <li>Access to exclusive resources, templates, and tools</li>
+                    <li>Measurable impact aligned with organizational mission</li>
+                    <li>Networking and learning opportunities with peer organizations</li>
+                    <li>Support in achieving equity and sustainability goals</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Impact Visualization -->
+        <section style="margin: 3rem 0;">
+            <h2>Projected Community Impact</h2>
+            <div id="impact-chart"></div>
+        </section>
+
+        <!-- Guarantees -->
+        <section style="margin: 3rem 0;">
+            <h2>Our Guarantee to You</h2>
+            <div style="text-align: center; margin: 2rem 0;">
+                <span class="guarantee-badge">70% Funding Approval</span>
+                <span class="guarantee-badge">20% Participation Increase</span>
+                <span class="guarantee-badge">6-Month Results</span>
+                <span class="guarantee-badge">No-Cost Support Extension</span>
+            </div>
+            <p style="text-align: center; color: var(--muted-color);">
+                We guarantee measurable improvements within six months. If goals aren't met, 
+                we'll provide additional resources and support at no cost until targets are achieved.
+            </p>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <h2>Ready to Transform Your Community?</h2>
+            <p style="font-size: 1.1rem; margin: 1.5rem 0;">
+                Join us in the Community Resilience and Rental Transformation Initiative to unlock 
+                the potential of your community! Sign up now to access exclusive resources and support.
+            </p>
+            <button class="cta-button" onclick="handleSignUp()">
+                Get Started Today
+            </button>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.9;">
+                Together, we can create a more equitable and sustainable future for all residents.
+            </p>
+        </section>
+    </main>
+
+    <footer style="background: var(--card-background-color); padding: 2rem 0; margin-top: 4rem; text-align: center;">
+        <div class="container">
+            <p style="color: var(--muted-color);">
+                Community Resilience and Rental Transformation Initiative
+            </p>
+            <p style="color: var(--muted-color); font-size: 0.9rem;">
+                Empowering communities through collaboration and sustainable development
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Component Card Interactions
+        document.querySelectorAll('.component-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const details = this.querySelector('.component-details');
+                const isExpanded = details.classList.contains('expanded');
+                
+                // Close all other cards
+                document.querySelectorAll('.component-details').forEach(d => {
+                    d.classList.remove('expanded');
+                });
+                document.querySelectorAll('.component-card').forEach(c => {
+                    c.classList.remove('active');
+                });
+                
+                // Toggle current card
+                if (!isExpanded) {
+                    details.classList.add('expanded');
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Tab Navigation
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetTab = this.dataset.tab;
+                
+                // Update buttons
+                document.querySelectorAll('.tab-button').forEach(b => {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Update content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        // D3.js Impact Chart
+        function createImpactChart() {
+            const data = [
+                { month: 'Month 1', participation: 100, funding: 100 },
+                { month: 'Month 3', participation: 110, funding: 140 },
+                { month: 'Month 6', participation: 120, funding: 170 },
+                { month: 'Month 12', participation: 135, funding: 210 }
+            ];
+
+            const margin = { top: 20, right: 80, bottom: 40, left: 50 };
+            const width = document.getElementById('impact-chart').clientWidth - margin.left - margin.right;
+            const height = 300 - margin.top - margin.bottom;
+
+            const svg = d3.select('#impact-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            // Scales
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.month))
+                .range([0, width])
+                .padding(0.3);
+
+            const y = d3.scaleLinear()
+                .domain([0, 220])
+                .range([height, 0]);
+
+            // Axes
+            svg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .style('fill', 'var(--color)');
+
+            svg.append('g')
+                .call(d3.axisLeft(y).ticks(5).tickFormat(d => d + '%'))
+                .selectAll('text')
+                .style('fill', 'var(--color)');
+
+            // Bars - Participation
+            svg.selectAll('.bar-participation')
+                .data(data)
+                .enter()
+                .append('rect')
+                .attr('class', 'bar-participation')
+                .attr('x', d => x(d.month))
+                .attr('y', height)
+                .attr('width', x.bandwidth() / 2)
+                .attr('height', 0)
+                .attr('fill', '#4a9d5f')
+                .transition()
+                .duration(1000)
+                .attr('y', d => y(d.participation))
+                .attr('height', d => height - y(d.participation));
+
+            // Bars - Funding
+            svg.selectAll('.bar-funding')
+                .data(data)
+                .enter()
+                .append('rect')
+                .attr('class', 'bar-funding')
+                .attr('x', d => x(d.month) + x.bandwidth() / 2)
+                .attr('y', height)
+                .attr('width', x.bandwidth() / 2)
+                .attr('height', 0)
+                .attr('fill', '#2c5f8d')
+                .transition()
+                .duration(1000)
+                .delay(200)
+                .attr('y', d => y(d.funding))
+                .attr('height', d => height - y(d.funding));
+
+            // Legend
+            const legend = svg.append('g')
+                .attr('transform', `translate(${width - 120}, 0)`);
+
+            legend.append('rect')
+                .attr('width', 15)
+                .attr('height', 15)
+                .attr('fill', '#4a9d5f');
+
+            legend.append('text')
+                .attr('x', 20)
+                .attr('y', 12)
+                .text('Participation')
+                .style('font-size', '12px')
+                .style('fill', 'var(--color)');
+
+            legend.append('rect')
+                .attr('y', 20)
+                .attr('width', 15)
+                .attr('height', 15)
+                .attr('fill', '#2c5f8d');
+
+            legend.append('text')
+                .attr('x', 20)
+                .attr('y', 32)
+                .text('Funding Success')
+                .style('font-size', '12px')
+                .style('fill', 'var(--color)');
+        }
+
+        // Call to Action Handler
+        function handleSignUp() {
+            alert('Thank you for your interest! This would typically open a registration form or contact page.');
+        }
+
+        // Initialize chart on load
+        window.addEventListener('load', createImpactChart);
+        window.addEventListener('resize', () => {
+            d3.select('#impact-chart').selectAll('*').remove();
+            createImpactChart();
+        });
+    </script>
+</body>
+</html>

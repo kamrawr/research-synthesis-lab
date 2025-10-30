@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portland Housing Crisis: A Data-Driven Analysis | Research Synthesis Lab</title>
+    <link rel="stylesheet" href="../../assets/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .explorer-header {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            color: white;
+            padding: 60px 20px;
+        }
+        
+        .back-link {
+            color: white;
+            opacity: 0.9;
+            text-decoration: none;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .explorer-header h1 {
+            font-size: 2.8em;
+            margin-bottom: 16px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            max-width: 800px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .tab-btn.active {
+            background: white;
+            color: #dc2626;
+        }
+        
+        .tab-panel {
+            display: none;
+            padding: 40px 20px;
+        }
+        
+        .tab-panel.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-top: 4px solid #dc2626;
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: #4b5563;
+            font-size: 1em;
+            font-weight: 500;
+        }
+        
+        .viz-container {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        
+        .viz-title {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+        
+        .viz-subtitle {
+            color: #6b7280;
+            margin-bottom: 25px;
+            font-size: 1.05em;
+        }
+        
+        .bar {
+            transition: all 0.3s;
+        }
+        
+        .bar:hover {
+            opacity: 0.7;
+        }
+        
+        .axis text {
+            font-size: 12px;
+        }
+        
+        .axis line, .axis path {
+            stroke: #9ca3af;
+        }
+        
+        .tooltip {
+            position: absolute;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            border-radius: 8px;
+            pointer-events: none;
+            font-size: 14px;
+            z-index: 1000;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+        
+        .key-finding {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 6px solid #f59e0b;
+        }
+        
+        .key-finding h3 {
+            color: #92400e;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+        
+        .key-finding p {
+            color: #78350f;
+            margin-bottom: 8px;
+            line-height: 1.7;
+        }
+        
+        .advocacy-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            padding: 28px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border-left: 6px solid #dc2626;
+        }
+        
+        .advocacy-box h3 {
+            color: #991b1b;
+            margin-bottom: 16px;
+            font-size: 1.4em;
+        }
+        
+        .advocacy-box ul {
+            color: #7f1d1d;
+            line-height: 1.9;
+            margin-left: 20px;
+        }
+        
+        .advocacy-box li {
+            margin-bottom: 10px;
+        }
+        
+        .data-source {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            font-size: 0.95em;
+            color: #4b5563;
+        }
+        
+        .data-source strong {
+            color: #1f2937;
+        }
+        
+        .highlight-critical {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .links-box {
+            background: #eff6ff;
+            padding: 24px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .links-box h4 {
+            color: #1e40af;
+            margin-bottom: 12px;
+        }
+        
+        .links-box a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .links-box a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="explorer-header">
+        <div class="container">
+            <a href="../../index.html" class="back-link">← Back to Research Lab</a>
+            <h1>🏘️ Portland Housing Crisis: A Data-Driven Analysis</h1>
+            <p class="subtitle">Comprehensive analysis of 789,024 properties revealing systemic inequality, gentrification patterns, and corporate encroachment in Portland's $715 billion housing market</p>
+            
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('overview')">📊 Overview</button>
+                <button class="tab-btn" onclick="showTab('displacement')">🚨 Displacement Risk</button>
+                <button class="tab-btn" onclick="showTab('affordability')">💔 Affordability Crisis</button>
+                <button class="tab-btn" onclick="showTab('corporate')">🏢 Corporate Takeover</button>
+                <button class="tab-btn" onclick="showTab('wealth')">💰 Wealth Concentration</button>
+                <button class="tab-btn" onclick="showTab('advocacy')">✊ Take Action</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Overview Tab -->
+        <div id="tab-overview" class="tab-panel active">
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="stat-value" id="total-properties">---</div>
+                    <div class="stat-label">Properties Analyzed</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="total-value">---</div>
+                    <div class="stat-label">Total Market Value</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="median-value">---</div>
+                    <div class="stat-label">Median Property Value</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="neighborhoods">---</div>
+                    <div class="stat-label">Neighborhoods</div>
+                </div>
+            </div>
+            
+            <div class="key-finding">
+                <h3>🔥 Critical Finding: Geographic Wealth Apartheid</h3>
+                <p><strong>90x value disparity</strong> between richest and poorest neighborhoods. Half of Portland's $715 billion market value is concentrated in just 8 neighborhoods.</p>
+                <p>The wealthiest neighborhoods command <strong>$11.6M median values</strong> while the most affordable struggle at <strong>$213K</strong>. This isn't a housing market—it's a wealth extraction machine.</p>
+            </div>
+            
+            <div class="viz-container">
+                <div class="viz-title">Top 15 Most Valuable Neighborhoods</div>
+                <div class="viz-subtitle">Median property values reveal extreme geographic inequality</div>
+                <div id="viz-top-neighborhoods"></div>
+            </div>
+            
+            <div class="viz-container">
+                <div class="viz-title">Building Boom Timeline: Portland's Construction Waves</div>
+                <div class="viz-subtitle">When was Portland built? 1950s saw peak construction</div>
+                <div id="viz-building-decades"></div>
+            </div>
+            
+            <div class="comparison-grid">
+                <div class="viz-container">
+                    <div class="viz-title">Bottom 15 Neighborhoods</div>
+                    <div class="viz-subtitle">Opportunity zones or displacement targets?</div>
+                    <div id="viz-bottom-neighborhoods"></div>
+                </div>
+                
+                <div class="viz-container">
+                    <div class="viz-title">50% Wealth Concentration</div>
+                    <div class="viz-subtitle">Just 8 neighborhoods hold half of all value</div>
+                    <div id="viz-concentration"></div>
+                </div>
+            </div>
+            
+            <div class="links-box">
+                <h4>📁 Full Analysis & Data</h4>
+                <p>Access the complete dataset, analysis scripts, and raw data files:</p>
+                <p>🔗 <a href="https://github.com/yourusername/PDX-Data" target="_blank">PDX-Data Repository on GitHub</a></p>
+                <p>Includes: 1.7M property records, quality subsets, analysis scripts, and executive summary</p>
+            </div>
+        </div>
+        
+        <!-- Displacement Risk Tab -->
+        <div id="tab-displacement" class="tab-panel">
+            <div class="key-finding">
+                <h3>🚨 20+ Neighborhoods at Critical Displacement Risk</h3>
+                <p>Our displacement risk index combines <strong>price variance</strong> (gentrification in progress), <strong>building age</strong> (vulnerability to redevelopment), <strong>affordability pressure</strong>, and <strong>market heat</strong>.</p>
+                <p><span class="highlight-critical">SUMNER scores 81.4/100</span>—the highest risk in Portland. Pearl District, St. Johns, Overlook, and Kenton follow closely.</p>
+            </div>
+            
+            <div class="viz-container">
+                <div class="viz-title">Displacement Risk Index: Top 20 Most Vulnerable Neighborhoods</div>
+                <div class="viz-subtitle">Composite score: price variance + building age + affordability pressure + market heat</div>
+                <div id="viz-displacement-risk"></div>
+            </div>
+            
+            <div class="advocacy-box">
+                <h3>✊ What This Means for Organizing</h3>
+                <ul>
+                    <li><strong>SUMNER, PEARL DISTRICT, ST. JOHNS</strong>: Immediate community land trust organizing needed</li>
+                    <li><strong>High price variance</strong> = gentrification actively happening—mixed incomes signal transition</li>
+                    <li><strong>Old building stock</strong> = teardown vulnerability—historic preservation = displacement prevention</li>
+                    <li><strong>Lower median values + high demand</strong> = investors circling—need right of first refusal policies</li>
+                </ul>
+            </div>
+            
+            <div class="key-finding">
+                <h3>📊 Indicators Explained</h3>
+                <p><strong>Risk Score (0-100):</strong> Weighted composite of displacement factors</p>
+                <p><strong>Price Variance:</strong> High variance = neighborhood in flux, mixing incomes as prices rise</p>
+                <p><strong>Building Age:</strong> Older stock more vulnerable to redevelopment pressure</p>
+                <p><strong>Affordability Pressure:</strong> Lower values face more speculation from investors</p>
+            </div>
+        </div>
+        
+        <!-- Affordability Crisis Tab -->
+        <div id="tab-affordability" class="tab-panel">
+            <div class="key-finding">
+                <h3>💔 Only 24% Under $400K—Portland's Affordable Housing Has Vanished</h3>
+                <p>Just <strong>190,086 properties (24.1%)</strong> are priced under $400K. These "affordable" units average <strong>988 square feet</strong> and are <strong>58 years old</strong>.</p>
+                <p>Meanwhile, <strong>76,893 properties (9.7%)</strong> are worth over $1 million. The market has bifurcated: luxury abundance, affordability scarcity.</p>
+            </div>
+            
+            <div class="viz-container">
+                <div class="viz-title">Housing Stock by Affordability Tier</div>
+                <div class="viz-subtitle">Where did affordable housing go?</div>
+                <div id="viz-affordability"></div>
+            </div>
+            
+            <div class="advocacy-box">
+                <h3>✊ Policy Interventions Needed</h3>
+                <ul>
+                    <li><strong>100,000+ new affordable units</strong> required to stabilize market at 50% under $400K</li>
+                    <li><strong>Preserve aging affordable stock:</strong> The 190K units under $400K are 58 years old on average—vulnerable to teardowns</li>
+                    <li><strong>Incentivize small units:</strong> Properties <800 sqft command highest $/sqft—market wants modest housing</li>
+                    <li><strong>Ban luxury-only zoning:</strong> 10% of stock is $1M+, accelerating inequality</li>
+                </ul>
+            </div>
+            
+            <div class="comparison-grid">
+                <div class="stat-box">
+                    <div class="stat-value">190K</div>
+                    <div class="stat-label">Affordable Properties (&lt;$400K)</div>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #6b7280;">Only 24.1% of housing stock</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">988 sqft</div>
+                    <div class="stat-label">Average Size of Affordable Units</div>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #6b7280;">Shrinking living space</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Corporate Takeover Tab -->
+        <div id="tab-corporate" class="tab-panel">
+            <div class="key-finding">
+                <h3>🏢 Corporate/Institutional Owners Control $313 BILLION</h3>
+                <p>While individuals/families own 86.8% of properties (684,596), corporate and institutional entities control <strong>$313 billion in value</strong>—43% of total market value—through just 104,428 properties (13.2%).</p>
+                <p><strong>Median corporate property:</strong> $778,240 vs. <strong>$495,600 for families</strong> (57% higher)</p>
+            </div>
+            
+            <div class="viz-container">
+                <div class="viz-title">Ownership Breakdown: Corporate vs Individual</div>
+                <div class="viz-subtitle">Who owns Portland? Follow the money</div>
+                <div id="viz-ownership"></div>
+            </div>
+            
+            <div class="viz-container">
+                <div class="viz-title">Most Corporatized Neighborhoods</div>
+                <div class="viz-subtitle">Where institutions are buying up housing stock</div>
+                <div id="viz-corporate-concentration"></div>
+            </div>
+            
+            <div class="advocacy-box">
+                <h3>✊ Fight Institutional Landlord Encroachment</h3>
+                <ul>
+                    <li><strong>Hollywood (43.7% corporate)</strong>, Sunderland (38.1%), Buckman (37.6%) face institutional dominance</li>
+                    <li><strong>Port of Portland</strong> controls 319 properties worth $10.2 BILLION—public entity acting as real estate empire</li>
+                    <li><strong>Weston Investment</strong>: 689 properties, $2.3B in value—concentrated portfolio power</li>
+                    <li><strong>Policy demands:</strong> Corporate ownership caps, tenant right of first refusal, vacancy taxes</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Wealth Concentration Tab -->
+        <div id="tab-wealth" class="tab-panel">
+            <div class="key-finding">
+                <h3>💰 Ultra-Luxury: 17,935 Properties Worth $2M+</h3>
+                <p>The top 2.3% of properties (worth $2M+) are concentrated in <strong>Pearl District (10,695 mansions)</strong>, Centennial, South Portland, and Buckman.</p>
+                <p>Meanwhile, 8 neighborhoods hold <strong>50% of all market value</strong> ($357 billion). This is wealth hoarding at a geographic scale.</p>
+            </div>
+            
+            <div class="viz-container">
+                <div class="viz-title">Ultra-Luxury Concentration: $2M+ Properties by Neighborhood</div>
+                <div class="viz-subtitle">Where Portland's wealthiest live</div>
+                <div id="viz-ultra-luxury"></div>
+            </div>
+            
+            <div class="advocacy-box">
+                <h3>✊ Tax Policy Must Address Extreme Wealth</h3>
+                <ul>
+                    <li><strong>Progressive property taxes:</strong> Properties over $2M should fund affordable housing</li>
+                    <li><strong>Mansion tax:</strong> Levy on ultra-luxury sales to subsidize first-time homebuyers</li>
+                    <li><strong>Tax structures favor extreme wealth:</strong> Current system enables $60M properties while families priced out</li>
+                    <li><strong>Wealth extraction, not community building:</strong> Pearl District alone has 10,695 properties worth $2M+</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Advocacy Tab -->
+        <div id="tab-advocacy" class="tab-panel">
+            <h2>✊ Take Action: Data-Driven Advocacy Toolkit</h2>
+            
+            <div class="advocacy-box">
+                <h3>🎯 Target Neighborhoods for Immediate Organizing</h3>
+                <ul>
+                    <li><strong>SUMNER (Risk: 81.4):</strong> Highest displacement risk—organize community land trust now</li>
+                    <li><strong>PEARL DISTRICT (Risk: 78.1):</strong> Extreme price variance (4.79x)—gentrification in overdrive</li>
+                    <li><strong>ST. JOHNS (Risk: 74.7):</strong> 69-year-old stock vulnerable to teardowns—historic preservation campaign</li>
+                    <li><strong>OVERLOOK (Risk: 72.4):</strong> 92-year-old buildings + 43.7% corporate ownership = double threat</li>
+                    <li><strong>KENTON (Risk: 69.8):</strong> Affordability pressure + market heat—need rent stabilization</li>
+                </ul>
+            </div>
+            
+            <div class="advocacy-box">
+                <h3>📢 Key Messages for Advocacy</h3>
+                <ul>
+                    <li><strong>"Only 24% affordable":</strong> Portland needs 100K+ units under $400K to restore balance</li>
+                    <li><strong>"$313 billion corporate control":</strong> Institutions own 43% of market value through 13% of properties</li>
+                    <li><strong>"90x wealth disparity":</strong> Geographic inequality is housing apartheid</li>
+                    <li><strong>"20+ neighborhoods at risk":</strong> Mass displacement accelerating without intervention</li>
+                    <li><strong>"50% in 8 neighborhoods":</strong> Wealth concentration is anti-democratic</li>
+                </ul>
+            </div>
+            
+            <div class="advocacy-box">
+                <h3>📋 Policy Demands</h3>
+                <h4 style="margin-top: 15px; color: #991b1b;">Immediate (Year 1)</h4>
+                <ul>
+                    <li>Community land trusts in top 5 displacement-risk neighborhoods</li>
+                    <li>Rent stabilization in neighborhoods with price variance >3.0</li>
+                    <li>Anti-displacement zone designation for SUMNER, PEARL, ST. JOHNS</li>
+                    <li>Vacancy tax on corporate-owned properties</li>
+                </ul>
+                
+                <h4 style="margin-top: 15px; color: #991b1b;">Mid-Term (Years 2-3)</h4>
+                <ul>
+                    <li>100,000 affordable units under $400K (production + preservation)</li>
+                    <li>Corporate ownership cap: max 5% portfolio concentration per ZIP</li>
+                    <li>Tenant right of first refusal on corporate sales</li>
+                    <li>Progressive property tax on ultra-luxury ($2M+)</li>
+                    <li>Historic preservation expansion in redevelopment pressure zones</li>
+                </ul>
+                
+                <h4 style="margin-top: 15px; color: #991b1b;">Long-Term (Years 4-5)</h4>
+                <ul>
+                    <li>50% of housing stock affordable (restore pre-2010 ratios)</li>
+                    <li>Community ownership model scaled citywide</li>
+                    <li>Speculation controls: transaction taxes on flips <2 years</li>
+                    <li>Wealth extraction limits: cap on out-of-state corporate ownership</li>
+                </ul>
+            </div>
+            
+            <div class="data-source">
+                <strong>📊 Data Transparency:</strong> All findings are based on public Portland Maps assessor data (Oct 2025). Analysis methodology, raw datasets, and reproducible code available in the PDX-Data repository. This is not opinion—this is mathematical proof of systemic inequality.
+            </div>
+            
+            <div class="links-box">
+                <h4>🔗 Resources</h4>
+                <p><strong>Full Dataset & Analysis:</strong> <a href="https://github.com/yourusername/PDX-Data" target="_blank">PDX-Data GitHub Repository</a></p>
+                <p><strong>Executive Summary:</strong> Comprehensive report with all 20 insights (EXECUTIVE_SUMMARY.md)</p>
+                <p><strong>Research Synthesis Lab:</strong> <a href="../../index.html">Explore more data-driven research</a></p>
+                <p><strong>Analyst:</strong> Isaiah Kamrar, Community Consulting Partners LLC</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer style="background: #f3f4f6; padding: 40px 20px; margin-top: 60px;">
+        <div class="container">
+            <p style="color: #4b5563; margin-bottom: 10px;"><strong>About This Analysis</strong></p>
+            <p style="color: #6b7280; line-height: 1.7;">
+                Based on 789,024 properties with complete assessor data from Portland Maps (October 2025). 
+                Analysis conducted by Isaiah Kamrar, Community Consulting Partners LLC. 
+                Total market value analyzed: $715.43 billion across 217 neighborhoods.
+            </p>
+            <p style="color: #6b7280; margin-top: 15px;">
+                <strong>Data for public good.</strong> Share widely. Challenge power. Build community.
+            </p>
+            <p style="color: #9ca3af; margin-top: 20px;">
+                © 2025 Research Synthesis Lab • <a href="https://github.com/kamrawr/research-synthesis-lab" style="color: #3b82f6;">View on GitHub</a>
+            </p>
+        </div>
+    </footer>
+    
+    <script>
+        // Tab switching
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById('tab-' + tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Load and visualize data
+        d3.json('data.json').then(data => {
+            // Populate stats
+            document.getElementById('total-properties').textContent = 
+                data.metadata.total_properties.toLocaleString();
+            document.getElementById('total-value').textContent = 
+                '$' + (data.metadata.total_market_value / 1e9).toFixed(1) + 'B';
+            document.getElementById('median-value').textContent = 
+                '$' + (data.metadata.median_value / 1000).toFixed(0) + 'K';
+            document.getElementById('neighborhoods').textContent = 
+                data.metadata.neighborhoods;
+            
+            // Visualization 1: Top Neighborhoods
+            createBarChart('#viz-top-neighborhoods', data.top_neighborhoods, 'value', 'neighborhood',
+                d => '$' + (d.value / 1000).toFixed(0) + 'K', '#dc2626');
+            
+            // Visualization 2: Bottom Neighborhoods
+            createBarChart('#viz-bottom-neighborhoods', data.bottom_neighborhoods, 'value', 'neighborhood',
+                d => '$' + (d.value / 1000).toFixed(0) + 'K', '#16a34a');
+            
+            // Visualization 3: Building Decades
+            createBarChart('#viz-building-decades', data.building_decades, 'count', 'decade',
+                d => d.count.toLocaleString() + ' properties', '#3b82f6', true);
+            
+            // Visualization 4: Affordability Tiers
+            createBarChart('#viz-affordability', data.affordability_tiers, 'percentage', 'tier',
+                d => d.count.toLocaleString() + ' (' + d.percentage + '%)', '#f59e0b');
+            
+            // Visualization 5: Displacement Risk
+            createBarChart('#viz-displacement-risk', data.displacement_risk, 'risk_score', 'neighborhood',
+                d => 'Risk: ' + d.risk_score + ' | $' + (d.median_value/1000).toFixed(0) + 'K', '#dc2626');
+            
+            // Visualization 6: Ownership
+            createOwnershipChart('#viz-ownership', data.ownership_breakdown);
+            
+            // Visualization 7: Corporate Concentration
+            createBarChart('#viz-corporate-concentration', data.corporate_concentration, 'corporate_pct', 'neighborhood',
+                d => d.corporate_pct + '% corporate (' + d.corporate_count + ' of ' + d.total_count + ')', '#7c2d12');
+            
+            // Visualization 8: Value Concentration
+            createBarChart('#viz-concentration', data.value_concentration, 'percentage', 'neighborhood',
+                d => '$' + (d.total_value / 1e9).toFixed(1) + 'B (' + d.percentage + '%)', '#dc2626');
+            
+            // Visualization 9: Ultra Luxury
+            createBarChart('#viz-ultra-luxury', data.ultra_luxury, 'count', 'neighborhood',
+                d => d.count + ' mansions | Max: $' + (d.max_value / 1e6).toFixed(1) + 'M', '#7c2d12');
+        });
+        
+        function createBarChart(selector, data, valueKey, labelKey, tooltipFormat, color, isHistogram = false) {
+            const container = d3.select(selector);
+            const width = container.node().clientWidth;
+            const height = isHistogram ? 400 : Math.max(400, data.length * 30);
+            const margin = { top: 20, right: 30, bottom: 50, left: isHistogram ? 80 : 250 };
+            
+            const svg = container.append('svg')
+                .attr('width', width)
+                .attr('height', height);
+            
+            if (isHistogram) {
+                // Horizontal histogram
+                const x = d3.scaleLinear()
+                    .domain([0, d3.max(data, d => d[valueKey])])
+                    .range([margin.left, width - margin.right]);
+                
+                const y = d3.scaleBand()
+                    .domain(data.map(d => d[labelKey]))
+                    .range([margin.top, height - margin.bottom])
+                    .padding(0.2);
+                
+                svg.append('g')
+                    .selectAll('rect')
+                    .data(data)
+                    .join('rect')
+                    .attr('class', 'bar')
+                    .attr('x', margin.left)
+                    .attr('y', d => y(d[labelKey]))
+                    .attr('width', d => x(d[valueKey]) - margin.left)
+                    .attr('height', y.bandwidth())
+                    .attr('fill', color)
+                    .on('mouseover', function(event, d) {
+                        showTooltip(event, d[labelKey] + ': ' + tooltipFormat(d));
+                    })
+                    .on('mouseout', hideTooltip);
+                
+                svg.append('g')
+                    .attr('class', 'axis')
+                    .attr('transform', `translate(0,${height - margin.bottom})`)
+                    .call(d3.axisBottom(x).ticks(5));
+                
+                svg.append('g')
+                    .attr('class', 'axis')
+                    .attr('transform', `translate(${margin.left},0)`)
+                    .call(d3.axisLeft(y));
+            } else {
+                // Vertical bar chart
+                const x = d3.scaleBand()
+                    .domain(data.map(d => d[labelKey]))
+                    .range([margin.left, width - margin.right])
+                    .padding(0.2);
+                
+                const y = d3.scaleLinear()
+                    .domain([0, d3.max(data, d => d[valueKey])])
+                    .range([height - margin.bottom, margin.top]);
+                
+                svg.append('g')
+                    .selectAll('rect')
+                    .data(data)
+                    .join('rect')
+                    .attr('class', 'bar')
+                    .attr('x', d => x(d[labelKey]))
+                    .attr('y', d => y(d[valueKey]))
+                    .attr('width', x.bandwidth())
+                    .attr('height', d => height - margin.bottom - y(d[valueKey]))
+                    .attr('fill', color)
+                    .on('mouseover', function(event, d) {
+                        showTooltip(event, d[labelKey] + ': ' + tooltipFormat(d));
+                    })
+                    .on('mouseout', hideTooltip);
+                
+                svg.append('g')
+                    .attr('class', 'axis')
+                    .attr('transform', `translate(0,${height - margin.bottom})`)
+                    .call(d3.axisBottom(x))
+                    .selectAll('text')
+                    .attr('transform', 'rotate(-45)')
+                    .style('text-anchor', 'end');
+                
+                svg.append('g')
+                    .attr('class', 'axis')
+                    .attr('transform', `translate(${margin.left},0)`)
+                    .call(d3.axisLeft(y));
+            }
+        }
+        
+        function createOwnershipChart(selector, data) {
+            const container = d3.select(selector);
+            const width = container.node().clientWidth;
+            const height = 400;
+            const margin = { top: 20, right: 120, bottom: 50, left: 80 };
+            
+            const svg = container.append('svg')
+                .attr('width', width)
+                .attr('height', height);
+            
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.type))
+                .range([margin.left, width - margin.right])
+                .padding(0.3);
+            
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.total_value)])
+                .range([height - margin.bottom, margin.top]);
+            
+            const colorScale = d3.scaleOrdinal()
+                .domain(data.map(d => d.type))
+                .range(['#7c2d12', '#16a34a']);
+            
+            svg.append('g')
+                .selectAll('rect')
+                .data(data)
+                .join('rect')
+                .attr('class', 'bar')
+                .attr('x', d => x(d.type))
+                .attr('y', d => y(d.total_value))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - margin.bottom - y(d.total_value))
+                .attr('fill', d => colorScale(d.type))
+                .on('mouseover', function(event, d) {
+                    showTooltip(event, d.type + '<br>Properties: ' + d.count.toLocaleString() + 
+                        '<br>Total Value: $' + (d.total_value / 1e9).toFixed(1) + 'B' +
+                        '<br>Median Value: $' + (d.median_value / 1000).toFixed(0) + 'K');
+                })
+                .on('mouseout', hideTooltip);
+            
+            svg.append('g')
+                .attr('class', 'axis')
+                .attr('transform', `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x))
+                .selectAll('text')
+                .style('text-anchor', 'middle');
+            
+            svg.append('g')
+                .attr('class', 'axis')
+                .attr('transform', `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y).tickFormat(d => '$' + (d / 1e9).toFixed(0) + 'B'));
+        }
+        
+        function showTooltip(event, html) {
+            const tooltip = d3.select('body').append('div')
+                .attr('class', 'tooltip')
+                .style('left', (event.pageX + 10) + 'px')
+                .style('top', (event.pageY - 10) + 'px')
+                .html(html);
+        }
+        
+        function hideTooltip() {
+            d3.selectAll('.tooltip').remove();
+        }
+    </script>
+</body>
+</html>

@@ -166,6 +166,21 @@ const projects = [
         categories: ["Higher Education", "Inequality"],
         keywords: ["student loans", "risk-based pricing", "default risk", "actuarial modeling", "policy analysis", "income subsidies"],
         source: "College Scorecard + BLS + structural credit modeling"
+    },
+    
+    {
+        title: "Portland Housing Crisis: A Data-Driven Analysis",
+        folder: "portland-housing-crisis",
+        description: "Comprehensive analysis of 789,024 properties revealing systemic inequality, gentrification patterns, and corporate encroachment in Portland's $715 billion housing market. Data proves mass displacement, affordability collapse, and wealth concentration.",
+        author: "Isaiah Kamrar",
+        date: "October 2025",
+        status: "active",
+        type: "analysis",
+        studiesReviewed: 789024,
+        dataPoints: 789024,
+        categories: ["Community", "Inequality", "Social Infrastructure"],
+        keywords: ["housing crisis", "gentrification", "displacement", "corporate ownership", "wealth inequality", "Portland", "affordability", "urban policy"],
+        source: "Portland Maps Assessor Database (full scrape)"
     }
     
     // Add new projects below

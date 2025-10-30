@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head><script src="data.js"></script></head>
+<body>
+<script>
+// Test rate calculations
+console.log("Testing rate calculations:");
+console.log("Base rate:", pricingParams.baseRate);
+console.log("Institution (state):", institutionMultipliers.state);
+console.log("Income subsidy (medium):", incomeSubsidies.medium);
+
+const testFields = [
+    {field: "Philosophy/Religion", defaultRisk: 0.095},
+    {field: "Engineering", defaultRisk: 0.052},
+    {field: "Business/Management", defaultRisk: 0.065}
+];
+
+testFields.forEach(f => {
+    const rate = calculateRate(f.defaultRisk, 'state', 'medium', false);
+    console.log(`\n${f.field}:`);
+    console.log(`  Default Risk: ${(f.defaultRisk * 100).toFixed(1)}%`);
+    console.log(`  Adjusted Risk: ${(rate.adjustedRisk * 100).toFixed(1)}%`);
+    console.log(`  Base: ${rate.baseRate.toFixed(2)}%`);
+    console.log(`  Risk Premium: +${rate.riskPremium.toFixed(2)}%`);
+    console.log(`  Subsidy: -${rate.incomeSubsidy.toFixed(2)}%`);
+    console.log(`  Final: ${rate.finalRate.toFixed(2)}%`);
+});
+
+// Test with NO subsidy and NO institution adjustment
+console.log("\n\n=== Pure Risk-Based (no subsidy, neutral institution) ===");
+testFields.forEach(f => {
+    const rate = calculateRate(f.defaultRisk, 'state', 'high', false);
+    // Override to remove institution multiplier
+    const baseRate = 5.00;
+    const fairPremium = (f.defaultRisk * 0.70 * 100) / 10;
+    const cappedPremium = fairPremium * 0.5;
+    const finalRate = baseRate + cappedPremium;
+    console.log(`${f.field}: ${finalRate.toFixed(2)}%`);
+});
+</script>
+</body>
+</html>
