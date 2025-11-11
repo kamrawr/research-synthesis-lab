@@ -80,7 +80,7 @@ const projects = [
     
     {
         title: "Building Resilience through Community-Centric Work",
-        folder: "rental-upgrade-property-turnover",
+        folder: "community-resilience-workforce",
         description: "Analysis of 21 empirical studies examining how workforce development and credentialing frameworks strengthen economic and environmental resilience in underserved regions. Documents 82% emissions reductions and 23,000 projected jobs through strategic partnerships.",
         author: "Isaiah Kamrar",
         date: "October 2024",
