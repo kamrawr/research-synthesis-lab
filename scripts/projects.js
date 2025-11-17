@@ -166,6 +166,21 @@ const projects = [
         categories: ["Higher Education", "Inequality"],
         keywords: ["student loans", "risk-based pricing", "default risk", "actuarial modeling", "policy analysis", "income subsidies"],
         source: "College Scorecard + BLS + structural credit modeling"
+    },
+    
+    {
+        title: "Protecting Immigrant Communities in Oregon: ICE Enforcement & Data Privacy",
+        folder: "immigrant-community-protections",
+        description: "Comprehensive action guide synthesizing 40 studies on immigration enforcement impacts, data surveillance, and community-based protection strategies. Documents 3x increase in Oregon arrests, 26% benefit avoidance in low-income families, and evidence-based protective interventions.",
+        author: "Isaiah Kamrar",
+        date: "November 2025",
+        status: "active",
+        type: "literature-review",
+        studiesReviewed: 40,
+        dataPoints: 200,
+        categories: ["Community", "Social Infrastructure", "Inequality"],
+        keywords: ["immigration enforcement", "data privacy", "community protection", "sanctuary policies", "ICE", "immigrant rights", "Oregon"],
+        source: "Systematic review + Oregon-specific analysis"
     }
     
  

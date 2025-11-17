@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protecting Immigrant Communities in Oregon: A Strategic Action Guide</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Energy Trust of Oregon Brand Kit Styles */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        :root {
+            /* Energy Trust Colors */
+            --et-color-primary: #006494;
+            --et-color-sun: #F7A11D;
+            --et-color-accent: #42C4DD;
+            --et-color-warm-text: #605F4B;
+            --et-color-text: #222222;
+            --et-color-text-muted: #6B7280;
+            --et-color-bg: #FFFFFF;
+            --et-color-bg-alt: #F5F5F5;
+            --et-color-border-subtle: #E5E7EB;
+            --et-color-success: #15803D;
+            --et-color-warning: #D97706;
+            --et-color-error: #B91C1C;
+            
+            /* Legacy mappings for compatibility */
+            --primary: #006494;
+            --primary-hover: #004d73;
+            --danger: #B91C1C;
+            --warning: #D97706;
+            --success: #15803D;
+            --info: #42C4DD;
+            --light-bg: #F5F5F5;
+            --medium-bg: #E5E7EB;
+            --dark-text: #222222;
+        }
+
+        body {
+            font-family: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--et-color-text);
+            background-color: var(--et-color-bg);
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 2rem;
+            }
+        }
+
+        /* Focus indicators for accessibility */
+        *:focus {
+            outline: 3px solid var(--et-color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Readable text on all elements */
+        p, li, ul, ol, div, span {
+            color: var(--et-color-text);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+            color: var(--et-color-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+        
+        p {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2.25rem;
+        }
+        
+        h2 {
+            font-size: 1.75rem;
+            border-bottom: 3px solid var(--et-color-sun);
+            padding-bottom: 0.75rem;
+        }
+        
+        h3 {
+            font-size: 1.375rem;
+        }
+
+        h4 {
+            font-size: 1.125rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--et-color-primary) 0%, var(--et-color-accent) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero .meta {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .alert-banner {
+            background: #fef2f2;
+            border-left: 6px solid var(--danger);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .alert-banner strong {
+            color: #991b1b;
+            font-size: 1.1rem;
+        }
+
+        nav.sticky-nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 100;
+            padding: 0;
+            border-bottom: 3px solid #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        nav.sticky-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav.sticky-nav a {
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            color: #1e293b;
+        }
+
+        nav.sticky-nav a:hover {
+            background: var(--et-color-bg-alt);
+            color: var(--et-color-primary);
+            border-bottom-color: var(--et-color-sun);
+        }
+
+        nav.sticky-nav a:focus {
+            outline: 3px solid var(--et-color-accent);
+            outline-offset: -3px;
+        }
+
+        nav.sticky-nav a.active {
+            background: white;
+            color: var(--et-color-primary);
+            border-bottom-color: var(--et-color-sun);
+            font-weight: 600;
+        }
+
+        .section-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: none;
+        }
+
+        .section-card.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-card h2 {
+            color: var(--et-color-primary);
+            border-bottom: 3px solid var(--et-color-sun);
+            padding-bottom: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-card p,
+        .section-card li,
+        .section-card ul,
+        .section-card ol {
+            color: #1e293b;
+        }
+
+        .action-card {
+            background: #f0f9ff;
+            border-left: 5px solid var(--et-color-accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+            color: var(--et-color-text);
+        }
+
+        .action-card h3 {
+            color: var(--et-color-primary);
+            margin-top: 0;
+        }
+
+        .action-card p,
+        .action-card li,
+        .action-card ul {
+            color: #1e293b;
+        }
+
+        .danger-box {
+            background: #fef2f2;
+            border-left: 5px solid var(--danger);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .danger-box h4 {
+            color: #991b1b;
+            margin-top: 0;
+        }
+
+        .danger-box p,
+        .danger-box li,
+        .danger-box ul {
+            color: #1e293b;
+        }
+
+        .warning-box {
+            background: #fffbeb;
+            border-left: 5px solid var(--warning);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .warning-box h4 {
+            color: #92400e;
+            margin-top: 0;
+        }
+
+        .warning-box p,
+        .warning-box li,
+        .warning-box ul {
+            color: #1e293b;
+        }
+
+        .success-box {
+            background: #f0fdf4;
+            border-left: 5px solid var(--success);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .success-box h4 {
+            color: #14532d;
+            margin-top: 0;
+        }
+
+        .success-box p,
+        .success-box li,
+        .success-box ul {
+            color: #1e293b;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--et-color-primary) 0%, var(--et-color-accent) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            opacity: 1;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--et-color-primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid var(--et-color-primary);
+            box-shadow: 0 0 0 4px white;
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: var(--et-color-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-item h4 {
+            color: var(--dark-text);
+        }
+
+        .timeline-item p {
+            color: var(--dark-text);
+        }
+
+        .expandable {
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .expandable:hover {
+            border-color: var(--et-color-primary);
+            box-shadow: 0 2px 8px rgba(0, 100, 148, 0.1);
+        }
+
+        .expandable-header {
+            padding: 1.25rem;
+            background: #f9fafb;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .expandable-header:hover {
+            background: #f3f4f6;
+        }
+
+        .expandable-header:focus {
+            outline: 3px solid var(--et-color-accent);
+            outline-offset: -3px;
+        }
+
+        .expandable-header h3 {
+            margin: 0;
+            color: var(--et-color-primary);
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .expandable-icon {
+            transition: transform 0.3s;
+            font-size: 1.5rem;
+            color: var(--et-color-primary);
+            font-weight: bold;
+        }
+
+        .expandable.expanded .expandable-icon {
+            transform: rotate(180deg);
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .expandable.expanded .expandable-content {
+            max-height: 8000px;
+            transition: max-height 0.6s ease-in;
+        }
+
+        .expandable-content-inner {
+            padding: 1.5rem;
+        }
+
+        .expandable-content-inner p,
+        .expandable-content-inner li,
+        .expandable-content-inner ul,
+        .expandable-content-inner ol {
+            color: #1e293b;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag.impact { background: #fecaca; color: var(--et-color-error); }
+        .tag.strategy { background: #dbeafe; color: var(--et-color-primary); }
+        .tag.policy { background: #fef3c7; color: var(--et-color-warning); }
+        .tag.action { background: #dcfce7; color: var(--et-color-success); }
+        .tag.data { background: #ddd6fe; color: #6d28d9; }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: #f8fafc;
+            border-left: 4px solid var(--success);
+            border-radius: 0.25rem;
+            color: var(--dark-text);
+        }
+
+        .checklist li::before {
+            content: '✓';
+            color: #15803d;
+            font-weight: bold;
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .resource-card {
+            border: 2px solid #e5e7eb;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s;
+        }
+
+        .resource-card:hover {
+            border-color: var(--et-color-primary);
+            box-shadow: 0 4px 12px rgba(0, 100, 148, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .resource-card h4 {
+            color: var(--et-color-primary);
+            margin-top: 0;
+            font-weight: 600;
+        }
+
+        .resource-card p,
+        .resource-card li,
+        .resource-card ul {
+            color: #1e293b;
+        }
+
+        .btn-primary {
+            background: var(--et-color-primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #004d73;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 100, 148, 0.3);
+        }
+
+        .btn-primary:focus {
+            outline: 3px solid var(--et-color-accent);
+            outline-offset: 2px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--et-color-primary);
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-hover);
+            transform: translateY(-3px);
+        }
+
+        .back-to-top:focus {
+            outline: 3px solid #93c5fd;
+            outline-offset: 2px;
+        }
+
+        footer {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        footer h3 {
+            color: white;
+        }
+
+        footer p {
+            color: #f8fafc;
+        }
+
+        footer a {
+            color: #bfdbfe;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--et-color-primary);
+            color: var(--et-color-primary);
+        }
+
+        .filter-btn:focus {
+            outline: 3px solid var(--et-color-accent);
+            outline-offset: 2px;
+        }
+
+        .filter-btn.active {
+            background: var(--et-color-primary);
+            color: white;
+            border-color: var(--et-color-primary);
+        }
+
+        .search-box {
+            margin-bottom: 2rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            color: #1e293b;
+        }
+
+        .search-box input::placeholder {
+            color: #64748b;
+        }
+
+        .search-box input:focus {
+            border-color: var(--et-color-accent);
+            outline: 3px solid var(--et-color-accent);
+            outline-offset: -3px;
+            box-shadow: 0 0 0 3px rgba(66, 196, 221, 0.1);
+        }
+
+        .key-stat {
+            background: linear-gradient(135deg, var(--et-color-primary) 0%, var(--et-color-sun) 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .key-stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        @media print {
+            .sticky-nav, .back-to-top, .search-box, .filter-buttons { display: none; }
+            .section-card { page-break-inside: avoid; }
+        }
+
+        .progress-indicator {
+            background: var(--light-bg);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            color: #1e293b;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+            font-weight: 500;
+        }
+
+        a {
+            color: var(--et-color-accent);
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: var(--et-color-primary);
+        }
+
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--et-color-accent);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .resource-link:hover {
+            background: #eff6ff;
+            color: var(--et-color-primary);
+        }
+
+        .resource-link::after {
+            content: '↗';
+            font-size: 0.85em;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.75rem; }
+            nav.sticky-nav ul { flex-direction: row; overflow-x: auto; }
+            nav.sticky-nav a { padding: 0.75rem 1rem; font-size: 0.85rem; }
+            .stat-grid, .resources-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <h1>🛡️ Protecting Immigrant Communities in Oregon</h1>
+            <p class="subtitle">A Comprehensive Action Guide for Community-Based Organizations, Policymakers, and Residents on ICE Enforcement, Data Privacy, and Protective Strategies</p>
+            <div class="meta">
+                <strong>Community Consulting Partners LLC</strong> | Research by Isaiah Kamrar<br>
+                Based on systematic review of 40 studies + Oregon-specific analysis
+            </div>
+        </div>
+    </header>
+
+    <!-- Alert Banner -->
+    <div class="container">
+        <div class="alert-banner">
+            <strong>⚠️ URGENT:</strong> Immigration arrests in Oregon <strong>tripled after 2017</strong>. In Washington County alone, 135 ICE arrests occurred in one month (2025), creating widespread fear. This guide provides evidence-based strategies to protect immigrant communities while maintaining access to critical services.
+        </div>
+    </div>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky-nav">
+        <ul>
+            <li><a href="#crisis" class="nav-link" data-tab="crisis">Crisis Overview</a></li>
+            <li><a href="#risks" class="nav-link" data-tab="risks">Risk Pathways</a></li>
+            <li><a href="#data-threats" class="nav-link" data-tab="data-threats">Data Threats</a></li>
+            <li><a href="#impacts" class="nav-link" data-tab="impacts">Community Impacts</a></li>
+            <li><a href="#strategies" class="nav-link" data-tab="strategies">Protection Strategies</a></li>
+            <li><a href="#oregon-actions" class="nav-link" data-tab="oregon-actions">Oregon Actions</a></li>
+            <li><a href="#resources" class="nav-link" data-tab="resources">Resources</a></li>
+        </ul>
+        <div class="progress-indicator" id="progressIndicator">Section 1 of 7</div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Search -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Search strategies, findings, recommendations...">
+        </div>
+
+        <!-- Crisis Overview -->
+        <section id="crisis" class="section-card">
+            <h2>The Crisis: Oregon Under Siege</h2>
+            
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-value">3x</div>
+                    <div class="stat-label">Immigration Arrests Tripled After 2017</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">135</div>
+                    <div class="stat-label">ICE Arrests in Washington County (1 Month)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">900K</div>
+                    <div class="stat-label">DMV Database Queries by ICE (1 Year)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">26%</div>
+                    <div class="stat-label">Low-Income Families Avoiding Benefits</div>
+                </div>
+            </div>
+
+            <h3>Oregon's Reality: Fear as a Daily Companion</h3>
+            
+            <div class="danger-box">
+                <h4>Recent Oregon Incidents</h4>
+                <ul>
+                    <li><strong>Newport (2025):</strong> ICE agents in unmarked vehicles conducted public arrest. Restaurant workers too afraid to come to work the next day, forcing business closures.</li>
+                    <li><strong>Beaverton:</strong> Father arrested outside child's school, traumatizing entire community.</li>
+                    <li><strong>Farmworkers:</strong> Picked up on their way to blueberry fields, disrupting agricultural workforce.</li>
+                    <li><strong>Washington County Emergency:</strong> County declared state of emergency due to ICE enforcement surge.</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>The Chilling Effect</h4>
+                <p>County commissioner likened ICE's fear-inducing tactics to <strong>"acts of terror against the community."</strong> Residents described <strong>"fear as a daily companion"</strong> that kept many from leaving homes, missing work, school, and medical appointments.</p>
+            </div>
+
+            <h3>How Enforcement Operates: Beyond Physical Arrests</h3>
+            
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Direct Enforcement Mechanisms</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag impact">Impact</span>
+                        <ul>
+                            <li><strong>Large-scale workplace raids:</strong> Hundreds of agents, helicopters, buses descending on rural towns</li>
+                            <li><strong>ICE raids in community settings:</strong> Public spaces, previously "safe" locations</li>
+                            <li><strong>Traffic stops:</strong> Routine encounters becoming deportation risks</li>
+                            <li><strong>Courthouse arrests:</strong> Targeting people seeking justice</li>
+                            <li><strong>School proximity arrests:</strong> Near educational institutions despite "sensitive location" policies</li>
+                        </ul>
+                        <p><strong>Trump Administration Expansion:</strong> ICE expanded by 300%, broadened deportation priorities, increased workplace raids, continued operations during COVID-19 pandemic despite health risks.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Biometric Data Sharing Programs</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag data">Data</span>
+                        <span class="tag policy">Policy</span>
+                        <ul>
+                            <li><strong>Secure Communities (S-Comm):</strong> Shared fingerprints and physical descriptions with federal authorities for immigration background checks whenever individuals taken into local custody</li>
+                            <li><strong>287(g) agreements:</strong> Partnerships between ICE and local law enforcement expanding federal enforcement reach</li>
+                            <li><strong>Driver's License Database Access:</strong> ICE ran nearly 900,000 queries via Nlets network in one year</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-stat">
+                <div style="color: white;">Most immigrants experience enforcement impacts <strong>indirectly</strong> through knowledge of community raids, policy changes, and anti-immigrant rhetoric rather than personal detention.</div>
+            </div>
+        </section>
+
+        <!-- Risk Pathways -->
+        <section id="risks" class="section-card">
+            <h2>Understanding Risk Pathways: From Services to Surveillance</h2>
+
+            <div class="danger-box">
+                <h4>⚠️ CRITICAL FINDING</h4>
+                <p>Federal immigration enforcement operates primarily through <strong>fear and surveillance concerns</strong> rather than systematic data sharing. However, Trump-era policies created unprecedented <strong>digital risk pathways</strong> that turned service programs into potential enforcement tools.</p>
+            </div>
+
+            <h3>The Mechanism: How Data Becomes Danger</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Step 1: Data Collection</div>
+                    <h4>Immigrant Seeks Help</h4>
+                    <p>Applies for energy assistance, housing aid, healthcare, or food benefits. Provides name, address, household composition, SSN (for eligible family members), immigration status documentation.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Step 2: Database Entry</div>
+                    <h4>Information Stored in Government Systems</h4>
+                    <p>Personal identifying information (PII) entered into state/federal databases for eligibility verification and program administration.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Step 3: Cross-Agency Access</div>
+                    <h4>The "Vast Web of Data"</h4>
+                    <p>ICE gains access through: inter-agency agreements, SAVE system, Nlets network, data broker purchases, subpoenas, or AI-powered data mining (Palantir's ImmigrationOS).</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Step 4: Enforcement Action</div>
+                    <h4>Location, Identification, Apprehension</h4>
+                    <p>ICE uses gathered data to track individuals, verify addresses, coordinate raids, and execute deportations.</p>
+                </div>
+            </div>
+
+            <h3>Programs at Risk: Federal Funding = Exposure</h3>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Programs</button>
+                <button class="filter-btn" data-filter="energy">Energy</button>
+                <button class="filter-btn" data-filter="housing">Housing</button>
+                <button class="filter-btn" data-filter="health">Healthcare</button>
+                <button class="filter-btn" data-filter="food">Food/Nutrition</button>
+            </div>
+
+            <div class="expandable" data-category="energy">
+                <div class="expandable-header">
+                    <h3>Energy Assistance Programs (LIHEAP)</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag data">Data Risk</span>
+                        <span class="tag policy">Federal Program</span>
+                        
+                        <h4>Data Collection Requirements</h4>
+                        <ul>
+                            <li>Non-citizen applicants must submit immigration status documentation</li>
+                            <li>Social Security numbers required for verification</li>
+                            <li>Home addresses for utility account matching</li>
+                            <li>Household composition details</li>
+                        </ul>
+                        
+                        <div class="warning-box">
+                            <strong>Risk Level: MEDIUM-HIGH</strong>
+                            <p>While LIHEAP has some privacy protections, the federal funding connection and address data collection create potential exposure. Immigrants fear utility records could be cross-referenced by ICE.</p>
+                        </div>
+
+                        <h4>Oregon-Specific Protections</h4>
+                        <p><strong>Oregon Energy Assistance Program (OEAP):</strong> Governor Kotek and legislature doubled state funding to $40 million (2023-2025). State-controlled funds offer opportunity for status-blind eligibility.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable" data-category="housing">
+                <div class="expandable-header">
+                    <h3>Housing Assistance & Subsidies</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag data">Data Risk</span>
+                        <span class="tag impact">High Impact</span>
+                        
+                        <h4>Data Collected</h4>
+                        <ul>
+                            <li>Current residential address (Section 8, public housing)</li>
+                            <li>Household member immigration status</li>
+                            <li>Income verification documents</li>
+                            <li>Landlord and property information</li>
+                        </ul>
+                        
+                        <div class="danger-box">
+                            <strong>Risk Level: HIGH</strong>
+                            <p>HUD programs under Trump administration pressured to share data. ICE reportedly accessed U.S. Postal Service change-of-address databases. Mixed-status families face particular vulnerability - citizen children eligible but undocumented parents must be identified.</p>
+                        </div>
+
+                        <h4>Documented Impacts</h4>
+                        <p>Immigrants avoided applying for housing assistance due to fears that providing address information could facilitate ICE raids at their homes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable" data-category="health">
+                <div class="expandable-header">
+                    <h3>Healthcare Programs (Medicaid, CHIP, FQHCs)</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag data">Data Risk</span>
+                        <span class="tag policy">Strong Protections</span>
+                        
+                        <h4>Privacy Framework</h4>
+                        <ul>
+                            <li>HIPAA protections for health information</li>
+                            <li>Medicaid data generally prohibited from immigration enforcement use</li>
+                            <li>FQHCs have confidentiality safeguards</li>
+                        </ul>
+                        
+                        <div class="warning-box">
+                            <strong>Risk Level: MEDIUM (Despite Protections)</strong>
+                            <p>Trump administration DHS aggressively sought access to Centers for Medicare and Medicaid Services data. State officials alarmed at federal requests for state Medicaid participant information despite privacy laws.</p>
+                        </div>
+
+                        <h4>Oregon Progress</h4>
+                        <ul>
+                            <li><strong>Cover All Kids (2017):</strong> OHP coverage for all children under 19, regardless of status (state-funded)</li>
+                            <li><strong>Cover All People:</strong> Phasing in Medicaid-like coverage for adult immigrants excluded from federal Medicaid, starting with 55+</li>
+                        </ul>
+                        
+                        <div class="success-box">
+                            <p><strong>Why This Works:</strong> State funding eliminates federal reporting requirements, reducing PII flow to federal systems while maintaining healthcare access.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable" data-category="food">
+                <div class="expandable-header">
+                    <h3>Food & Nutrition Assistance (SNAP, WIC)</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag data">Data Risk</span>
+                        <span class="tag impact">High Impact</span>
+                        
+                        <h4>The Paradox</h4>
+                        <p>SNAP agencies generally barred from using applicant data for anything other than eligibility determination, <strong>BUT</strong> Trump administration DHS requested access to SNAP databases for immigration enforcement.</p>
+                        
+                        <div class="danger-box">
+                            <strong>Documented Drop-Off</strong>
+                            <ul>
+                                <li>California: "Mass exodus from CalFresh" following federal policy changes</li>
+                                <li>10% decrease in food assistance participation post-2016 election</li>
+                                <li>National: Over 15% of adults in immigrant families avoided non-cash benefits (2019)</li>
+                                <li>Low-income immigrant families: 26% avoidance rate</li>
+                            </ul>
+                        </div>
+
+                        <h4>Public Charge Rule Effect</h4>
+                        <p>Even programs NOT covered by public charge rule (like WIC, children's health insurance) saw significant drop-off due to widespread confusion and fear.</p>
+
+                        <div class="success-box">
+                            <strong>Sanctuary Policy Impact</strong>
+                            <p>Living in jurisdiction with sanctuary policies: <strong>21% higher odds of SNAP enrollment</strong> (adjusted OR 1.21, 95% CI=1.11-1.31)</p>
+                            <p>Most immigrant-friendly states: <strong>16% higher enrollment odds</strong> (aOR=1.16, 95%CI=1.06-1.28)</p>
+                            <p>Both protections together: <strong>26% higher SNAP participation</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Threats Section -->
+        <section id="data-threats" class="section-card">
+            <h2>Digital Surveillance: The Data Dragnet</h2>
+
+            <div class="alert-banner">
+                <strong>🚨 CRITICAL THREAT:</strong> ICE created a "vast web of data" by tapping federal, state, and commercial databases. Investigation found ICE collected driver location data for <strong>3 in 4 Americans</strong> and utility records for about <strong>75% of U.S. adults</strong> through private data brokers.
+            </div>
+
+            <h3>The Databases ICE Accessed</h3>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>State Driver's License Data (DMV)</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag data">Data Breach</span>
+                        <span class="tag impact">Critical</span>
+                        
+                        <h4>The Nlets Backdoor</h4>
+                        <p>Little-known network (Nlets) allowed inter-agency law enforcement data exchange. ICE and Homeland Security Investigations ran <strong>nearly 900,000 queries</strong> to state DMV databases in just one year.</p>
+                        
+                        <div class="danger-box">
+                            <strong>Oregon Was Affected</strong>
+                            <p>Oregon officials only recently learned ICE had access to their DMV data and moved to cut it off. Most states were initially unaware they were "vacuuming up" residents' data for ICE.</p>
+                        </div>
+
+                        <h4>What ICE Accessed</h4>
+                        <ul>
+                            <li>Home addresses</li>
+                            <li>Photos (facial recognition scans)</li>
+                            <li>Vehicle information</li>
+                            <li>License status and history</li>
+                        </ul>
+
+                        <p><strong>The Risk:</strong> Immigrants who obtained licenses under confidentiality promises still had information end up in ICE's hands through automated queries.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Federal Agency Cross-Mining</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag data">Data Breach</span>
+                        <span class="tag policy">DOGE Initiative</span>
+                        
+                        <h4>Agencies Targeted by ICE/DHS</h4>
+                        <ul>
+                            <li><strong>IRS:</strong> Taxpayer information of immigrants with removal orders</li>
+                            <li><strong>Social Security Administration:</strong> SSN records, disability benefits</li>
+                            <li><strong>Centers for Medicare & Medicaid:</strong> Health coverage data</li>
+                            <li><strong>SNAP Administration:</strong> Food stamp recipient lists</li>
+                            <li><strong>HUD:</strong> Public housing tenant information</li>
+                            <li><strong>Veterans Affairs:</strong> Benefits recipient data</li>
+                            <li><strong>Department of Education:</strong> Student records</li>
+                            <li><strong>U.S. Postal Service:</strong> Change of address databases</li>
+                        </ul>
+
+                        <div class="danger-box">
+                            <h4>IRS-ICE Memorandum of Understanding (MOU)</h4>
+                            <p>Secret agreement revealed in 2025: Treasury Department shares taxpayer information with DHS. Officials labeled undocumented individuals with removal orders as "under criminal investigation" to circumvent tax confidentiality laws.</p>
+                            <p><strong>Impact:</strong> Undocumented taxpayers who paid taxes with assurances of privacy now face deportation risk from their tax data.</p>
+                        </div>
+
+                        <h4>California State Program Subpoena</h4>
+                        <p>ICE subpoenaed California program aiding elderly immigrants (ineligible for federal SSI) to obtain participant list - showing even state-funded programs not immune to federal demands.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>SAVE System & Cross-Agency Databases</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag data">Data System</span>
+                        <span class="tag policy">Verification</span>
+                        
+                        <h4>Systematic Alien Verification for Entitlements (SAVE)</h4>
+                        <p>Federal system used by states to verify immigration status for benefit eligibility. Under Trump, system "overhauled" into streamlined platform giving officials at all levels faster, centralized status checks.</p>
+                        
+                        <div class="warning-box">
+                            <strong>The Concern:</strong> Immigrants worried SAVE check could flag information to ICE if they weren't eligible. System creates centralized database of status information linked to benefit applications.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>AI-Powered Surveillance: Palantir's ImmigrationOS</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag data">AI System</span>
+                        <span class="tag impact">Critical</span>
+                        
+                        <h4>The Master Database</h4>
+                        <p>ICE expanded contract with data-mining firm Palantir to build "ImmigrationOS" - a master database using AI to:</p>
+                        <ul>
+                            <li>Sift through records from multiple agencies</li>
+                            <li>Track immigrants in near-real-time</li>
+                            <li>Correlate data across systems</li>
+                            <li>Coordinate deportation logistics</li>
+                        </ul>
+
+                        <div class="danger-box">
+                            <strong>Sweeping Integration</strong>
+                            <p>Any personal detail handed to one government entity could be correlated with others. Example: Filing taxes with ITIN or applying for child's health insurance provides address/household information indexed in ICE system.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Private Data Brokers & "Data Exhaust"</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag data">Commercial</span>
+                        <span class="tag impact">Pervasive</span>
+                        
+                        <h4>What ICE Purchases</h4>
+                        <p>Georgetown Law investigation found ICE collected from enormous range of sources:</p>
+                        <ul>
+                            <li><strong>Driver location data:</strong> For 3 in 4 Americans</li>
+                            <li><strong>Utility records:</strong> About 75% of U.S. adults</li>
+                            <li><strong>Phone bills</strong></li>
+                            <li><strong>Electricity accounts</strong></li>
+                            <li><strong>License plate scans</strong></li>
+                        </ul>
+
+                        <div class="warning-box">
+                            <strong>"Data Exhaust" Trails</strong>
+                            <p>Create risk even for immigrants who avoid direct government contact. Everyday activities (driving, paying bills, using cellphone) generate records ICE can buy or access.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-stat">
+                <p style="font-size: 1.2rem; margin-bottom: 1rem; color: white;">Personal information once siloed for specific uses became increasingly <strong>interoperable across agencies</strong> during Trump era.</p>
+                <div class="stat-value" style="font-size: 2rem; color: white;">Result:</div>
+                <p style="color: white;">Heightened likelihood of detentions + Amplified fear = Service avoidance</p>
+            </div>
+        </section>
+
+        <!-- Community Impacts -->
+        <section id="impacts" class="section-card">
+            <h2>Documented Impacts on Immigrant Communities</h2>
+
+            <h3>Service Access & Utilization Changes</h3>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Healthcare Services</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag impact">Service Impact</span>
+                        
+                        <h4>Most Consistently Documented Impacts</h4>
+                        <ul>
+                            <li><strong>Delayed care:</strong> Patients postponing medical appointments</li>
+                            <li><strong>Avoided appointments:</strong> No-shows due to transportation/enforcement fears</li>
+                            <li><strong>Prenatal care disruption:</strong> Hispanic/Latina mothers sought care later, had inadequate care compared to non-Hispanic/Latina mothers</li>
+                            <li><strong>Higher pre-term birth rates:</strong> Associated with enforcement climates</li>
+                        </ul>
+
+                        <div class="warning-box">
+                            <strong>Provider Reports (Texas):</strong> 29% of providers reported fear as deterrent to service access. Clients refused to go to service locations due to fear of being stopped by police.
+                        </div>
+
+                        <div class="warning-box">
+                            <strong>Michigan Providers:</strong> Drops in clients seeking services, increased missed/rescheduled appointments due to transportation risks, requests for legal paperwork assistance as indirect indicator of enforcement concerns.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Public Benefit Programs</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag impact">Dramatic Declines</span>
+                        
+                        <h4>California Case Study</h4>
+                        <ul>
+                            <li><strong>"Mass exodus from CalFresh"</strong> following federal policy changes</li>
+                            <li><strong>Medicaid enrollment dropped substantially</strong></li>
+                            <li><strong>Food assistance: 10% decrease</strong> in participation post-election</li>
+                        </ul>
+
+                        <div class="success-box">
+                            <h4>Sanctuary Policy Effectiveness (Quantitative Evidence)</h4>
+                            <p><strong>Living in sanctuary jurisdiction:</strong></p>
+                            <ul>
+                                <li>21% higher odds of SNAP enrollment (aOR 1.21, 95% CI=1.11-1.31)</li>
+                            </ul>
+                            <p><strong>Most immigrant-friendly states:</strong></p>
+                            <ul>
+                                <li>16% higher enrollment odds (aOR=1.16, 95%CI=1.06-1.28)</li>
+                            </ul>
+                            <p><strong>Both exposures present:</strong></p>
+                            <ul>
+                                <li>23-26% higher SNAP participation</li>
+                            </ul>
+                        </div>
+
+                        <h4>Catholic Institutions Survey (133 respondents)</h4>
+                        <ul>
+                            <li><strong>59%:</strong> Fear of apprehension/deportation negatively affected service access</li>
+                            <li><strong>57%:</strong> Enforcement negatively affected program participation</li>
+                            <li><strong>COVID-19 expansion:</strong> Virtual service difficulties (poor internet, limited computers, lack of tech training)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Educational Services</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag impact">Educational Impact</span>
+                        
+                        <h4>Worksite Raid Disruption</h4>
+                        <p>Raids created immediate chaos requiring children to be kept in schools and churches for safety, followed by weeks of effort to re-integrate children into educational settings.</p>
+
+                        <h4>Academic Performance Effects</h4>
+                        <p>Quantitative analysis found immigration enforcement <strong>negatively impacted undocumented student academic performance</strong>.</p>
+
+                        <div class="success-box">
+                            <h4>Safe-Zone School Policies (Evidence-Based)</h4>
+                            <p>Policies restricting immigration authorities' access + counseling on immigration issues strengthened:</p>
+                            <ul>
+                                <li>Children's focus</li>
+                                <li>Effort</li>
+                                <li>Expectations</li>
+                                <li>Parental involvement</li>
+                                <li>Relationships</li>
+                            </ul>
+                            <p><strong>Legal service provision by immigrant-serving nonprofits helped buffer negative effects.</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Crime Reporting & Public Safety</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag impact">Public Safety</span>
+                        
+                        <h4>Geographic Variation (Los Angeles Study)</h4>
+                        <p>While domestic violence reports by Latinx victims declined in most LA areas after Trump took office, reports <strong>actually increased in areas exposed to community policing programs</strong>.</p>
+
+                        <div class="success-box">
+                            <strong>Finding:</strong> Protective policies can counteract chilling effects on help-seeking behavior.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Health & Wellbeing Consequences</h3>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Mental Health Impacts</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag impact">Health Crisis</span>
+                        
+                        <h4>Most Consistently Documented</h4>
+                        <ul>
+                            <li><strong>Elevated anxiety</strong></li>
+                            <li><strong>Depression</strong></li>
+                            <li><strong>General psychological distress</strong></li>
+                        </ul>
+
+                        <h4>Physical Manifestations (Everett, MA Study)</h4>
+                        <ul>
+                            <li>Hair loss</li>
+                            <li>Increased blood pressure</li>
+                        </ul>
+
+                        <h4>Children in Mixed-Status Households</h4>
+                        <ul>
+                            <li>Detrimental effects on educational outcomes</li>
+                            <li>Toxic stress responses</li>
+                        </ul>
+
+                        <div class="warning-box">
+                            <h4>Minority Stress Theory Application</h4>
+                            <p>Immigration enforcement created unique minority identity-related stressors:</p>
+                            <ul>
+                                <li>Restrictive policies</li>
+                                <li>Anti-immigrant rhetoric</li>
+                                <li>Fear of deportation</li>
+                                <li>Discriminatory events</li>
+                                <li>Concealment</li>
+                                <li>Internalized anti-immigrant sentiment</li>
+                            </ul>
+                            <p><strong>Result:</strong> Distrust in community resources, uncertainty about future health benefits, delayed medical care, adverse mental health outcomes. Social isolation heightened stress and impeded coping strategies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Family Separation Trauma</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag impact">Severe Trauma</span>
+                        
+                        <h4>Multiple Pathways</h4>
+                        <ul>
+                            <li><strong>Direct separation:</strong> Detention and deportation created immediate trauma</li>
+                            <li><strong>Fear of potential separation:</strong> Led to isolation strategies that sacrificed health and wellbeing</li>
+                            <li><strong>Parental sacrifice:</strong> Concerns about children's educational attainment, sacrificing own health to protect family members</li>
+                            <li><strong>Unaccompanied children:</strong> Parents expressed emotional burden and stress due to family separation and uncertainty about children's safety</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>COVID-19 Intersection</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag impact">Compounded Risk</span>
+                        
+                        <h4>Intersection Created Compounded Health Risks</h4>
+                        <ul>
+                            <li><strong>Essential industry concentration:</strong> Increased virus exposure</li>
+                            <li><strong>Fear of deportation:</strong> Led to unreported domestic violence, avoidance of COVID-19 testing/treatment</li>
+                            <li><strong>Economic consequences:</strong> Ineligibility for unemployment benefits and stimulus payments despite employment losses</li>
+                            <li><strong>Resulting cycles:</strong> Food insecurity and housing instability</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-stat">
+                <div class="stat-value" style="font-size: 2rem; color: white;">Enforcement impacts accumulate over time through community-level fear</div>
+                <p style="margin-top: 1rem; color: white;">Not immediate changes in aggregate utilization rates, but gradual behavioral shifts emerging over longer time horizons</p>
+            </div>
+        </section>
+
+        <!-- Protection Strategies -->
+        <section id="strategies" class="section-card">
+            <h2>Community-Based Protection Strategies: What Works</h2>
+
+            <div class="success-box">
+                <h4>🎯 CRITICAL FINDING</h4>
+                <p>Effective protective strategies require <strong>multi-component approaches</strong> combining policy change, community education, institutional capacity-building, and adequate resources — tailored to specific local enforcement patterns and community needs rather than uniform implementation of single interventions.</p>
+            </div>
+
+            <h3>Strategy Categories with Evidence</h3>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>1. Legal Strategies</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag strategy">Legal</span>
+                        <span class="tag action">High Priority</span>
+                        
+                        <h4>Know-Your-Rights Training</h4>
+                        <ul>
+                            <li>Educational workshops</li>
+                            <li>Distribution of red cards (rights reminder cards)</li>
+                            <li>Community presentations</li>
+                        </ul>
+                        <p><strong>Limitation:</strong> Information alone insufficient to overcome fear when not coupled with broader institutional changes.</p>
+
+                        <h4>Legal Clinics & Representation</h4>
+                        <div class="success-box">
+                            <strong>Quantitative Evidence:</strong> Legal aid focused on immigration hearings provided by EOIR-registered organizations showed particularly strong associations with protective outcomes:
+                            <ul>
+                                <li><strong>More than 2-fold increase</strong> in sheriff office adoption of anti-detainer policies</li>
+                                <li><strong>24% decrease</strong> in immigration background checks with each additional EOIR organization in a county</li>
+                            </ul>
+                        </div>
+
+                        <h4>Power of Attorney Forms</h4>
+                        <p>Direct assistance with legal paperwork to ensure care for U.S.-born children in case of parental deportation.</p>
+
+                        <h4>Policy Advocacy & Litigation Support</h4>
+                        <ul>
+                            <li>Multi-state lawsuits to block harmful federal rules</li>
+                            <li>Court settlements (e.g., Gonzalez v. ICE barring ICE from relying on flawed database information)</li>
+                            <li>Oregon AG's challenges to public charge rule, information-sharing overreaches</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>2. Programmatic Strategies</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag strategy">Program Design</span>
+                        <span class="tag action">High Priority</span>
+                        
+                        <h4>Modified Intake Procedures</h4>
+                        <ul>
+                            <li><strong>Accepting various forms of ID:</strong> Not requiring specific government-issued documents</li>
+                            <li><strong>Delayed ID requirements:</strong> Not requiring identification until AFTER medical services provided</li>
+                            <li><strong>Avoiding home address documentation:</strong> Using alternative location indicators when possible</li>
+                            <li><strong>Data minimization:</strong> Collecting only strictly necessary information</li>
+                        </ul>
+
+                        <h4>Alternative Documentation</h4>
+                        <p>Accepting alternative proofs of residency, income, identity that don't create federal database trails.</p>
+
+                        <h4>Mobile Services & Co-Location</h4>
+                        <p>Bringing programs directly to immigrant communities, reducing geographic barriers exacerbated by enforcement concerns.</p>
+
+                        <h4>Virtual Service Delivery</h4>
+                        <p><strong>COVID-19 Acceleration:</strong> Created both opportunities (reduced in-person exposure) and barriers (internet connectivity, device availability, digital literacy).</p>
+                        <p><strong>Most effective:</strong> When coupled with direct outreach and support rather than standalone.</p>
+
+                        <div class="success-box">
+                            <h4>Safe-Zone School Policies (Evidence-Based Success)</h4>
+                            <p>Multi-component approach:</p>
+                            <ul>
+                                <li>Restricting physical access by immigration authorities to school premises</li>
+                                <li>Creating resource centers and information centers for immigrant students/families</li>
+                                <li>Training school staff to implement policies advancing students' academic opportunities</li>
+                                <li>Allocating funds for supportive initiatives</li>
+                                <li>Providing counseling on immigration-related issues</li>
+                            </ul>
+                            <p><strong>Quantitative Results:</strong> Strengthened children's focus, effort, expectations, parental involvement, and relationships. Specifically helped mitigate negative effects of immigration enforcement on educational performance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>3. Operational Strategies</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag strategy">Operations</span>
+                        <span class="tag action">Essential</span>
+                        
+                        <h4>Staff Training</h4>
+                        <ul>
+                            <li>Immigration policies and rights education</li>
+                            <li>How to respond to ICE inquiries</li>
+                            <li>Data protection protocols</li>
+                            <li>Welcoming and inclusive practices</li>
+                            <li>Cultural competency</li>
+                        </ul>
+
+                        <h4>Confidentiality Protocols</h4>
+                        <ul>
+                            <li><strong>Secure, encrypted client records</strong></li>
+                            <li><strong>Separate storage:</strong> Immigration-related data siloed from other information</li>
+                            <li><strong>Clear privacy policies:</strong> Transparent participant notifications</li>
+                            <li><strong>Internal protocol:</strong> Designated point person for law enforcement inquiries</li>
+                            <li><strong>Require proper legal documents:</strong> Warrants, subpoenas before compliance</li>
+                        </ul>
+
+                        <h4>Hiring Practices</h4>
+                        <p>Bilingual and bicultural staff who have personal immigration experiences = increased trust and retention.</p>
+
+                        <h4>Community Liaison Roles</h4>
+                        <p>"Trusted messenger approaches" to bridge connections between institutions and immigrant communities.</p>
+
+                        <h4>Signage & Messaging</h4>
+                        <p>Posted signage implementing inclusive messaging strategies reinforcing safety and confidentiality.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>4. Partnership Approaches</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag strategy">Collaboration</span>
+                        
+                        <h4>Multi-Sectoral Responses</h4>
+                        <ul>
+                            <li><strong>Healthcare-Legal partnerships:</strong> Direct linkages for immigration status assistance</li>
+                            <li><strong>Child welfare-immigrant org partnerships:</strong> Virtual family visits, court hearings, addressing family needs during pandemic</li>
+                            <li><strong>Faith-based organization support:</strong> Sanctuary space, food distribution, emotional support during enforcement crises</li>
+                            <li><strong>School-community partnerships:</strong> Implementing safe-zone policies</li>
+                        </ul>
+
+                        <h4>Community Power-Building</h4>
+                        <p><strong>Colorado Example:</strong> Direct engagement of immigrant community members in data collection and policy advocacy led to Emergency Medicaid expansion (including COVID treatment). Approach simultaneously increased community power and political engagement.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>5. Technology Solutions</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag strategy">Tech</span>
+                        <span class="tag data">Data Protection</span>
+                        
+                        <h4>Secure Communications</h4>
+                        <p>Platforms enabling remote service provision while protecting data.</p>
+
+                        <h4>Data Protection Measures</h4>
+                        <ul>
+                            <li>Encryption of sensitive client information</li>
+                            <li>Limited data retention policies</li>
+                            <li>Preventing information sharing with immigration authorities</li>
+                        </ul>
+
+                        <div class="warning-box">
+                            <strong>Significant Disparities:</strong> Poor internet connections, limited computer access, lack of communications technology training significantly limited reach of virtual services.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>6. Community Organizing & Advocacy</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag strategy">Organizing</span>
+                        <span class="tag policy">Advocacy</span>
+                        
+                        <h4>Local Efforts</h4>
+                        <ul>
+                            <li>Voter registration and Census promotion</li>
+                            <li>Community identification card programs</li>
+                            <li>Organizing rideshares to address transportation barriers</li>
+                            <li>Rapid-response hotlines for ICE encounters</li>
+                        </ul>
+
+                        <h4>Regional Coordination</h4>
+                        <ul>
+                            <li>Information dissemination networks</li>
+                            <li>Inter-organization collaboration</li>
+                        </ul>
+
+                        <h4>State & National Advocacy</h4>
+                        <ul>
+                            <li>Policy reform to expand benefit eligibility</li>
+                            <li>Creating pathways to citizenship</li>
+                            <li>Establishing uniform sanctuary policy definitions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>7. Sanctuary & Firewall Policies</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag policy">Sanctuary</span>
+                        <span class="tag action">Critical</span>
+                        
+                        <h4>Sanctuary Policy Framework</h4>
+                        <p>Drawing bright line between local services and federal immigration enforcement:</p>
+                        <ul>
+                            <li><strong>Bans on sharing sensitive personal data</strong> with ICE without court order</li>
+                            <li><strong>Prohibitions on asking about immigration status</strong> in first place</li>
+                            <li><strong>Law enforcement non-cooperation:</strong> Not honoring ICE detainers without warrant</li>
+                            <li><strong>Agency-wide policies:</strong> Extending to civilian agencies, schools, hospitals, social services</li>
+                        </ul>
+
+                        <h4>Examples</h4>
+                        <ul>
+                            <li><strong>Illinois:</strong> DMV barred from sharing license information with ICE absent judicial warrant/subpoena</li>
+                            <li><strong>NYC:</strong> Executive orders instructing public agencies not to disclose immigration status to federal authorities except where required by law</li>
+                            <li><strong>California:</strong> AB 699 (schools cannot collect immigration status info), SB 54 (local police/jails broadly prohibited from assisting ICE)</li>
+                        </ul>
+
+                        <div class="success-box">
+                            <h4>Oregon Opportunity</h4>
+                            <p>Build on sanctuary tradition by extending similar protections to state-funded programs. <strong>Policy that state agencies will not share client information for immigration enforcement purposes.</strong></p>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4>Implementation Critical</h4>
+                            <p>Policies that aren't well-publicized or understood by immigrant communities cannot influence behavior. Awareness of sanctuary protections was "the exception rather than the rule, particularly among immigrant men."</p>
+                            <p><strong>Sanctuary policies serve trust-building signaling functions but are insufficient alone</strong> - local police practices could undermine policy goals even where formal non-cooperation policies existed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Factors Contributing to Strategy Success</h3>
+
+            <ul class="checklist">
+                <li><strong>Comprehensive immigration reform</strong> at policy level</li>
+                <li><strong>Community engagement and dialogue</strong></li>
+                <li><strong>Organizational capacity</strong> to adapt intake procedures and ensure confidentiality</li>
+                <li><strong>Addressing linguistic and cultural barriers</strong></li>
+                <li><strong>Multi-level alignment:</strong> Federal, state, local policy coordination</li>
+                <li><strong>Adequate implementation resources</strong></li>
+                <li><strong>Champions and informal leaders</strong> (though not sufficient for sustainability alone)</li>
+                <li><strong>Supportive national policy climate</strong></li>
+                <li><strong>Communication among personnel</strong></li>
+                <li><strong>Community partnerships</strong></li>
+                <li><strong>Shared mission for equity</strong></li>
+            </ul>
+
+            <h3>Sustainability Challenges</h3>
+
+            <div class="warning-box">
+                <h4>Implementation Barriers Identified</h4>
+                <ul>
+                    <li>Technology access disparities (internet, devices, digital literacy)</li>
+                    <li>Resource limitations constraining capacity to meet increased demand</li>
+                    <li>Ongoing need for adaptation to changing policy landscapes</li>
+                    <li>Limited funding for culturally responsive programming</li>
+                    <li>Local resistance to inclusionary policies</li>
+                    <li>Federal policy threats undermining state efforts</li>
+                    <li>Perception of legal complexity creating barriers to systemic strategies</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Oregon-Specific Actions -->
+        <section id="oregon-actions" class="section-card">
+            <h2>Oregon-Specific Actions: What We Can Do Now</h2>
+
+            <div class="action-card">
+                <h3>🎯 Oregon's Unique Position</h3>
+                <p>Oregon has longstanding sanctuary law (1987, updated 2021) and progressive leadership, but gaps remain. Immigration arrests still tripled after 2017, and Washington County's 2025 emergency declaration shows ongoing crisis.</p>
+            </div>
+
+            <h3>Immediate Actions for CBOs</h3>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>1. Data Minimization & Safer Intake</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag action">Immediate</span>
+                        <span class="tag data">Data Protection</span>
+                        
+                        <h4>Audit Current Practices</h4>
+                        <ul class="checklist">
+                            <li>Review all intake forms - remove questions about immigration status unless ABSOLUTELY required</li>
+                            <li>Collect only data strictly necessary to deliver service</li>
+                            <li>Store data only as long as needed</li>
+                            <li>Design forms so undocumented family members can be left unidentified if not seeking benefits themselves</li>
+                        </ul>
+
+                        <h4>Redesign Intake Processes</h4>
+                        <ul class="checklist">
+                            <li>Accept various forms of identification</li>
+                            <li>Don't require ID until after services provided (when possible)</li>
+                            <li>Allow self-attestation of Oregon residency instead of demanding utility bills</li>
+                            <li>Avoid documenting home addresses when alternative location indicators sufficient</li>
+                        </ul>
+
+                        <h4>Communication with Clients</h4>
+                        <ul class="checklist">
+                            <li>Update intake scripts to clarify what information will/won't be shared</li>
+                            <li>Post signs/flyers: "We won't report anything you tell us to immigration authorities - it's confidential"</li>
+                            <li>Transparently warn clients about what information might be shared and what will be kept confidential</li>
+                            <li>Dispel public charge myths with multilingual factsheets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>2. Strengthen Internal Protocols</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag action">Immediate</span>
+                        <span class="tag strategy">Operations</span>
+                        
+                        <h4>Develop ICE Response Protocol</h4>
+                        <ul class="checklist">
+                            <li>Designate point person (executive director or lawyer) to handle law enforcement inquiries</li>
+                            <li>Insist on proper legal documents (warrants, subpoenas) before considering compliance</li>
+                            <li>Know organization's rights - role-play scenarios with staff</li>
+                            <li>Post internal policy: "Do not hand over client information without director approval"</li>
+                        </ul>
+
+                        <h4>Data Security Measures</h4>
+                        <ul class="checklist">
+                            <li>Encrypt sensitive client records</li>
+                            <li>Store immigration-related data separately from other information</li>
+                            <li>Implement data retention limits</li>
+                            <li>Create audit trail of who accesses sensitive data</li>
+                        </ul>
+
+                        <h4>Staff Training</h4>
+                        <ul class="checklist">
+                            <li>Train reception staff to be welcoming and not accidentally share information</li>
+                            <li>Educate all staff on Oregon sanctuary law (SB 1543)</li>
+                            <li>Know-your-rights training for staff to educate clients</li>
+                            <li>Cultural competency and trauma-informed care training</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>3. Leverage Oregon State Resources</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag action">High Priority</span>
+                        <span class="tag policy">State Resources</span>
+                        
+                        <h4>Oregon Energy Assistance Program (OEAP)</h4>
+                        <p><strong>State funding doubled to $40 million (2023-2025)</strong> - opportunity for status-blind eligibility</p>
+                        <ul class="checklist">
+                            <li>Advocate for explicit status-blind eligibility in OEAP</li>
+                            <li>Partner with state to design safer intake for OEAP vs. federal LIHEAP</li>
+                            <li>Promote OEAP as safer alternative in immigrant communities</li>
+                        </ul>
+
+                        <h4>Oregon Health Plan Expansions</h4>
+                        <ul>
+                            <li><strong>Cover All Kids:</strong> Already provides coverage regardless of status</li>
+                            <li><strong>Cover All People:</strong> Phasing in for adults 55+ (expanding to all adults)</li>
+                        </ul>
+                        <ul class="checklist">
+                            <li>Help eligible clients enroll with confidence</li>
+                            <li>Emphasize state funding = no federal reporting</li>
+                            <li>Support full expansion advocacy</li>
+                        </ul>
+
+                        <h4>Oregon AG Resources</h4>
+                        <p><strong><a href="https://www.doj.state.or.us/oregon-department-of-justice/civil-rights/immigration-services-and-support-resources/" class="resource-link" target="_blank">"Oregon Welcomes All"</a></strong> resource hub for immigrants and service providers</p>
+                        <ul class="checklist">
+                            <li>Familiarize staff with AG guidance on SB 1543 compliance</li>
+                            <li>Use AG resources for client education</li>
+                            <li>Report federal overreach to AG's office</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>4. Build Legal Services Partnerships</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag action">High Priority</span>
+                        <span class="tag strategy">Legal</span>
+                        
+                        <h4>Evidence Base</h4>
+                        <p>Immigrant-serving organizations registered with EOIR showed <strong>strongest quantitative associations with protective outcomes</strong>: 2-fold increase in anti-detainer policies, 24% decrease in immigration background checks.</p>
+
+                        <h4>Oregon Organizations to Partner With</h4>
+                        <ul class="checklist">
+                            <li><strong>Oregon Law Center:</strong> Immigration unit <a href="https://oregonlawcenter.org/" class="resource-link" target="_blank">Visit</a></li>
+                            <li><strong>Innovation Law Lab:</strong> Immigration justice <a href="https://innovationlawlab.org/" class="resource-link" target="_blank">Visit</a></li>
+                            <li><strong>Catholic Charities:</strong> Immigration legal services <a href="https://www.catholiccharitiesoregon.org/" class="resource-link" target="_blank">Visit</a></li>
+                            <li><strong>CAUSA Oregon:</strong> Immigrant rights organization <a href="https://causaoregon.org/" class="resource-link" target="_blank">Visit</a></li>
+                            <li><strong>Local legal aid societies</strong></li>
+                        </ul>
+
+                        <h4>Co-Location & Referral</h4>
+                        <ul class="checklist">
+                            <li>Host legal clinics at your service site</li>
+                            <li>Create warm referral pathways</li>
+                            <li>Cross-train staff on when to refer for legal assistance</li>
+                            <li>Coordinate know-your-rights workshops</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>5. Community Education & Outreach</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag action">Ongoing</span>
+                        <span class="tag strategy">Communication</span>
+                        
+                        <h4>Myth-Busting Campaigns</h4>
+                        <ul class="checklist">
+                            <li>Use <a href="https://pifcoalition.org/toolkits/data-privacy-and-public-programs/" class="resource-link" target="_blank">Protecting Immigrant Families toolkit materials</a></li>
+                            <li>Create Oregon-specific factsheets: "Using OEAP is safe and won't trigger ICE"</li>
+                            <li>Host community forums to answer questions</li>
+                            <li>Partner with ethnic media for accurate information dissemination</li>
+                        </ul>
+
+                        <h4>Trusted Messenger Strategies</h4>
+                        <ul class="checklist">
+                            <li>Hire bilingual/bicultural staff with personal immigration experience</li>
+                            <li>Partner with faith-based organizations</li>
+                            <li>Engage community health workers (promotores)</li>
+                            <li>Create anonymous hotlines for immigrant residents to ask safety questions</li>
+                        </ul>
+
+                        <h4>Consistent Messaging</h4>
+                        <p>Coordinate across Oregon CBOs for unified message: <strong>"State services are safe to use and do not report your info to ICE."</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Policy Advocacy Priorities for Oregon</h3>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>State-Level Policy Changes</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag policy">Advocacy</span>
+                        <span class="tag action">Medium-Term</span>
+                        
+                        <h4>1. Statewide Privacy Law</h4>
+                        <p><strong>Proposed language:</strong> "No state or local agency or contractor shall disclose personal information for the purpose of federal immigration enforcement, except as required by valid court order."</p>
+                        
+                        <h4>2. DMV Data Protection</h4>
+                        <ul class="checklist">
+                            <li>Ensure Oregon's DMV access cutoff to ICE via Nlets is permanent and codified</li>
+                            <li>Audit all state databases for similar backdoor access</li>
+                            <li>Require transparency reporting on federal data requests</li>
+                        </ul>
+
+                        <h4>3. Expand Alternative Funding</h4>
+                        <ul class="checklist">
+                            <li>Increase state appropriations for emergency rental assistance (status-blind)</li>
+                            <li>Create Oregon disaster relief fund for excluded workers</li>
+                            <li>Public-private partnerships for programs with restrictive federal rules</li>
+                        </ul>
+
+                        <h4>4. Community Confidentiality Ordinances</h4>
+                        <p>City/county level policies:</p>
+                        <ul class="checklist">
+                            <li>Prohibit agencies from collecting immigration status unless required</li>
+                            <li>Mandate regular reporting on information requests from ICE</li>
+                            <li>Require city council approval before compliance with ICE data requests</li>
+                        </ul>
+
+                        <h4>5. Strengthen SB 1543</h4>
+                        <p>Oregon's sanctuary law updates:</p>
+                        <ul class="checklist">
+                            <li>Extend explicit protections to all state-funded programs</li>
+                            <li>Close loopholes allowing sheriff offices to share inmate data</li>
+                            <li>Add enforcement mechanisms and accountability</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Local Government Actions</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <span class="tag policy">Local</span>
+                        <span class="tag action">Immediate</span>
+                        
+                        <h4>Washington County Model</h4>
+                        <p>Following 2025 emergency declaration:</p>
+                        <ul class="checklist">
+                            <li>Allocated emergency funds to assist families impacted by arrests</li>
+                            <li>Rapid-response legal aid network</li>
+                            <li>Community support services</li>
+                        </ul>
+
+                        <h4>Municipal ID Programs</h4>
+                        <p><strong>NYC IDNYC model:</strong> Low-tech, analog cards. By policy purged all personal documents used in applications once ID issued.</p>
+                        <ul class="checklist">
+                            <li>No master list of undocumented cardholders</li>
+                            <li>Even if federal agents come knocking, no trove of data to hand over</li>
+                            <li>Consider for Portland, Eugene, Salem</li>
+                        </ul>
+
+                        <h4>Safe Spaces Policies</h4>
+                        <ul class="checklist">
+                            <li>Designate libraries, schools, community centers as locations where ICE enforcement prohibited under local policy</li>
+                            <li>Post clear signage</li>
+                            <li>Train staff on protocols to refuse ICE entry without special approval</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Action Checklist: Get Started Today</h3>
+
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h4>Week 1: Assess</h4>
+                    <ul>
+                        <li>Audit current intake forms</li>
+                        <li>Review data storage practices</li>
+                        <li>Inventory which programs funded by federal vs. state dollars</li>
+                        <li>Identify gaps in staff training</li>
+                    </ul>
+                </div>
+                <div class="resource-card">
+                    <h4>Week 2-3: Redesign</h4>
+                    <ul>
+                        <li>Create data minimization protocols</li>
+                        <li>Develop ICE response procedures</li>
+                        <li>Update intake forms/scripts</li>
+                        <li>Design client communication materials</li>
+                    </ul>
+                </div>
+                <div class="resource-card">
+                    <h4>Month 1: Implement</h4>
+                    <ul>
+                        <li>Train all staff on new protocols</li>
+                        <li>Roll out revised intake procedures</li>
+                        <li>Post confidentiality signage</li>
+                        <li>Launch community education</li>
+                    </ul>
+                </div>
+                <div class="resource-card">
+                    <h4>Ongoing: Build</h4>
+                    <ul>
+                        <li>Establish legal services partnerships</li>
+                        <li>Join advocacy coalitions</li>
+                        <li>Participate in policy change efforts</li>
+                        <li>Share learnings with other CBOs</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="section-card">
+            <h2>Essential Resources & Toolkits</h2>
+
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h4>📚 Data Privacy Toolkit</h4>
+                    <p><strong>Protecting Immigrant Families (PIF) Coalition</strong></p>
+                    <ul>
+                        <li>One-page family-friendly factsheet (multilingual)</li>
+                        <li>Table of federal laws protecting personal information</li>
+                        <li>Model letter to state agencies on confidentiality obligations</li>
+                    </ul>
+                    <a href="https://pifcoalition.org/toolkits/data-privacy-and-public-programs/" target="_blank" class="btn-primary">Access Toolkit</a>
+                </div>
+
+                <div class="resource-card">
+                    <h4>⚖️ Legal Resources</h4>
+                    <p><strong>National Immigration Law Center (NILC)</strong></p>
+                    <ul>
+                        <li>Privacy protection briefs</li>
+                        <li>Program-specific guidance (WIC, housing, TANF)</li>
+                        <li>Know-your-rights materials</li>
+                    </ul>
+                    <a href="https://www.nilc.org/" target="_blank" class="btn-primary">Visit NILC</a>
+                </div>
+
+                <div class="resource-card">
+                    <h4>🔒 Tech Privacy</h4>
+                    <p><strong>Georgetown Law Center on Privacy & Technology</strong></p>
+                    <ul>
+                        <li><a href="https://www.americandragnet.org/" class="resource-link" target="_blank">"American Dragnet" report on ICE surveillance</a></li>
+                        <li>Concrete privacy safeguards for cities</li>
+                        <li>Data minimization recommendations</li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h4>🏛️ Oregon State Resources</h4>
+                    <p><strong>Oregon Department of Justice</strong></p>
+                    <ul>
+                        <li>"Oregon Welcomes All" resource hub</li>
+                        <li>SB 1543 compliance guidance</li>
+                        <li>Immigration services directory</li>
+                    </ul>
+                    <a href="https://www.doj.state.or.us/oregon-department-of-justice/civil-rights/immigration-services-and-support-resources/" target="_blank" class="btn-primary">Oregon Resources</a>
+                </div>
+
+                <div class="resource-card">
+                    <h4>🤝 Oregon Organizations</h4>
+                    <ul>
+                        <li><strong>Oregon Law Center:</strong> Legal aid <a href="https://oregonlawcenter.org/" class="resource-link" target="_blank">Visit</a></li>
+                        <li><strong>Innovation Law Lab:</strong> Immigration justice <a href="https://innovationlawlab.org/" class="resource-link" target="_blank">Visit</a></li>
+                        <li><strong>CAUSA Oregon:</strong> Immigrant rights advocacy <a href="https://causaoregon.org/" class="resource-link" target="_blank">Visit</a></li>
+                        <li><strong>Catholic Charities:</strong> Immigration legal services <a href="https://www.catholiccharitiesoregon.org/" class="resource-link" target="_blank">Visit</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h4>📊 Research Base</h4>
+                    <p><strong>This Guide's Foundation</strong></p>
+                    <ul>
+                        <li>Systematic review of 40 studies</li>
+                        <li>Berkeley Law Deportation Data Project</li>
+                        <li>Oregon-specific incident documentation</li>
+                        <li>Quantitative evidence on strategy effectiveness</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Key National Networks</h3>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Advocacy & Support Networks</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <ul>
+                            <li><strong>American Civil Liberties Union (ACLU):</strong> Immigration rights litigation <a href="https://www.aclu.org/issues/immigrants-rights" class="resource-link" target="_blank">Visit</a></li>
+                            <li><strong>National Immigration Law Center (NILC):</strong> Policy analysis and advocacy <a href="https://www.nilc.org/" class="resource-link" target="_blank">Visit</a></li>
+                            <li><strong>Protecting Immigrant Families (PIF):</strong> Coalition focused on access to services <a href="https://pifcoalition.org/" class="resource-link" target="_blank">Visit</a></li>
+                            <li><strong>Electronic Frontier Foundation (EFF):</strong> Digital privacy and surveillance <a href="https://www.eff.org/" class="resource-link" target="_blank">Visit</a></li>
+                            <li><strong>Vera Institute of Justice:</strong> CBO guidelines and research <a href="https://www.vera.org/" class="resource-link" target="_blank">Visit</a></li>
+                            <li><strong>Catholic Legal Immigration Network (CLINIC):</strong> Legal services training <a href="https://cliniclegal.org/" class="resource-link" target="_blank">Visit</a></li>
+                            <li><strong>Migration Policy Institute:</strong> Research and data <a href="https://www.migrationpolicy.org/" class="resource-link" target="_blank">Visit</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Model Policies from Other States</h3>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>California</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <ul>
+                            <li><strong>AB 699:</strong> Schools cannot collect student immigration status, must resist immigration agent inquiries</li>
+                            <li><strong>SB 54 (California Values Act):</strong> Local police/jails broadly prohibited from assisting ICE</li>
+                            <li><strong>Food4All:</strong> State-funded nutrition assistance for immigrants excluded from SNAP</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>Illinois</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <ul>
+                            <li><strong>DMV Protection:</strong> State law bars DMV from sharing license information with ICE absent judicial warrant/subpoena</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable">
+                <div class="expandable-header">
+                    <h3>New York</h3>
+                    <span class="expandable-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="expandable-content-inner">
+                        <ul>
+                            <li><strong>NYC Executive Orders:</strong> Public agencies cannot disclose immigration status to federal authorities except where required by law</li>
+                            <li><strong>IDNYC Municipal ID:</strong> Low-tech, purged application documents, no master list</li>
+                            <li><strong>Universal Legal Defense:</strong> Municipally funded legal representation for all immigrants facing deportation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Stay Updated</h3>
+
+            <div class="action-card">
+                <h3>⚡ Rapid Response Networks</h3>
+                <p>Oregon's immigrant communities maintain rapid-response hotlines and legal aid networks. CBOs should:</p>
+                <ul class="checklist">
+                    <li>Join existing rapid-response networks in your county</li>
+                    <li>Train staff on hotline numbers to share with clients</li>
+                    <li>Participate in "know-before-you-go" text alert systems</li>
+                    <li>Subscribe to legal updates from Oregon Law Center and Innovation Law Lab</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="section-card">
+            <h2>Moving Forward: Protecting Lives Through Action</h2>
+
+            <div class="success-box">
+                <h4>The Evidence Is Clear</h4>
+                <p>When community-based organizations implement comprehensive protection strategies - combining data minimization, legal services, sanctuary policies, community education, and alternative funding - they can:</p>
+                <ul>
+                    <li>✓ Increase SNAP enrollment by 21-26% in sanctuary jurisdictions</li>
+                    <li>✓ Reduce local law enforcement cooperation with ICE by over 50%</li>
+                    <li>✓ Improve educational outcomes for children in immigrant families</li>
+                    <li>✓ Counteract chilling effects on crime reporting and health seeking</li>
+                    <li>✓ Maintain program participation during enforcement surges</li>
+                </ul>
+            </div>
+
+            <div class="danger-box">
+                <h4>The Stakes Are Life and Death</h4>
+                <p>When immigrants avoid energy assistance, they face winter cold. When they skip healthcare, conditions worsen. When they don't report crimes, perpetrators go free. When they withdraw children from school, futures are lost.</p>
+                <p><strong>This isn't just policy - it's about keeping people alive and communities intact.</strong></p>
+            </div>
+
+            <h3>Oregon's Choice</h3>
+
+            <p>Oregon stands at a crossroads. With immigration arrests tripled, ICE surveillance expanded, and federal data-sharing weaponized, the threat is real and immediate. But Oregon also has:</p>
+
+            <ul>
+                <li><strong>Legal framework:</strong> Sanctuary law since 1987</li>
+                <li><strong>State resources:</strong> $40M for OEAP, Cover All People expansion</li>
+                <li><strong>Community infrastructure:</strong> Strong CBO network, legal aid organizations</li>
+                <li><strong>Political will:</strong> Attorney General actively defending immigrant rights</li>
+                <li><strong>Evidence base:</strong> This systematic review of what works</li>
+            </ul>
+
+            <p><strong>What's needed now is coordinated action.</strong></p>
+
+            <div class="action-card">
+                <h3>Call to Action</h3>
+                <p><strong>For Community-Based Organizations:</strong></p>
+                <ul>
+                    <li>Implement data minimization protocols this month</li>
+                    <li>Train staff on ICE response procedures this quarter</li>
+                    <li>Build legal services partnerships this year</li>
+                </ul>
+
+                <p><strong>For Policymakers:</strong></p>
+                <ul>
+                    <li>Codify statewide data privacy protections</li>
+                    <li>Expand alternative funding for critical services</li>
+                    <li>Strengthen and resource SB 1543 enforcement</li>
+                </ul>
+
+                <p><strong>For Residents:</strong></p>
+                <ul>
+                    <li>Know your rights - ICE cannot enter your home without a warrant</li>
+                    <li>Access services you're eligible for - many state programs are safe</li>
+                    <li>Connect with local immigrant rights organizations</li>
+                </ul>
+            </div>
+
+            <div class="key-stat">
+                <p style="font-size: 1.3rem; margin-bottom: 1rem; color: white;">"Fear as a daily companion" doesn't have to be the reality for immigrant Oregonians.</p>
+                <div class="stat-value" style="font-size: 2.5rem; color: white;">Together, we can build sanctuary in practice, not just policy.</div>
+            </div>
+
+            <p style="text-align: center; margin-top: 2rem; font-size: 1.1rem; font-weight: 600;">
+                🛡️ Protecting immigrants protects all of us. 🛡️
+            </p>
+        </section>
+    </main>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">↑</div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3 style="color: white;">About This Resource</h3>
+            <p><strong>Community Consulting Partners LLC</strong></p>
+            <p>Research compiled and synthesized by Isaiah Kamrar</p>
+            <p style="margin-top: 1.5rem;">
+                Based on systematic review of 40 academic studies examining federal immigration enforcement practices and protective strategies, plus Oregon-specific incident documentation and policy analysis.
+            </p>
+            <p style="margin-top: 1rem;">
+                <strong>Methodology:</strong> Semantic search across 138 million academic papers, screening for empirical research on ICE enforcement impacts and CBO strategies, data extraction focusing on Oregon applicability.
+            </p>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.8;">
+                This resource is intended for educational and advocacy purposes to support community-based organizations, policymakers, and residents working to protect immigrant communities. Information current as of November 2025.
+            </p>
+            <p style="margin-top: 1rem;">
+                <strong>Contact:</strong> For questions about this research or to request Oregon-specific analysis, contact Community Consulting Partners LLC
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab Navigation System
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section-card');
+        const progressIndicator = document.getElementById('progressIndicator');
+        let currentTab = 0;
+
+        function showTab(tabId, linkElement) {
+            // Hide all sections
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active from all links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(tabId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                linkElement.classList.add('active');
+                
+                // Update progress indicator
+                const tabIndex = Array.from(navLinks).indexOf(linkElement);
+                currentTab = tabIndex;
+                progressIndicator.textContent = `Section ${tabIndex + 1} of ${navLinks.length}`;
+                
+                // Scroll to top of content
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Tab Navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tabId = link.getAttribute('data-tab');
+                showTab(tabId, link);
+            });
+        });
+
+        // Initialize first tab
+        document.addEventListener('DOMContentLoaded', () => {
+            showTab('crisis', navLinks[0]);
+        });
+
+        // Expandable Sections
+        const expandables = document.querySelectorAll('.expandable');
+        expandables.forEach(expandable => {
+            const header = expandable.querySelector('.expandable-header');
+            header.addEventListener('click', () => {
+                expandable.classList.toggle('expanded');
+            });
+        });
+
+        // Filter Buttons
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+                
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const categoryItems = document.querySelectorAll('.expandable[data-category]');
+                categoryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                // Reset all expandables when search is cleared
+                document.querySelectorAll('.expandable').forEach(exp => {
+                    exp.style.display = 'block';
+                });
+                return;
+            }
+
+            // Search within current active section only
+            const activeSection = document.querySelector('.section-card.active');
+            if (activeSection) {
+                const expandables = activeSection.querySelectorAll('.expandable');
+                expandables.forEach(expandable => {
+                    const text = expandable.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        expandable.style.display = 'block';
+                        // Auto-expand matching items
+                        if (!expandable.classList.contains('expanded')) {
+                            expandable.classList.add('expanded');
+                        }
+                    } else {
+                        expandable.style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Print-friendly - show all sections and expand all items
+        window.addEventListener('beforeprint', () => {
+            document.querySelectorAll('.section-card').forEach(sec => {
+                sec.style.display = 'block';
+            });
+            document.querySelectorAll('.expandable').forEach(exp => {
+                exp.classList.add('expanded');
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentTab > 0) {
+                navLinks[currentTab - 1].click();
+            } else if (e.key === 'ArrowRight' && currentTab < navLinks.length - 1) {
+                navLinks[currentTab + 1].click();
+            }
+        });
+    </script>
+</body>
+</html>
